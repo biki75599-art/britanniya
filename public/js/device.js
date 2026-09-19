@@ -7,7 +7,7 @@ async function loadDevices() {
 
     try {
 
-        const res = await fetch("https://mygame-backend.sohitking478.workers.dev/api/product/device", {
+        const res = await fetch("/api/product/device", {
             headers: {
                 Authorization: "Bearer " + token
             }
