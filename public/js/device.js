@@ -8,7 +8,7 @@ async function loadDevices() {
 
         if (!token) {
             console.error("DEVICE: Token missing");
-            showPopup("Please login again");
+            showError("Please login again");
             return;
         }
 
@@ -35,7 +35,7 @@ async function loadDevices() {
             localStorage.removeItem("currentUser");
             localStorage.removeItem("isLogin");
 
-            showPopup("Session expired. Please login again.");
+            showError("Session expired. Please login again.");
 
             setTimeout(() => {
                 window.location.href = "login.html";
@@ -167,11 +167,9 @@ async function loadDevices() {
         console.error("DEVICE LOAD ERROR:", err);
 
         if (err.name === "AbortError") {
-            showPopup("Device server response timeout");
+            showError("Device server response timeout");
         } else {
-            showPopup(
-                err.message || "Device Load Failed"
-            );
+            showError(err.message || "Device Load Failed");
         }
     }
 }

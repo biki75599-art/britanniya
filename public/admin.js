@@ -11,7 +11,7 @@ async function loadDashboard() {
 
     try {
 
-        const res = await fetch("https://mygame-backend.sohitking478.workers.dev/api/admin/dashboard", {
+        const res = await fetch("/api/admin/dashboard", {
 
             method: "GET",
 
@@ -76,7 +76,7 @@ async function loadPendingRecharge() {
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/recharge/pending",
+            "/api/recharge/pending",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -195,7 +195,7 @@ async function approveRecharge(id) {
 
     const res = await fetch(
 
-    "https://mygame-backend.sohitking478.workers.dev/api/admin/recharge/approve/" + id,
+    "/api/admin/recharge/approve/" + id,
 
     {
         method: "POST",
@@ -221,7 +221,7 @@ async function loadPendingWithdraw() {
     try {
 
         const res = await fetch(
-           "https://mygame-backend.sohitking478.workers.dev/api/admin/pending-withdraw",
+           "/api/admin/pending-withdraw",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -327,7 +327,7 @@ async function rejectRecharge(id){
 
         const res = await fetch(
 
-            "https://mygame-backend.sohitking478.workers.dev/api/admin/recharge/reject/"+id,
+            "/api/admin/recharge/reject/"+id,
 
             {
 
@@ -369,7 +369,7 @@ async function approveWithdraw(id) {
 
         const res = await fetch(
 
-           "https://mygame-backend.sohitking478.workers.dev/api/admin/withdraw/approve/" + id,
+           "/api/admin/withdraw/approve/" + id,
 
             {
 
@@ -412,7 +412,7 @@ async function rejectWithdraw(id){
 
         const res = await fetch(
 
-            "https://mygame-backend.sohitking478.workers.dev/api/admin/withdraw/reject/"+id,
+            "/api/admin/withdraw/reject/"+id,
 
             {
 
@@ -451,7 +451,7 @@ async function loadUsers(){
     try{
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/admin/users",
+            "/api/admin/users",
             {
                 headers:{
                     Authorization:"Bearer "+token

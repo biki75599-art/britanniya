@@ -12,7 +12,7 @@
     ================================================= */
 
     const API =
-        "https://mygame-backend.sohitking478.workers.dev/api/leaderboard";
+        "/api/leaderboard";
 
 
     const TOKEN =

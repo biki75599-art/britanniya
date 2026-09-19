@@ -351,13 +351,18 @@ exports.dashboard = async (req, res) => {
             await user.save();
         }
 
+        const publicBaseUrl =
+            (process.env.PUBLIC_BASE_URL ||
+                "https://mygame-backend.de.deplexo.com")
+            .replace(/\/$/, "");
+
         res.json({
             success: true,
 
             inviteCode: user.inviteCode,
 
             referralLink:
-                `https://mygame-backend.sohitking478.workers.dev/register.html?refer=${user.inviteCode}`,
+                `${publicBaseUrl}/register.html?refer=${user.inviteCode}`,
 
             todayIncome: Number(user.todayReferralIncome || 0),
 

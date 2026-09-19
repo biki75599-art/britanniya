@@ -881,7 +881,7 @@ transform:translateY(-3px);
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/withdraw/create",
+            "/api/withdraw/create",
             {
                 method: "POST",
                 headers: {
@@ -950,7 +950,7 @@ return;
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/user/bank",
+            "/api/user/bank",
             {
                 method: "POST",
                 headers: {
@@ -1012,7 +1012,7 @@ return;
         const token = localStorage.getItem("token");
         if (!token) return;
         try {
-            const res = await fetch("https://mygame-backend.sohitking478.workers.dev/api/user/profile", {
+            const res = await fetch("/api/user/profile", {
                 headers: { Authorization: "Bearer " + token }
             });
             const data = await res.json();
@@ -1029,7 +1029,7 @@ return;
         const token = localStorage.getItem("token");
         if (!token) return;
         try {
-            const res = await fetch("https://mygame-backend.sohitking478.workers.dev/api/user/bank", {
+            const res = await fetch("/api/user/bank", {
                 headers: { Authorization: "Bearer " + token }
             });
             const data = await res.json();
@@ -1062,8 +1062,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script src="js/navigation.js"></script>
 <script src="js/toast.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="css/confirm.css">
 
 <script src="js/confirm.js"></script></body>

@@ -1958,7 +1958,7 @@ Buy Now
 
 <div class="bg-white rounded-2xl shadow p-3 mb-5">
     <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-6</h3>
-   <img src="king.png" class="w-full h-48 object-cover rounded-lg mb-3">
+   <img src="images/king.png" class="w-full h-48 object-cover rounded-lg mb-3">
  
     <div class="grid grid-cols-2 gap-2 text-center text-black">
         <div class="bg-gray-100 rounded-xl p-3">
@@ -2154,7 +2154,7 @@ async function checkPurchaseLimit() {
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/product/device",
+            "/api/product/device",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -2392,7 +2392,7 @@ async function buyProduct(productId) {
     try {
 
         const countRes = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/product/device",
+            "/api/product/device",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -2412,7 +2412,7 @@ async function buyProduct(productId) {
         }
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/product/buy",
+            "/api/product/buy",
             {
                 method: "POST",
                 headers: {
@@ -2512,6 +2512,5 @@ document.querySelectorAll('#longBtn, #vipBtn').forEach(btn => {
 });
 </script>
 <script src="js/toast.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

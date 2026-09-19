@@ -35,6 +35,11 @@ console.log("APP_ROOT =", APP_ROOT);
 
 const app = express();
 
+// Deplexo/Cloudflare sits behind a reverse proxy.
+// Trust the first proxy so Express/rate-limit can safely
+// process X-Forwarded-For without throwing proxy errors.
+app.set("trust proxy", 1);
+
 // ===============================
 // QR PATH
 // ===============================

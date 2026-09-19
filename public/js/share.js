@@ -35,7 +35,7 @@ const token =
 // ==============================
 
 const API =
-    "https://mygame-backend.sohitking478.workers.dev/api/referral/dashboard";
+    "/api/referral/dashboard";
 
 
 // ==============================

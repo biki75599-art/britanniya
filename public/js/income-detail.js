@@ -15,7 +15,7 @@ async function loadProfile() {
         const token = localStorage.getItem("token");
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/user/profile",
+            "/api/user/profile",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -51,7 +51,7 @@ async function loadIncomeHistory() {
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/referral/income",
+            "/api/referral/income",
             {
                 headers: {
                     Authorization: "Bearer " + token
@@ -132,7 +132,7 @@ async function loadProductIncome() {
     try {
 
         const res = await fetch(
-            "https://mygame-backend.sohitking478.workers.dev/api/product-income/history",
+            "/api/product-income/history",
             {
                 headers:{
                     Authorization:"Bearer " + token

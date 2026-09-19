@@ -1,0 +1,15 @@
+MYGAME BACKEND - FIXED BUILD
+
+Main fixes included:
+- Replaced old workers.dev frontend API URLs with same-origin /api/... URLs.
+- Fixed dashboard product/device and product-buy requests to use the current backend.
+- Fixed device.js authentication/error handling and request timeout handling.
+- Fixed Express reverse-proxy trust for Deplexo/Cloudflare forwarded headers.
+- Fixed getPurchaseCount to use the JWT's req.user.id field.
+- Fixed dashboard king.png path to public/images/king.png.
+- Removed unused SweetAlert2 CDN includes.
+- Updated referral links to use PUBLIC_BASE_URL, defaulting to the Deplexo URL.
+- Redacted secrets from .env.example and replaced them with placeholders.
+- start.js already waits for MongoDB before starting the HTTP server.
+
+The actual .env file is intentionally not included.

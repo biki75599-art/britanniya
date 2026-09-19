@@ -8,7 +8,7 @@ async function loadUser(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/"+id,
+        "/api/admin/user/"+id,
 
         {
 
@@ -51,7 +51,7 @@ async function blockUser(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/block/"+id,
+        "/api/admin/user/block/"+id,
 
         {
 
@@ -80,7 +80,7 @@ async function unblockUser(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/unblock/"+id,
+        "/api/admin/user/unblock/"+id,
 
         {
 
@@ -111,7 +111,7 @@ async function addBalance(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/add-balance/"+id,
+        "/api/admin/user/add-balance/"+id,
 
         {
 
@@ -145,7 +145,7 @@ async function deductBalance(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/deduct-balance/"+id,
+        "/api/admin/user/deduct-balance/"+id,
 
         {
 
@@ -179,7 +179,7 @@ async function changeVip(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/user/change-vip/"+id,
+        "/api/admin/user/change-vip/"+id,
 
         {
 

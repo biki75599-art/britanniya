@@ -16,7 +16,7 @@ let level3Members = [];
 // ==============================
 
 const API =
-    "https://mygame-backend.sohitking478.workers.dev/api/referral/team";
+    "/api/referral/team";
 
 const token =
     localStorage.getItem("token");

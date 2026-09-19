@@ -469,7 +469,7 @@ const pageTitle = document.getElementById("pageTitle");
 async function loadRechargeHistory(){
 
     const res = await fetch(
-        "https://mygame-backend.sohitking478.workers.dev/api/recharge/history",
+        "/api/recharge/history",
         {
             headers:{
                 Authorization:"Bearer "+token
@@ -557,7 +557,7 @@ async function loadRechargeHistory(){
 async function loadWithdrawHistory(){
 
     const res = await fetch(
-        "https://mygame-backend.sohitking478.workers.dev/api/withdraw/history",
+        "/api/withdraw/history",
         {
             headers:{
                 Authorization:"Bearer "+token
@@ -771,7 +771,6 @@ Promise.all([
 <script src="js/navigation.js"></script>
 
 <script src="js/toast.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" href="css/confirm.css">
 
 <script src="js/confirm.js"></script></body>

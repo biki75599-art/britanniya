@@ -5,7 +5,7 @@ async function loginAdmin() {
     const password = document.getElementById("password").value;
 
     const res = await fetch(
-        "https://mygame-backend.sohitking478.workers.dev/api/admin/login",
+        "/api/admin/login",
         {
 
             method: "POST",

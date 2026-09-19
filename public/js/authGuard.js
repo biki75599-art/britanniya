@@ -13,7 +13,7 @@
     }
 
     // Backend se token verify karo
-    fetch("https://mygame-backend.sohitking478.workers.dev/api/user/profile", {
+    fetch("/api/user/profile", {
         method: "GET",
         headers: {
             "Authorization": "Bearer " + token

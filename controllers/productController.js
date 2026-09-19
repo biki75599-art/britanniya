@@ -421,7 +421,7 @@ exports.getPurchaseCount = async (req, res) => {
 
             {
                 $match: {
-                    user: req.user._id
+                    user: req.user.id
                 }
             },
 

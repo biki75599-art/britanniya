@@ -4,7 +4,7 @@ async function loadHistory(){
 
     const res = await fetch(
 
-        "https://mygame-backend.sohitking478.workers.dev/api/referral/history",
+        "/api/referral/history",
 
         {
 
