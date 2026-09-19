@@ -1,390 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<title>B-Portal Login</title>
-<link rel="stylesheet" href="css/toast.css">
+    <title>B-Portal Login</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="css/toast.css">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
+    <style>
 
+        /* ==============================
+           RESET
+        ============================== */
 
-<style>
+        * {
+            box-sizing: border-box;
+        }
 
-body{
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
 
-background-image:
-linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
-url("https://nextwhatbusiness.com/wp-content/uploads/2023/07/britanniabiscuits-1-jpg.webp");
+        /* ==============================
+           BODY
+        ============================== */
 
-background-size:cover;
+        body {
 
-background-position:center;
+            min-height: 100vh;
 
-background-repeat:no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-background-attachment:fixed;
+            padding: 20px;
 
-}
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
 
-.glass{
+            background-color: #20242d;
 
-backdrop-filter:blur(18px);
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.58),
+                    rgba(0, 0, 0, 0.68)
+                ),
+                url("https://nextwhatbusiness.com/wp-content/uploads/2023/07/britanniabiscuits-1-jpg.webp");
 
-background:rgba(255,255,255,.12);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
 
-border:1px solid rgba(255,255,255,.2);
+            color: white;
 
-box-shadow:0 10px 40px rgba(0,0,0,.35);
+            overflow-x: hidden;
+        }
 
-}
+        /* ==============================
+           LOGIN CARD
+        ============================== */
 
-.input{
-width:100%;
-height:52px;
-padding:14px 18px 14px 52px;
-border-radius:14px;
-background:rgba(255,255,255,.12);
-border:1px solid rgba(255,255,255,.2);
-color:white;
-outline:none;
-box-sizing:border-box;
-}
+        .login-card {
 
-.input::placeholder{
+            width: 100%;
+            max-width: 430px;
 
-color:#ddd;
+            padding: 32px;
 
-}
+            border-radius: 26px;
 
-.loginBtn{
+            background:
+                rgba(255, 255, 255, 0.13);
 
-width:100%;
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
 
-padding:14px;
+            backdrop-filter:
+                blur(20px);
 
-border-radius:14px;
+            -webkit-backdrop-filter:
+                blur(20px);
 
-font-weight:bold;
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.50);
 
-background:rgba(47,111,237,0.8);
+            position: relative;
 
-color:white;
+            z-index: 2;
+        }
 
-transition:.3s;
+        /* ==============================
+           LOGO
+        ============================== */
 
-}
+        .logo {
 
-.loginBtn:hover{
+            width: 92px;
+            height: 92px;
 
-background:rgba(109, 145, 216, 0.8)
+            margin: 0 auto;
 
-}
+            border-radius: 50%;
 
-.logo{
+            background: #ffffff;
 
-width:90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-height:90px;
+            color: #d71920;
 
-border-radius:50%;
+            font-size: 42px;
+            font-weight: 900;
 
-background:white;
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.35);
 
-display:flex;
+            user-select: none;
+        }
 
-justify-content:center;
+        /* ==============================
+           TITLE
+        ============================== */
 
-align-items:center;
+        .title {
 
-font-size:38px;
+            margin-top: 20px;
 
-font-weight:bold;
+            text-align: center;
 
-color:#d71920;
+            color: white;
 
-margin:auto;
+            font-size: 32px;
 
-box-shadow:0 0 25px rgba(255,255,255,.3);
+            font-weight: 900;
 
-}
-.registerBtn{
+            letter-spacing: 0.3px;
+        }
 
-width:100%;
+        .subtitle {
 
-padding:15px;
+            margin-top: 7px;
 
-border:none;
+            text-align: center;
 
-border-radius:14px;
+            color:
+                rgba(255, 255, 255, 0.82);
 
-background:rgba(47,111,237,0.8);
+            font-size: 15px;
+        }
 
-color:white;
+        /* ==============================
+           FORM
+        ============================== */
 
-font-size:17px;
+        .form-group {
 
-font-weight:bold;
+            margin-top: 24px;
+        }
 
-cursor:pointer;
+        .form-group.password-group {
 
-transition:.3s;
+            margin-top: 20px;
+        }
 
-}
+        .form-label {
 
-.registerBtn:hover{
+            display: block;
 
-background:rgba(109, 145, 216, 0.8)
+            margin-bottom: 9px;
 
-}
+            color: white;
 
+            font-size: 14px;
 
-</style>
+            font-weight: 600;
+        }
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+        .input-wrapper {
+
+            position: relative;
+
+            width: 100%;
+        }
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 17px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                rgba(255, 255, 255, 0.90);
+
+            font-size: 17px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+        .input {
+
+            width: 100%;
+
+            height: 54px;
+
+            padding:
+                0 50px 0 50px;
+
+            border-radius: 15px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+
+            outline: none;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            color: white;
+
+            font-size: 15px;
+
+            transition:
+                0.25s ease;
+
+        }
+
+        .input::placeholder {
+
+            color:
+                rgba(255, 255, 255, 0.70);
+        }
+
+        .input:focus {
+
+            border-color:
+                rgba(255, 255, 255, 0.70);
+
+            background:
+                rgba(255, 255, 255, 0.19);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 255, 255, 0.08);
+        }
+
+        /* ==============================
+           PASSWORD EYE
+        ============================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 17px;
+
+            padding: 0;
+        }
+
+        .password-toggle:hover {
+
+            color: #ffd54f;
+        }
+
+        /* ==============================
+           REMEMBER
+        ============================== */
+
+        .remember-row {
+
+            margin-top: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .remember-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+        }
+
+        .remember-label input {
+
+            width: 16px;
+            height: 16px;
+
+            cursor: pointer;
+        }
+
+        /* ==============================
+           LOGIN BUTTON
+        ============================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 54px;
+
+            margin-top: 24px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2f6fed,
+                    #1e56c7
+                );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px
+                rgba(20, 75, 180, 0.35);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
+        }
+
+        .login-button:hover {
+
+            transform:
+                translateY(-1px);
+
+            filter:
+                brightness(1.08);
+
+            box-shadow:
+                0 12px 25px
+                rgba(20, 75, 180, 0.45);
+        }
+
+        .login-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+        /* ==============================
+           REGISTER LINK
+        ============================== */
+
+        .register-text {
+
+            margin-top: 22px;
+
+            text-align: center;
+
+            color:
+                rgba(255, 255, 255, 0.90);
+
+            font-size: 14px;
+        }
+
+        .register-link {
+
+            color: #ffd54f;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+        .register-link:hover {
+
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 520px) {
+
+            body {
+
+                padding: 15px;
+
+                background-attachment:
+                    scroll;
+            }
+
+            .login-card {
+
+                padding: 25px 20px;
+
+                border-radius: 22px;
+            }
+
+            .logo {
+
+                width: 82px;
+                height: 82px;
+
+                font-size: 36px;
+            }
+
+            .title {
+
+                font-size: 27px;
+            }
+
+            .subtitle {
+
+                font-size: 14px;
+            }
+
+            .input {
+
+                height: 52px;
+            }
+
+            .login-button {
+
+                height: 52px;
+            }
+        }
+
+    </style>
+
 </head>
 
-<body class="flex items-center justify-center min-h-screen p-5">
+<body>
 
-<div class="glass rounded-3xl w-full max-w-md p-8">
+    <!-- ==============================
+         LOGIN CARD
+    ============================== -->
 
-<div class="logo">
+    <div class="login-card">
 
-B
+        <!-- LOGO -->
 
-</div>
+        <div class="logo">
+            B
+        </div>
 
-<h1 class="text-center text-white text-3xl font-black mt-5">
 
-B-Portal
+        <!-- TITLE -->
 
-</h1>
+        <div class="title">
+            B-Portal
+        </div>
 
-<p class="text-center text-gray-200 mt-2">
+        <div class="subtitle">
+            Welcome Back
+        </div>
 
-Welcome Back
 
-</p>
+        <!-- MOBILE -->
 
-<div class="mt-8">
+        <div class="form-group">
 
-<label class="text-white text-sm">
+            <label
+                class="form-label"
+                for="mobile"
+            >
+                Mobile Number
+            </label>
 
-Mobile Number
+            <div class="input-wrapper">
 
-</label>
+                <i
+                    class="fa fa-phone input-icon"
+                ></i>
 
-<div class="relative mt-2">
+                <input
+                    type="tel"
+                    id="mobile"
+                    class="input"
+                    placeholder="Enter Mobile Number"
+                    maxlength="10"
+                    pattern="[6-9][0-9]{9}"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    title="Please enter a valid 10 digit mobile number"
+                >
 
-<i class="fa fa-phone absolute left-5 top-1/2 -translate-y-1/2 text-white text-lg"></i>
+            </div>
 
-<input
-type="tel"
-id="mobile"
-class="input"
-placeholder="Enter Mobile Number"
-maxlength="10"
-pattern="[6-9][0-9]{9}"
-title="Please enter a valid 10 digit mobile number">
+        </div>
 
-</div>
 
-</div>
+        <!-- PASSWORD -->
 
-<div class="mt-5">
+        <div class="form-group password-group">
 
-<label class="text-white text-sm">
+            <label
+                class="form-label"
+                for="password"
+            >
+                Password
+            </label>
 
-Password
+            <div class="input-wrapper">
 
-</label>
+                <i
+                    class="fa fa-lock input-icon"
+                ></i>
 
-<div class="relative mt-2">
+                <input
+                    type="password"
+                    id="password"
+                    class="input"
+                    placeholder="Enter Password"
+                    minlength="6"
+                    autocomplete="current-password"
+                >
 
-<i class="fa fa-lock absolute left-5 top-1/2 -translate-y-1/2 text-white text-lg"></i>
+                <button
+                    type="button"
+                    id="passwordToggle"
+                    class="password-toggle"
+                    onclick="togglePassword()"
+                    aria-label="Show password"
+                >
 
-<input
-type="password"
-id="password"
-class="input pr-12"
-placeholder="Enter Password"
-minlength="6">
-<button
+                    <i
+                        id="eye"
+                        class="fa fa-eye"
+                    ></i>
 
-type="button"
+                </button>
 
-onclick="togglePassword()"
+            </div>
 
-class="absolute right-4 top-1/2 -translate-y-1/2 text-white">
+        </div>
 
-<i id="eye"
 
-class="fa fa-eye">
+        <!-- REMEMBER ME -->
 
-</i>
+        <div class="remember-row">
 
-</button>
+            <label
+                class="remember-label"
+            >
 
-</div>
+                <input
+                    type="checkbox"
+                    id="rememberMe"
+                >
 
-</div>
+                <span>
+                    Remember Me
+                </span>
 
-<div class="flex justify-between mt-4 text-white text-sm">
+            </label>
 
-<label>
+        </div>
 
-<input type="checkbox">
 
-Remember Me
+        <!-- LOGIN BUTTON -->
 
-</label>
+        <button
+            type="button"
+            class="login-button"
+            onclick="validateLogin()"
+        >
+            Login
+        </button>
 
 
+        <!-- REGISTER -->
 
-</div>
+        <div class="register-text">
 
-<button
-type="button"
-class="registerBtn"
-onclick="validateLogin()">
-Login
-</button>
+            Don't have an account?
 
-<div class="text-center text-white mt-6">
+            <a
+                href="register.html"
+                class="register-link"
+            >
+                Register
+            </a>
 
-Don't have an account?
+        </div>
 
-<a href="register.html" class="font-bold text-yellow-300">
-    Register
-</a>
+    </div>
 
-</div>
 
-</div>
+    <!-- ==============================
+         LOGIN VALIDATION
+    ============================== -->
 
+    <script>
 
-<script>
+        function validateLogin() {
 
-function validateLogin() {
+            const mobileInput =
+                document.getElementById(
+                    "mobile"
+                );
 
-    const mobileInput =
-        document.getElementById("mobile");
+            const passwordInput =
+                document.getElementById(
+                    "password"
+                );
 
-    const passwordInput =
-        document.getElementById("password");
+            const mobile =
+                mobileInput.value.trim();
 
+            const password =
+                passwordInput.value;
 
-    const mobile =
-        mobileInput.value.trim();
 
-    const password =
-        passwordInput.value;
+            /* MOBILE REQUIRED */
 
+            if (mobile === "") {
 
-    // Mobile required
+                showError(
+                    "Please Enter Mobile Number"
+                );
 
-    if (mobile === "") {
+                mobileInput.focus();
 
-        showError(
-            "Please Enter Mobile Number"
-        );
+                return;
+            }
 
-        mobileInput.focus();
 
-        return;
-    }
+            /* MOBILE FORMAT */
 
+            if (
+                !/^[6-9]\d{9}$/.test(
+                    mobile
+                )
+            ) {
 
-    // Mobile format
+                showError(
+                    "Please enter a valid 10 digit mobile number."
+                );
 
-    if (!/^[6-9]\d{9}$/.test(mobile)) {
+                mobileInput.focus();
 
-        showError(
-            "Please enter a valid 10 digit mobile number."
-        );
+                return;
+            }
 
-        mobileInput.focus();
 
-        return;
-    }
+            /* PASSWORD REQUIRED */
 
+            if (password === "") {
 
-    // Password required
+                showError(
+                    "Please Enter Password"
+                );
 
-    if (password === "") {
+                passwordInput.focus();
 
-        showError(
-            "Please Enter Password"
-        );
+                return;
+            }
 
-        passwordInput.focus();
 
-        return;
-    }
+            /* PASSWORD LENGTH */
 
+            if (
+                password.length < 6
+            ) {
 
-    // Password length
+                showError(
+                    "Password must be at least 6 characters"
+                );
 
-    if (password.length < 6) {
+                passwordInput.focus();
 
-        showError(
-            "Password must be at least 6 characters"
-        );
+                return;
+            }
 
-        passwordInput.focus();
 
-        return;
-    }
+            /* LOGIN API */
 
+            login();
 
-    // Login API
+        }
 
-    login();
 
-}
+        /* ==============================
+           PASSWORD SHOW / HIDE
+        ============================== */
 
+        function togglePassword() {
 
-function togglePassword() {
+            const password =
+                document.getElementById(
+                    "password"
+                );
 
-    const p =
-        document.getElementById("password");
+            const eye =
+                document.getElementById(
+                    "eye"
+                );
 
-    const e =
-        document.getElementById("eye");
+            const toggle =
+                document.getElementById(
+                    "passwordToggle"
+                );
 
 
-    if (p.type === "password") {
+            if (
+                password.type ===
+                "password"
+            ) {
 
-        p.type = "text";
+                password.type =
+                    "text";
 
-        e.className =
-            "fa fa-eye-slash";
+                eye.className =
+                    "fa fa-eye-slash";
 
-    } else {
+                toggle.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
 
-        p.type = "password";
+            } else {
 
-        e.className =
-            "fa fa-eye";
+                password.type =
+                    "password";
 
-    }
+                eye.className =
+                    "fa fa-eye";
 
-}
+                toggle.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
 
-</script>
+            }
 
+        }
 
-<script src="js/auth.js"></script>
+    </script>
 
-<script src="js/toast.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="css/confirm.css">
+    <!-- AUTH -->
 
-<script src="js/confirm.js"></script></body>
+    <script src="js/auth.js?v=20260919"></script>
+
+    <!-- TOAST -->
+
+    <script src="js/toast.js"></script>
+
+    <!-- CONFIRM -->
+
+    <link
+        rel="stylesheet"
+        href="css/confirm.css"
+    >
+
+    <script src="js/confirm.js"></script>
+
+</body>
+
 </html>
