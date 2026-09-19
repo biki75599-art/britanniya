@@ -11,7 +11,7 @@ async function login() {
 
         const response =
             await fetch(
-                "https://mygame-backend.sohitking478.workers.dev/api/auth/login",
+                "/api/auth/login",
                 {
                     method: "POST",
 
