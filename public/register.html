@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Account</title>
+
+<link rel="stylesheet" href="css/toast.css">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+body{
+
+margin:0;
+
+font-family:Arial,sans-serif;
+
+background:
+linear-gradient(rgba(0,0,0,.60),rgba(0,0,0,.60)),
+url("https://nextwhatbusiness.com/wp-content/uploads/2023/07/britanniabiscuits-1-jpg.webp");
+
+background-size:cover;
+
+background-position:center;
+
+background-repeat:no-repeat;
+
+background-attachment:fixed;
+
+}
+
+.card{
+
+width:100%;
+
+max-width:420px;
+
+background:rgba(255,255,255,.12);
+
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,.2);
+
+border-radius:25px;
+
+padding:30px;
+
+box-shadow:0 15px 40px rgba(0,0,0,.4);
+
+}
+
+.logo{
+
+width:190px;
+
+height:190px;
+
+margin:auto;
+
+border-radius:50%;
+
+background:white;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:36px;
+
+font-weight:bold;
+
+color:rgba(47,111,237,0.8);
+
+}
+
+.title{
+
+text-align:center;
+
+color:white;
+
+font-size:28px;
+
+font-weight:bold;
+
+margin-top:15px;
+
+}
+
+.sub{
+
+text-align:center;
+
+color:#ddd;
+
+margin-bottom:25px;
+
+}
+
+.inputBox{
+
+position:relative;
+
+margin-bottom:18px;
+
+}
+
+.inputBox i{
+
+position:absolute;
+
+left:15px;
+
+top:16px;
+
+color:white;
+
+}
+
+.input{
+
+width:100%;
+
+padding:14px 15px 14px 45px;
+
+border:none;
+
+outline:none;
+
+border-radius:14px;
+
+background:rgba(255,255,255,.12);
+
+color:white;
+
+font-size:15px;
+
+}
+
+.input::placeholder{
+
+color:#ddd;
+
+}
+
+.registerBtn{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:14px;
+
+background:rgba(47,111,237,0.8);
+
+color:white;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+}
+
+.registerBtn:hover{
+
+background:rgba(109, 145, 216, 0.8)
+
+}
+
+.bottom{
+
+text-align:center;
+
+margin-top:20px;
+
+color:white;
+
+}
+
+.bottom a{
+
+color:#ffd54f;
+
+font-weight:bold;
+
+text-decoration:none;
+
+}
+
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+<body class="flex justify-center items-center min-h-screen p-5">
+
+<div class="card">
+
+<div class="logo">
+Britaniya
+</div>
+
+<div class="title">
+Create Account
+</div>
+
+<div class="sub">
+Register your account
+</div>
+
+<form
+    id="registerForm"
+    autocomplete="off"
+    novalidate
+>
+
+
+
+<div class="inputBox">
+    <i class="fa fa-phone"></i>
+
+    <input
+        type="tel"
+        id="mobile"
+        name="register_mobile"
+        class="input"
+        placeholder="Mobile Number"
+        maxlength="10"
+        pattern="[6-9][0-9]{9}"
+        inputmode="numeric"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+        title="Please enter a valid 10-digit mobile number"
+    >
+</div>
+
+<div class="inputBox">
+    <i class="fa fa-lock"></i>
+
+    <input
+        type="password"
+        id="pass"
+        name="new_register_password"
+        class="input"
+        placeholder="Password"
+        minlength="6"
+        autocomplete="new-password"
+    >
+</div>
+
+<div class="inputBox">
+    <i class="fa fa-lock"></i>
+
+    <input
+        type="password"
+        id="cpass"
+        name="new_register_confirm_password"
+        class="input"
+        placeholder="Confirm Password"
+        autocomplete="new-password"
+    >
+</div>
+<div class="inputBox">
+    <i class="fa fa-key"></i>
+
+    <input
+        type="password"
+        id="withdrawPin"
+        name="register_withdraw_pin"
+        class="input"
+        placeholder="Withdraw PIN"
+        minlength="6"
+        maxlength="8"
+        pattern="[0-9]{6,8}"
+        inputmode="numeric"
+        autocomplete="off"
+        oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+        title="PIN must be 6 to 8 digits"
+    >
+</div>
+<!-- Referral Code -->
+<div class="inputBox">
+    <i class="fa fa-gift"></i>
+
+    <input
+        type="text"
+        id="referral"
+        name="referral_code"
+        class="input"
+        placeholder="Referral Code"
+        minlength="6"
+        maxlength="20"
+        autocomplete="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        title="Referral Code is required"
+    >
+</div>
+
+<!-- Terms -->
+<div class="flex items-center text-white text-sm mb-5">
+    <input
+        type="checkbox"
+        id="terms"
+        class="mr-2"
+        required>
+    <label for="terms">
+        I agree to the Terms & Conditions
+    </label>
+</div>
+
+<!-- Register Button -->
+<button
+    type="submit"
+    class="registerBtn">
+    CREATE ACCOUNT
+</button>
+
+</form>
+
+<div class="bottom">
+    Already have an account?
+    <a href="login.html">Login</a>
+</div>
+
+</div>
+<script src="js/toast.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/confirm.js"></script></body>
+
+<script>
+
+// ==========================================
+// REFERRAL CODE
+// ==========================================
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const referralCodeFromURL =
+    urlParams.get("refer");
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const referral =
+            document.getElementById(
+                "referral"
+            );
+
+        const mobile =
+            document.getElementById(
+                "mobile"
+            );
+
+        const password =
+            document.getElementById(
+                "pass"
+            );
+
+        const confirmPassword =
+            document.getElementById(
+                "cpass"
+            );
+
+        const withdrawPin =
+            document.getElementById(
+                "withdrawPin"
+            );
+
+
+        // ==================================
+        // ONLY REFERRAL CODE AUTO FILL
+        // ==================================
+
+        if (
+            referralCodeFromURL &&
+            referral
+        ) {
+
+            referral.value =
+                referralCodeFromURL;
+
+        }
+
+
+        // ==================================
+        // BLOCK BROWSER AUTOFILL
+        // ==================================
+
+        function clearAutofill() {
+
+            if (mobile) {
+                mobile.value = "";
+            }
+
+            if (password) {
+                password.value = "";
+            }
+
+            if (confirmPassword) {
+                confirmPassword.value = "";
+            }
+
+            if (withdrawPin) {
+                withdrawPin.value = "";
+            }
+
+
+            // Referral code remains
+            if (
+                referralCodeFromURL &&
+                referral
+            ) {
+
+                referral.value =
+                    referralCodeFromURL;
+
+            }
+
+        }
+
+
+        setTimeout(
+            clearAutofill,
+            300
+        );
+
+        setTimeout(
+            clearAutofill,
+            1000
+        );
+
+
+        window.addEventListener(
+            "pageshow",
+            function () {
+
+                setTimeout(
+                    clearAutofill,
+                    300
+                );
+
+            }
+        );
+
+
+        // ==================================
+        // REGISTER
+        // ==================================
+
+        const form =
+            document.getElementById(
+                "registerForm"
+            );
+
+
+        form.addEventListener(
+            "submit",
+            async function (e) {
+
+                e.preventDefault();
+
+
+                const mobile =
+                    document
+                        .getElementById(
+                            "mobile"
+                        )
+                        .value
+                        .trim();
+
+
+                const name =
+                    mobile;
+
+
+                const password =
+                    document
+                        .getElementById(
+                            "pass"
+                        )
+                        .value;
+
+
+                const confirmPassword =
+                    document
+                        .getElementById(
+                            "cpass"
+                        )
+                        .value;
+
+
+                const referralCode =
+                    document
+                        .getElementById(
+                            "referral"
+                        )
+                        .value
+                        .trim();
+
+
+                const withdrawPin =
+                    document
+                        .getElementById(
+                            "withdrawPin"
+                        )
+                        .value
+                        .trim();
+
+
+                // ==========================
+                // VALIDATION
+                // ==========================
+
+                if (mobile === "") {
+
+                    showError(
+                        "Please Enter Mobile Number"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    !/^[6-9][0-9]{9}$/.test(
+                        mobile
+                    )
+                ) {
+
+                    showError(
+                        "Please enter a valid 10-digit mobile number."
+                    );
+
+                    return;
+
+                }
+
+
+                if (password === "") {
+
+                    showError(
+                        "Please Enter Password"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    password.length < 6
+                ) {
+
+                    showError(
+                        "Password must be at least 6 characters."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    confirmPassword === ""
+                ) {
+
+                    showError(
+                        "Please Enter Confirm Password"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    password !==
+                    confirmPassword
+                ) {
+
+                    showError(
+                        "Passwords do not match."
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    withdrawPin === ""
+                ) {
+
+                    showError(
+                        "Please Enter Withdraw PIN"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    withdrawPin.length < 6 ||
+                    withdrawPin.length > 8
+                ) {
+
+                    showError(
+                        "Withdraw PIN must be 6 to 8 digits."
+                    );
+
+                    return;
+
+                }
+
+
+                // ==========================
+                // REGISTER API
+                // ==========================
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "https://mygame-backend.sohitking478.workers.dev/api/auth/register",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+
+                                        name:
+                                            name,
+
+                                        mobile:
+                                            mobile,
+
+                                        password:
+                                            password,
+
+                                        confirmPassword:
+                                            confirmPassword,
+
+                                        withdrawPin:
+                                            withdrawPin,
+
+                                        referralCode:
+                                            referralCode
+
+                                    })
+
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (data.success) {
+
+                        showSuccess(
+                            data.message
+                        );
+
+
+                        setTimeout(
+                            function () {
+
+                                window.location.href =
+                                    "login.html";
+
+                            },
+                            1500
+                        );
+
+
+                    } else {
+
+                        showError(
+                            data.message ||
+                            "Registration failed."
+                        );
+
+                    }
+
+                }
+                catch (error) {
+
+                    console.error(
+                        "Register Error:",
+                        error
+                    );
+
+                    showError(
+                        "Server Error"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+);
+
+</script>
+
+</html>

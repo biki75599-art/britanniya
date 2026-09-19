@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Team</title>
+    <link rel="stylesheet" href="css/toast.css">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+
+    <script src="js/navigation.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(120, 35, 85, .35),
+            transparent 40%
+        ),
+        linear-gradient(
+            180deg,
+            #180b18 0%,
+            #241022 45%,
+            #10070f 100%
+        );
+
+    color: #ffffff;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================
+   MAIN PAGE
+========================================= */
+
+.team-page {
+
+    width: 100%;
+    max-width: 430px;
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding:
+        15px
+        15px
+        110px;
+
+    position: relative;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.team-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    margin-bottom: 15px;
+
+    padding: 18px 16px;
+
+    border-radius: 0 0 22px 22px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(91, 38, 73, .96),
+            rgba(42, 16, 37, .98)
+        );
+
+    border:
+        1px solid
+        rgba(255, 212, 59, .20);
+
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.35),
+        inset 0 1px rgba(255,255,255,.08);
+
+    backdrop-filter: blur(18px);
+}
+
+.team-header h1 {
+
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 24px;
+
+    font-weight: 900;
+
+    letter-spacing: .4px;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.45);
+}
+
+.team-header p {
+
+    margin: 5px 0 0;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================
+   SUMMARY CARD
+========================================= */
+
+.team-summary {
+
+    position: relative;
+
+    padding: 18px;
+
+    margin-bottom: 15px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(91,38,73,.96),
+            rgba(39,16,35,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.08),
+        0 15px 35px rgba(0,0,0,.42);
+
+    overflow: hidden;
+}
+
+
+/* Glass Shine */
+
+.team-summary::before {
+
+    content: "";
+
+    position: absolute;
+
+    top: -80px;
+
+    right: -70px;
+
+    width: 180px;
+
+    height: 180px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,212,59,.18),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.team-summary-inner {
+
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+}
+
+
+/* =========================================
+   TEAM LOGO
+========================================= */
+
+.team-logo {
+
+    width: 88px;
+
+    height: 88px;
+
+    flex-shrink: 0;
+
+    border-radius: 24px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #673050,
+            #32132b
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        inset 0 2px rgba(255,255,255,.08),
+        0 10px 22px rgba(0,0,0,.40);
+}
+
+.team-logo i {
+
+    font-size: 38px;
+
+    color: #ffd43b;
+
+    filter:
+        drop-shadow(
+            0 0 10px
+            rgba(255,212,59,.35)
+        );
+}
+
+
+/* =========================================
+   SUMMARY STATS
+========================================= */
+
+.team-stats {
+
+    flex: 1;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 9px;
+}
+
+
+.team-stat {
+
+    padding: 12px 8px;
+
+    text-align: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid
+        rgba(255,255,255,.08);
+
+    box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.05);
+}
+
+.team-stat span {
+
+    display: block;
+
+    color:
+        rgba(255,255,255,.60);
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.team-stat strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: #ffe45b;
+
+    font-size: 17px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================
+   LEVEL SELECTOR
+========================================= */
+
+.levels {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+    margin-bottom: 15px;
+}
+
+
+.level {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 13px 6px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    cursor: pointer;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            145deg,
+            #673050,
+            #35172f
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.08),
+        0 7px 15px
+        rgba(0,0,0,.30);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background .25s ease;
+}
+
+
+.level:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 12px 22px
+        rgba(0,0,0,.45),
+        0 0 18px
+        rgba(255,212,59,.18);
+}
+
+
+.level strong {
+
+    display: block;
+
+    font-size: 13px;
+
+    font-weight: 900;
+}
+
+
+.level span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color:
+        rgba(255,255,255,.68);
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+/* Active Level */
+
+.level.active {
+
+    color: #351900;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45b 0%,
+            #ffc928 50%,
+            #d98a18 100%
+        );
+
+    border:
+        1px solid
+        #ffe98a;
+
+    box-shadow:
+        0 5px 0 #9b5f12,
+        0 10px 20px
+        rgba(0,0,0,.45),
+        0 0 20px
+        rgba(255,212,59,.35),
+        inset 0 2px 3px
+        rgba(255,255,255,.65);
+
+    transform:
+        translateY(-2px);
+}
+
+
+.level.active span {
+
+    color:
+        rgba(53,25,0,.72);
+}
+
+
+/* =========================================
+   MEMBER CARD
+========================================= */
+
+.member-card {
+
+    padding: 15px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(91,38,73,.95),
+            rgba(39,16,35,.98)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.09);
+
+    box-shadow:
+        inset 0 1px
+        rgba(255,255,255,.07),
+        0 14px 30px
+        rgba(0,0,0,.40);
+}
+
+
+/* Member List */
+
+#memberList {
+
+    max-height: 330px;
+
+    overflow-y: auto;
+
+    padding-right: 3px;
+}
+
+
+/* Scrollbar */
+
+#memberList::-webkit-scrollbar {
+
+    width: 4px;
+}
+
+#memberList::-webkit-scrollbar-track {
+
+    background:
+        rgba(255,255,255,.04);
+
+    border-radius: 10px;
+}
+
+#memberList::-webkit-scrollbar-thumb {
+
+    background:
+        #8c416c;
+
+    border-radius: 10px;
+}
+
+
+/* =========================================
+   MEMBER ITEM
+========================================= */
+
+.member {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 14px 4px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+
+.member:last-child {
+
+    border-bottom: none;
+}
+
+
+.member:hover {
+
+    transform:
+        translateX(3px);
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+
+.member-name {
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 800;
+}
+
+
+.member-status {
+
+    margin-top: 4px;
+
+    color:
+        rgba(255,255,255,.55);
+
+    font-size: 11px;
+}
+
+
+.member .text-xs {
+
+    color:
+        #b889a7 !important;
+
+    font-size: 10px;
+}
+
+
+/* Right Side */
+
+.member > div:last-child {
+
+    text-align: right;
+}
+
+
+.member > div:last-child div:first-child {
+
+    color:
+        #ffe04b !important;
+
+    font-size: 12px;
+
+    font-weight: 900;
+}
+
+
+.member > div:last-child div:last-child {
+
+    color:
+        #62e39a !important;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-page {
+
+    min-height: 190px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px dashed
+        rgba(255,255,255,.12);
+
+    color:
+        rgba(255,255,255,.55);
+}
+
+.empty-page i {
+
+    color:
+        rgba(255,212,59,.35) !important;
+}
+
+
+/* =========================================
+   BOTTOM NAV
+========================================= */
+
+.final-bottom-nav{
+position:fixed!important;
+left:50%!important;
+bottom:0!important;
+transform:translateX(-50%)!important;
+width:100%!important;
+max-width:430px!important;
+height:82px!important;
+padding:8px!important;
+display:grid!important;
+grid-template-columns:repeat(5,1fr)!important;
+align-items:center!important;
+background:rgba(30,13,28,.96)!important;
+backdrop-filter:blur(18px)!important;
+border-top:1px solid rgba(223,91,149,.28)!important;
+border-radius:20px 20px 0 0!important;
+box-shadow:0 -10px 30px rgba(0,0,0,.48)!important;
+z-index:9999!important;
+}
+
+.final-bottom-nav .nav-btn{
+height:66px;
+background:transparent;
+border:none;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:4px;
+color:#c9b3c2;
+font-size:10px;
+font-weight:700;
+transition:.25s;
+cursor:pointer;
+}
+
+.final-bottom-nav .nav-btn:hover{
+transform:translateY(-5px);
+color:#ffd43b;
+}
+
+.final-bottom-nav .nav-btn i{
+width:38px;
+height:36px;
+display:grid;
+place-items:center;
+border-radius:12px;
+background:#5a2949;
+color:#f5d9e7;
+font-size:17px;
+transition:.25s;
+}
+
+.final-bottom-nav .nav-btn:hover i{
+transform:translateY(-3px) scale(1.08);
+box-shadow:0 10px 20px rgba(0,0,0,.5),0 0 18px rgba(255,212,59,.18);
+}
+
+.final-bottom-nav .active-nav{
+color:#ffd43b;
+}
+
+.final-bottom-nav .active-nav i{
+background:#ffd43b;
+color:#3a2000;
+box-shadow:0 0 20px rgba(255,212,59,.48);
+}
+
+.final-bottom-nav .game-nav i{
+width:54px;
+height:54px;
+margin-top:-22px;
+border-radius:18px;
+background:linear-gradient(145deg,#ffe45b,#d38a1b);
+color:#3a2000;
+font-size:23px;
+}
+
+.final-bottom-nav .game-nav:hover{
+transform:translateY(-8px);
+}
+
+.final-bottom-nav .game-nav:hover i{
+transform:translateY(-4px) scale(1.12) rotate(-4deg);
+}
+    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+
+<body>
+
+<div class="team-page">
+
+    <!-- HEADER -->
+
+    <div class="team-header">
+
+        <h1 id="headerTitle">
+            Team Level 1
+        </h1>
+
+        <p>
+            Manage your team and referral members
+        </p>
+
+    </div>
+
+
+    <!-- TEAM SUMMARY -->
+
+    <div class="team-summary">
+
+        <div class="team-summary-inner">
+
+            <div class="team-logo">
+
+                <i class="fas fa-users"></i>
+
+            </div>
+
+
+            <div class="team-stats">
+
+                <div class="team-stat">
+
+                    <span>
+                        Team Recharge
+                    </span>
+
+                    <strong id="teamRecharge">
+                        ₹0
+                    </strong>
+
+                </div>
+
+
+                <div class="team-stat">
+
+                    <span>
+                        Team Size
+                    </span>
+
+                    <strong id="teamCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEVELS -->
+
+    <div class="levels">
+
+        <div
+            class="level active"
+            onclick="showLevel(1)"
+        >
+
+            <strong>
+                LV:1
+                (<span id="lv1">0</span>)
+            </strong>
+
+            <span>
+                Income 25%
+            </span>
+
+        </div>
+
+
+        <div
+            class="level"
+            onclick="showLevel(2)"
+        >
+
+            <strong>
+                LV:2
+                (<span id="lv2">0</span>)
+            </strong>
+
+            <span>
+                Income 3%
+            </span>
+
+        </div>
+
+
+        <div
+            class="level"
+            onclick="showLevel(3)"
+        >
+
+            <strong>
+                LV:3
+                (<span id="lv3">0</span>)
+            </strong>
+
+            <span>
+                Income 2%
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- MEMBER LIST -->
+
+    <div class="member-card">
+
+        <div id="memberList">
+
+            <div class="empty-page">
+
+                <i class="fas fa-users fa-2x"></i>
+
+                <p>
+                    Loading Team...
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     BOTTOM NAVIGATION
+========================================= -->
+
+<div class="final-bottom-nav">
+
+    <button
+        id="homeNav"
+        class="nav-btn"
+        onclick="goDashboard()"
+    >
+
+        <i class="fas fa-house"></i>
+
+        <span>
+            Plan
+        </span>
+
+    </button>
+
+
+    <button
+        id="shareNav"
+        class="nav-btn"
+        onclick="goShare()"
+    >
+
+        <i class="fas fa-arrows-rotate"></i>
+
+        <span>
+            Convert
+        </span>
+
+    </button>
+
+
+  <button id="gameNav" class="nav-btn game-nav" onclick="goCard()">
+    <i class="fas fa-credit-card"></i>
+    <span>Card</span>
+</button>
+
+
+    <button
+        id="teamNav"
+        class="nav-btn active-nav"
+        onclick="goTeam()"
+    >
+
+        <i class="fas fa-users"></i>
+
+        <span>
+            Team
+        </span>
+
+    </button>
+
+
+    <button
+        id="myNav"
+        class="nav-btn"
+        onclick="goMy()"
+    >
+
+        <i class="fas fa-user"></i>
+
+        <span>
+            My
+        </span>
+
+    </button>
+
+</div>
+
+
+<div class="h-20"></div>
+
+
+<!-- TEAM JS — SAME BACKEND LOGIC -->
+
+<script src="js/team.js"></script>
+
+
+<!-- TEAM ACTIVE FIX -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        document
+            .querySelectorAll(
+                ".final-bottom-nav .nav-btn"
+            )
+            .forEach(function (btn) {
+
+                btn.classList.remove(
+                    "active-nav"
+                );
+
+            });
+
+
+        const teamNav =
+            document.getElementById(
+                "teamNav"
+            );
+
+
+        if (teamNav) {
+
+            teamNav.classList.add(
+                "active-nav"
+            );
+
+        }
+
+    }
+);
+
+</script>
+<script src="js/toast.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<script src="js/confirm.js"></script></body>
+</html>

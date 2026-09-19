@@ -1,0 +1,584 @@
+/* =====================================================
+   LEADERBOARD - LIGHT CLEAN THEME
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background: #f5f7fb;
+    color: #171a21;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* =====================================================
+   PAGE
+   ===================================================== */
+
+.leaderboard-page {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.leaderboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.back-btn,
+.refresh-btn {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #e1e5eb;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #22262e;
+    cursor: pointer;
+    font-size: 20px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+    transition: 0.2s ease;
+}
+
+.back-btn:hover,
+.refresh-btn:hover {
+    border-color: #c7ccd4;
+    transform: translateY(-1px);
+}
+
+.leaderboard-header h1 {
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 800;
+}
+
+.leaderboard-header p {
+    margin-top: 4px;
+    color: #7b838f;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PERIOD BUTTONS
+   ===================================================== */
+
+.period-section {
+    margin-bottom: 22px;
+}
+
+.period-buttons {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 3px;
+}
+
+.period-buttons::-webkit-scrollbar {
+    height: 4px;
+}
+
+.period-buttons::-webkit-scrollbar-thumb {
+    background: #d8dce3;
+    border-radius: 10px;
+}
+
+.filter-btn {
+    flex: 0 0 auto;
+    padding: 11px 17px;
+    border: 1px solid #e0e4ea;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #606874;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+    border-color: #c4c9d1;
+    color: #20242b;
+}
+
+.filter-btn.active {
+    background: #20242b;
+    border-color: #20242b;
+    color: #ffffff;
+}
+
+
+/* =====================================================
+   TOP 3 PODIUM
+   ===================================================== */
+
+.podium-section {
+    display: grid;
+    grid-template-columns: 1fr 1.12fr 1fr;
+    align-items: end;
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.podium-card {
+    min-height: 210px;
+    padding: 20px 12px;
+    border: 1px solid #e8ebef;
+    border-radius: 18px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.07);
+}
+
+.podium-card.first {
+    min-height: 245px;
+    border: 2px solid #e8c34b;
+    box-shadow: 0 8px 30px rgba(232, 195, 75, 0.14);
+}
+
+.podium-card.second {
+    border: 2px solid #c9cdd3;
+}
+
+.podium-card.third {
+    border: 2px solid #d0a07d;
+}
+
+.podium-medal {
+    font-size: 38px;
+    margin-bottom: 7px;
+}
+
+.podium-card.first .podium-medal {
+    font-size: 46px;
+}
+
+.podium-rank {
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.podium-mobile {
+    margin-top: 8px;
+    color: #555d68;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.podium-recharge {
+    margin-top: 15px;
+    color: #171a21;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.podium-reward {
+    margin-top: 6px;
+    color: #6e7682;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   MY RANK
+   ===================================================== */
+
+.my-rank-card {
+    margin-bottom: 22px;
+    padding: 18px;
+    border-radius: 17px;
+    background: #20242b;
+    color: #ffffff;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.10);
+}
+
+.my-rank-title {
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.my-rank-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.my-rank-item {
+    padding: 12px;
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.my-rank-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: #aeb4bd;
+    font-size: 11px;
+}
+
+.my-rank-item strong {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   TOTAL PLAYERS
+   ===================================================== */
+
+.players-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 3px;
+    color: #727a86;
+    font-size: 13px;
+}
+
+.players-info strong {
+    color: #20242b;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   LEADERBOARD CARD
+   ===================================================== */
+
+.leaderboard-card {
+    overflow: hidden;
+    border: 1px solid #e7eaf0;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+}
+
+.leaderboard-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 18px;
+    border-bottom: 1px solid #edf0f4;
+}
+
+.leaderboard-title strong {
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.current-period {
+    padding: 6px 10px;
+    border-radius: 8px;
+    background: #f1f3f6;
+    color: #5f6671;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   TABLE HEADER
+   ===================================================== */
+
+.leader-head {
+    display: grid;
+    grid-template-columns: 80px 1fr 160px 130px;
+    gap: 10px;
+    padding: 12px 18px;
+    background: #f8f9fb;
+    color: #858c98;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.rank-col,
+.recharge-col,
+.reward-col {
+    text-align: center;
+}
+
+
+/* =====================================================
+   LEADERBOARD ROW
+   ===================================================== */
+
+.leader-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 160px 130px;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 18px;
+    border-top: 1px solid #f0f1f4;
+    transition: 0.2s ease;
+}
+
+.leader-row:hover {
+    background: #fafbfc;
+}
+
+.leader-row.current-user {
+    background: #fff9e7;
+    border-left: 3px solid #e8c34b;
+}
+
+.rank-number {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.rank-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 30px;
+    padding: 0 7px;
+    border-radius: 9px;
+    background: #f0f2f5;
+    color: #303640;
+}
+
+.leader-row:nth-child(1) .rank-badge {
+    background: #fff1b8;
+}
+
+.leader-row:nth-child(2) .rank-badge {
+    background: #e8ebef;
+}
+
+.leader-row:nth-child(3) .rank-badge {
+    background: #f2dfd1;
+}
+
+.player-info {
+    min-width: 0;
+}
+
+.player-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #20242b;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.player-label {
+    margin-top: 3px;
+    color: #8a919d;
+    font-size: 11px;
+}
+
+.recharge-value,
+.reward-value {
+    text-align: center;
+    color: #20242b;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.reward-value {
+    color: #707783;
+}
+
+
+/* =====================================================
+   LOADING / EMPTY / ERROR
+   ===================================================== */
+
+.leaderboard-loading,
+.leaderboard-empty,
+.leaderboard-error {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    color: #7b838f;
+    text-align: center;
+    font-size: 13px;
+}
+
+.leaderboard-error {
+    color: #b33a3a;
+}
+
+
+/* =====================================================
+   NOTE
+   ===================================================== */
+
+.leaderboard-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 0 3px 20px;
+    color: #858c98;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .leaderboard-page {
+        padding: 14px;
+    }
+
+    .leaderboard-header h1 {
+        font-size: 21px;
+    }
+
+    .podium-section {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+    }
+
+    .podium-card {
+        min-height: 180px;
+        padding: 14px 7px;
+        border-radius: 14px;
+    }
+
+    .podium-card.first {
+        min-height: 205px;
+    }
+
+    .podium-medal {
+        font-size: 29px;
+    }
+
+    .podium-card.first .podium-medal {
+        font-size: 35px;
+    }
+
+    .podium-rank {
+        font-size: 14px;
+    }
+
+    .podium-mobile {
+        font-size: 10px;
+    }
+
+    .podium-recharge {
+        font-size: 13px;
+    }
+
+    .podium-reward {
+        font-size: 10px;
+    }
+
+    .my-rank-content {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .leader-head,
+    .leader-row {
+        grid-template-columns: 55px 1fr 95px;
+    }
+
+    .leader-head {
+        padding: 10px 12px;
+    }
+
+    .leader-row {
+        padding: 13px 12px;
+    }
+
+    .reward-col,
+    .reward-value {
+        display: none;
+    }
+
+    .recharge-value {
+        font-size: 12px;
+    }
+
+    .player-mobile {
+        font-size: 12px;
+    }
+}
+
+
+@media (max-width: 430px) {
+
+    .leaderboard-page {
+        padding: 10px;
+    }
+
+    .podium-section {
+        gap: 5px;
+    }
+
+    .podium-card {
+        min-height: 165px;
+        padding: 10px 4px;
+    }
+
+    .podium-card.first {
+        min-height: 185px;
+    }
+
+    .podium-medal {
+        font-size: 25px;
+    }
+
+    .podium-card.first .podium-medal {
+        font-size: 31px;
+    }
+
+    .podium-mobile {
+        font-size: 9px;
+    }
+
+    .podium-recharge {
+        font-size: 12px;
+    }
+
+    .my-rank-card {
+        padding: 14px;
+    }
+
+    .leaderboard-title {
+        padding: 14px;
+    }
+}

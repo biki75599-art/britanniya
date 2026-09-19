@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  "name": "mygame-backend",
+
+  "main": "./worker.mjs",
+
+  "compatibility_date": "2026-09-18",
+
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+
+  "keep_vars": true,
+
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+
+    "run_worker_first": [
+      "/api/*",
+      "/",
+      "/health",
+      "/render-test",
+      "/hello",
+      "/register",
+      "/test-qr"
+    ]
+  },
+
+  "triggers": {
+    "crons": [
+      "* * * * *",
+      "30 18 * * *"
+    ]
+  },
+
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

@@ -1,0 +1,1605 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    />
+
+    <title>Share | BRITANNIYA</title>
+<link rel="stylesheet" href="css/toast.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="js/navigation.js"></script>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+
+            color: #ffffff;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(115, 42, 92, 0.30),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at top right,
+                    rgba(255, 212, 59, 0.08),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    180deg,
+                    #120812 0%,
+                    #1d0b1a 45%,
+                    #0e070d 100%
+                );
+
+            min-height: 100vh;
+        }
+
+        /* Main Wrapper */
+
+        .share-page {
+            width: 100%;
+            max-width: 430px;
+            min-height: 100vh;
+
+            margin: 0 auto;
+
+            padding:
+                0
+                14px
+                110px;
+        }
+
+
+        /* =========================================
+           TOP HEADER
+        ========================================= */
+
+        .page-header {
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 105px;
+
+            margin:
+                0
+                -14px
+                16px;
+
+            padding: 20px 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(91, 38, 73, 0.98),
+                    rgba(49, 20, 43, 0.98)
+                );
+
+            border-bottom:
+                1px solid
+                rgba(255, 212, 59, 0.25);
+
+            border-radius:
+                0
+                0
+                24px
+                24px;
+
+            box-shadow:
+                0 14px 35px
+                rgba(0, 0, 0, 0.45),
+
+                inset 0 1px
+                rgba(255, 255, 255, 0.08);
+
+            overflow: hidden;
+        }
+
+
+        /* Header Glow */
+
+        .page-header::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 160px;
+            height: 160px;
+
+            top: -80px;
+            left: -50px;
+
+            background:
+                rgba(255, 212, 59, 0.10);
+
+            border-radius: 50%;
+
+            filter: blur(10px);
+
+            pointer-events: none;
+        }
+
+
+        .header-inner {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        /* Avatar */
+
+        .avatar {
+
+            width: 52px;
+            height: 52px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffe45b,
+                    #e9a51c
+                );
+
+            color: #321900;
+
+            font-size: 21px;
+
+            font-weight: 900;
+
+            border:
+                2px solid
+                rgba(255, 255, 255, 0.25);
+
+            box-shadow:
+                0 7px 18px
+                rgba(0, 0, 0, 0.35),
+
+                inset 0 2px 3px
+                rgba(255, 255, 255, 0.60);
+        }
+
+
+        .page-header h1 {
+
+            margin: 0;
+
+            color: #ffffff;
+
+            font-size: 25px;
+
+            line-height: 1.1;
+
+            font-weight: 900;
+        }
+
+
+        .page-header p {
+
+            margin:
+                6px
+                0
+                0;
+
+            color:
+                rgba(255, 255, 255, 0.78);
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        /* =========================================
+           GLASS CARD
+        ========================================= */
+
+        .card {
+
+            position: relative;
+
+            margin-bottom: 14px;
+
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(91, 38, 73, 0.94),
+                    rgba(49, 20, 43, 0.98)
+                );
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.09);
+
+            border-radius: 18px;
+
+            box-shadow:
+
+                0 12px 30px
+                rgba(0, 0, 0, 0.35),
+
+                inset 0 1px
+                rgba(255, 255, 255, 0.07);
+
+            backdrop-filter:
+                blur(14px);
+
+            -webkit-backdrop-filter:
+                blur(14px);
+        }
+
+
+        .small-card {
+            padding: 15px;
+        }
+
+
+        /* =========================================
+           HERO / REFERRAL REWARD
+        ========================================= */
+
+        .hero {
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(91, 38, 73, 0.98),
+                    rgba(49, 20, 43, 0.98)
+                );
+        }
+
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            right: -50px;
+            top: -50px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 212, 59, 0.08);
+
+            filter: blur(4px);
+
+            pointer-events: none;
+        }
+
+
+        .hero-top {
+
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 12px;
+        }
+
+
+        .hero-title {
+
+            color: #ffe45b;
+
+            font-size: 18px;
+
+            font-weight: 900;
+        }
+
+
+        .hero-sub {
+
+            margin-top: 5px;
+
+            color:
+                rgba(255, 255, 255, 0.70);
+
+            font-size: 12px;
+
+            line-height: 1.4;
+        }
+
+
+        .badge {
+
+            width: 62px;
+            height: 62px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffe45b,
+                    #e9a51c
+                );
+
+            color: #321900;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            box-shadow:
+
+                0 7px 18px
+                rgba(0, 0, 0, 0.35),
+
+                inset 0 2px 3px
+                rgba(255, 255, 255, 0.60);
+        }
+
+
+        /* =========================================
+           INCOME STATS
+        ========================================= */
+
+        .hero-row {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 14px;
+        }
+
+
+        .mini-stat {
+
+            flex: 1;
+
+            padding: 12px;
+
+            background:
+                rgba(255, 255, 255, 0.055);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.08);
+
+            border-radius: 14px;
+
+            box-shadow:
+                inset 0 1px
+                rgba(255, 255, 255, 0.05);
+        }
+
+
+        .mini-stat span {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            color:
+                rgba(255, 255, 255, 0.60);
+
+            font-size: 11px;
+
+            font-weight: 600;
+        }
+
+
+        .mini-stat strong {
+
+            color: #ffe45b;
+
+            font-size: 18px;
+
+            font-weight: 900;
+        }
+
+
+        /* =========================================
+           SECTION TITLE
+        ========================================= */
+
+        .section-title {
+
+            margin-bottom: 10px;
+
+            color: #ffe45b;
+
+            font-size: 14px;
+
+            font-weight: 900;
+        }
+
+
+        .center {
+            text-align: center;
+        }
+
+
+        /* =========================================
+           QR CODE
+        ========================================= */
+
+        .qr-wrap {
+
+            display: flex;
+
+            justify-content: center;
+
+            padding: 5px 0;
+        }
+
+
+        .qr-image {
+
+            width: 220px;
+            max-width: 100%;
+
+            height: auto;
+
+            padding: 9px;
+
+            background: #ffffff;
+
+            border:
+                3px solid
+                rgba(255, 212, 59, 0.55);
+
+            border-radius: 18px;
+
+            box-shadow:
+
+                0 10px 25px
+                rgba(0, 0, 0, 0.35),
+
+                0 0 20px
+                rgba(255, 212, 59, 0.08);
+        }
+
+
+        /* =========================================
+           COPY ROW
+        ========================================= */
+
+        .copy-row {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-bottom: 13px;
+        }
+
+
+        .copy-row:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .copy-row input {
+
+            min-width: 0;
+
+            flex: 1;
+
+            height: 44px;
+
+            padding:
+                0
+                12px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.10);
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background:
+                rgba(0, 0, 0, 0.20);
+
+            color: #ffffff;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        .copy-row input:focus {
+
+            border-color:
+                rgba(255, 212, 59, 0.55);
+        }
+
+
+        .copy-row button {
+
+            height: 44px;
+
+            padding:
+                0
+                15px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffe45b,
+                    #e9a51c
+                );
+
+            color: #321900;
+
+            font-size: 12px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 12px
+                rgba(0, 0, 0, 0.25),
+
+                inset 0 2px 3px
+                rgba(255, 255, 255, 0.55);
+
+            transition:
+                transform
+                .18s
+                ease;
+        }
+
+
+        .copy-row button:hover {
+            transform: translateY(-2px);
+        }
+
+
+        .copy-row button:active {
+            transform: translateY(1px);
+        }
+
+
+        /* =========================================
+           SHARE BUTTONS
+        ========================================= */
+
+        .share-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 9px;
+        }
+
+
+        .share-btn {
+
+            min-height: 66px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.10);
+
+            border-radius: 14px;
+
+            color: #ffffff;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+
+                0 7px 15px
+                rgba(0, 0, 0, 0.25),
+
+                inset 0 1px
+                rgba(255, 255, 255, 0.20);
+
+            transition:
+                transform
+                .18s
+                ease,
+                filter
+                .18s
+                ease;
+        }
+
+
+        .share-btn i {
+
+            font-size: 21px;
+        }
+
+
+        .share-btn:hover {
+
+            transform:
+                translateY(-2px);
+
+            filter:
+                brightness(1.08);
+        }
+
+
+        .share-btn:active {
+
+            transform:
+                translateY(1px);
+        }
+
+
+        .whatsapp-btn {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #25d366,
+                    #128c7e
+                );
+        }
+
+
+        .telegram-btn {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #2aa9e8,
+                    #168bd0
+                );
+        }
+
+
+        .native-btn {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffe45b,
+                    #e9a51c
+                );
+
+            color: #321900;
+        }
+
+
+        /* =========================================
+           COMMISSION
+        ========================================= */
+
+        .quote {
+
+            margin-bottom: 10px;
+
+            padding: 12px;
+
+            border-left:
+                4px solid
+                #ffe45b;
+
+            border-radius: 11px;
+
+            background:
+                rgba(255, 255, 255, 0.055);
+
+            color:
+                rgba(255, 255, 255, 0.82);
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        .level-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                11px
+                3px;
+
+            border-bottom:
+                1px solid
+                rgba(255, 255, 255, 0.08);
+
+            color:
+                rgba(255, 255, 255, 0.78);
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .level-row:last-child {
+            border-bottom: none;
+        }
+
+
+        .percent {
+
+            color: #ffe45b;
+
+            font-size: 14px;
+
+            font-weight: 900;
+        }
+
+
+        /* =========================================
+           BOTTOM NAVIGATION
+        ========================================= */
+
+        .bottom-nav-wrapper {
+
+            position: fixed;
+
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+            z-index: 9999;
+
+            display: flex;
+
+            justify-content: center;
+
+            padding:
+                0
+                0
+                env(safe-area-inset-bottom);
+        }
+
+
+        .bottom-nav {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            background:
+                rgba(30, 12, 27, 0.97);
+
+            border-top:
+                1px solid
+                rgba(255, 212, 59, 0.18);
+
+            border-radius:
+                20px
+                20px
+                0
+                0;
+
+            box-shadow:
+
+                0 -10px 35px
+                rgba(0, 0, 0, 0.45),
+
+                inset 0 1px
+                rgba(255, 255, 255, 0.06);
+
+            backdrop-filter:
+                blur(18px);
+
+            -webkit-backdrop-filter:
+                blur(18px);
+
+            overflow: hidden;
+        }
+
+
+        .nav-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            height: 68px;
+        }
+
+
+        .nav-btn {
+
+            position: relative;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 4px;
+
+            border: none;
+
+            background: transparent;
+
+            color:
+                rgba(255, 255, 255, 0.50);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                all
+                .2s
+                ease;
+        }
+
+
+        .nav-btn i {
+
+            font-size: 19px;
+        }
+
+
+        .nav-btn:hover {
+
+            color: #ffe45b;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* Share Active */
+
+        #shareNav {
+
+            color: #ffe45b;
+        }
+
+
+        #shareNav::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            width: 42px;
+
+            height: 3px;
+
+            border-radius:
+                0
+                0
+                5px
+                5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ffe45b,
+                    #e9a51c
+                );
+
+            box-shadow:
+                0 0 12px
+                rgba(255, 212, 59, 0.50);
+        }
+
+
+        #shareNav i {
+
+            color: #ffe45b;
+
+            filter:
+                drop-shadow(
+                    0 0 5px
+                    rgba(255, 212, 59, 0.35)
+                );
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 380px) {
+
+            .share-page {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+
+            .page-header {
+
+                margin-left: -10px;
+                margin-right: -10px;
+            }
+
+
+            .hero-row {
+                gap: 7px;
+            }
+
+
+            .mini-stat {
+                padding: 10px;
+            }
+
+
+            .mini-stat strong {
+                font-size: 16px;
+            }
+
+
+            .share-grid {
+                gap: 7px;
+            }
+
+
+            .share-btn {
+                min-height: 62px;
+                font-size: 10px;
+            }
+
+
+            .share-btn i {
+                font-size: 19px;
+            }
+
+
+            .copy-row button {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+        }
+        /* ================================
+   DASHBOARD SAME BOTTOM NAV
+================================ */
+
+.final-bottom-nav{
+  position:fixed!important;
+  left:50%!important;
+  bottom:0!important;
+  transform:translateX(-50%)!important;
+  width:100%!important;
+  max-width:430px!important;
+  height:82px!important;
+  padding:8px 8px!important;
+
+  display:grid!important;
+  grid-template-columns:repeat(5,1fr)!important;
+  align-items:center!important;
+
+  z-index:10000!important;
+
+  background:rgba(30,13,28,.96)!important;
+  backdrop-filter:blur(18px)!important;
+
+  border-top:1px solid rgba(223,91,149,.28)!important;
+
+  box-shadow:
+    0 -10px 30px rgba(0,0,0,.48)!important;
+
+  border-radius:20px 20px 0 0!important;
+}
+
+
+/* NAV BUTTON */
+
+.final-bottom-nav .nav-btn{
+  height:66px!important;
+  padding:4px 0!important;
+
+  border:0!important;
+  background:transparent!important;
+
+  color:#c9b3c2!important;
+
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+
+  gap:4px!important;
+
+  font-size:10px!important;
+  font-weight:700!important;
+
+  cursor:pointer!important;
+}
+
+
+/* NAV ICON */
+
+.final-bottom-nav .nav-btn i{
+  width:38px!important;
+  height:36px!important;
+
+  border-radius:12px!important;
+
+  display:grid!important;
+  place-items:center!important;
+
+  font-size:17px!important;
+
+  background:#5a2949!important;
+  color:#f5d9e7!important;
+
+  box-shadow:
+    inset 0 1px rgba(255,255,255,.08),
+    0 5px 12px rgba(0,0,0,.35)!important;
+}
+
+
+/* ACTIVE COLOR */
+
+.final-bottom-nav .nav-btn.active-nav,
+.final-bottom-nav .nav-btn:hover{
+  color:#ffd43b!important;
+}
+
+
+/* ACTIVE ICON */
+
+.final-bottom-nav .nav-btn.active-nav i{
+  background:#ffd43b!important;
+  color:#3a2000!important;
+
+  box-shadow:
+    0 0 20px rgba(255,212,59,.48),
+    0 7px 15px rgba(0,0,0,.35)!important;
+}
+
+
+/* GAME BUTTON */
+
+.final-bottom-nav .game-nav i{
+  width:54px!important;
+  height:54px!important;
+
+  border-radius:18px!important;
+
+  margin-top:-22px!important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffe45b,
+      #d38a1b
+    )!important;
+
+  color:#3a2000!important;
+
+  font-size:23px!important;
+
+  box-shadow:
+    inset 0 2px rgba(255,255,255,.55),
+    0 10px 20px rgba(0,0,0,.55),
+    0 0 25px rgba(255,208,45,.32)!important;
+}
+
+
+.final-bottom-nav .game-nav{
+  color:#ffd43b!important;
+}
+
+
+/* SMALL MOBILE */
+
+@media(max-width:360px){
+
+  .final-bottom-nav .nav-btn span{
+    font-size:9px;
+  }
+
+}
+/* =========================================
+   DASHBOARD STYLE NAV HOVER LIFT
+========================================= */
+
+.final-bottom-nav .nav-btn {
+    position: relative !important;
+    transition:
+        transform .25s ease,
+        color .25s ease,
+        filter .25s ease !important;
+}
+
+/* Mouse arrow le jaane par button upar uthega */
+.final-bottom-nav .nav-btn:hover {
+    transform: translateY(-5px) !important;
+    color: #ffd43b !important;
+}
+
+/* Icon bhi halka upar + zoom */
+.final-bottom-nav .nav-btn:hover i {
+    transform: translateY(-3px) scale(1.08) !important;
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.5),
+        0 0 18px rgba(255,212,59,.18) !important;
+}
+
+/* Icon smooth animation */
+.final-bottom-nav .nav-btn i {
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease !important;
+}
+
+/* Game button thoda zyada uthe */
+.final-bottom-nav .game-nav:hover {
+    transform: translateY(-8px) !important;
+}
+
+.final-bottom-nav .game-nav:hover i {
+    transform:
+        translateY(-4px)
+        scale(1.12)
+        rotate(-4deg) !important;
+
+    filter: brightness(1.12);
+
+    box-shadow:
+        0 14px 25px rgba(0,0,0,.6),
+        0 0 30px rgba(255,212,59,.45) !important;
+}
+
+    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+
+<body>
+
+<div class="share-page">
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
+
+    <div class="page-header">
+
+        <div class="header-inner">
+
+            <div class="avatar">
+                S
+            </div>
+
+            <div>
+
+                <h1>
+                    Share
+                </h1>
+
+                <p>
+                    Invite and earn together
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         REFERRAL REWARDS
+    ====================================== -->
+
+    <div class="card hero">
+
+        <div class="hero-top">
+
+            <div>
+
+                <div class="hero-title">
+                    Referral Rewards
+                </div>
+
+                <div class="hero-sub">
+                    Earn commissions by inviting friends
+                </div>
+
+            </div>
+
+
+            <div class="badge">
+                30%
+            </div>
+
+        </div>
+
+
+        <div class="hero-row">
+
+
+            <div class="mini-stat">
+
+                <span>
+                    Today Income
+                </span>
+
+                <strong id="todayIncome">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="mini-stat">
+
+                <span>
+                    Total Income
+                </span>
+
+                <strong id="totalIncome">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         QR CODE
+    ====================================== -->
+
+    <div class="card small-card">
+
+        <div class="section-title center">
+            My QR Code
+        </div>
+
+
+        <div class="qr-wrap">
+
+            <img
+                id="qrImage"
+                class="qr-image"
+                src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=BRITANNIYA"
+                alt="Referral QR Code"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         REFERRAL CODE + LINK
+    ====================================== -->
+
+    <div class="card small-card">
+
+
+        <div class="section-title">
+            Referral Code
+        </div>
+
+
+        <div class="copy-row">
+
+            <input
+                id="inviteCode"
+                type="text"
+                readonly
+                placeholder="Loading..."
+            >
+
+            <button
+                type="button"
+                onclick="copyInviteCode()"
+            >
+                Copy
+            </button>
+
+        </div>
+
+
+        <div class="section-title">
+            Invite Link
+        </div>
+
+
+        <div class="copy-row">
+
+            <input
+                id="referralLink"
+                type="text"
+                readonly
+                placeholder="Loading..."
+            >
+
+            <button
+                type="button"
+                onclick="copyReferralLink()"
+            >
+                Copy
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================
+         SHARE OPTIONS
+    ====================================== -->
+
+    <div class="card small-card share-card">
+
+        <div class="section-title">
+            Share & Invite
+        </div>
+
+
+        <div class="share-grid">
+
+
+            <!-- WhatsApp -->
+
+            <button
+                type="button"
+                class="share-btn whatsapp-btn"
+                onclick="shareWhatsApp()"
+            >
+
+                <i class="fab fa-whatsapp"></i>
+
+                <span>
+                    WhatsApp
+                </span>
+
+            </button>
+
+
+            <!-- Telegram -->
+
+            <button
+                type="button"
+                class="share-btn telegram-btn"
+                onclick="shareTelegram()"
+            >
+
+                <i class="fab fa-telegram-plane"></i>
+
+                <span>
+                    Telegram
+                </span>
+
+            </button>
+
+
+            <!-- Native Share -->
+
+            <button
+                type="button"
+                class="share-btn native-btn"
+                onclick="nativeShare()"
+            >
+
+                <i class="fas fa-share-nodes"></i>
+
+                <span>
+                    Share
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================
+         COMMISSION PLAN
+    ====================================== -->
+
+    <div class="card small-card">
+
+
+        <div class="section-title">
+            Commission Plan
+        </div>
+
+
+        <div class="quote">
+
+            <strong>
+                Invite friends to join and earn up to 30% commission.
+            </strong>
+
+        </div>
+
+
+        <div class="level-row">
+
+            <div>
+                LV - 1
+            </div>
+
+            <div
+                class="percent"
+                id="level1"
+            >
+                25%
+            </div>
+
+        </div>
+
+
+        <div class="level-row">
+
+            <div>
+                LV - 2
+            </div>
+
+            <div
+                class="percent"
+                id="level2"
+            >
+                3%
+            </div>
+
+        </div>
+
+
+        <div class="level-row">
+
+            <div>
+                LV - 3
+            </div>
+
+            <div
+                class="percent"
+                id="level3"
+            >
+                2%
+            </div>
+
+        </div>
+
+
+    </div>
+    
+
+
+</div>
+
+<div class="final-bottom-nav">
+
+    <button id="homeNav" class="nav-btn" onclick="goDashboard()">
+        <i class="fas fa-house"></i>
+        <span>Plan</span>
+    </button>
+
+    <button id="shareNav" class="nav-btn active-nav" onclick="goShare()">
+        <i class="fas fa-arrows-rotate"></i>
+        <span>Convert</span>
+    </button>
+
+     <button id="gameNav" class="nav-btn game-nav" onclick="goCard()">
+    <i class="fas fa-credit-card"></i>
+    <span>Card</span>
+     </button>
+
+    <button id="teamNav" class="nav-btn" onclick="goTeam()">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+    </button>
+
+    <button id="myNav" class="nav-btn" onclick="goMy()">
+        <i class="fas fa-user"></i>
+        <span>My</span>
+    </button>
+
+</div>
+
+<div class="h-20"></div>
+<script src="js/share.js"></script>
+<script src="js/toast.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="css/confirm.css">
+<script src="js/confirm.js"></script></body>
+</html>

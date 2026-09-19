@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BRITANNIYA - My Profile</title>
+<link rel="stylesheet" href="css/toast.css">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<script src="js/navigation.js"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<style>
+
+/* =========================================
+   GLOBAL
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    background:#120914;
+}
+
+body{
+    min-height:100vh;
+    padding-bottom:110px;
+
+    color:#fff;
+
+    background:
+    radial-gradient(
+        circle at 50% -10%,
+        rgba(255,212,59,.10),
+        transparent 35%
+    ),
+    linear-gradient(
+        180deg,
+        #1d0b1a 0%,
+        #120914 55%,
+        #0d070d 100%
+    );
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.my-page{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:auto;
+    padding:12px 12px 120px;
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.profile-card{
+
+    position:relative;
+
+    width:100%;
+
+    padding:20px 16px 18px;
+
+    border-radius:24px;
+
+    overflow:hidden;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(103,48,80,.95),
+        rgba(53,23,47,.96)
+    );
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.10),
+    0 18px 40px rgba(0,0,0,.45),
+    0 0 25px rgba(255,212,59,.08);
+}
+
+
+/* Glass shine */
+
+.profile-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:-80px;
+    right:-70px;
+
+    width:190px;
+    height:190px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(
+        circle,
+        rgba(255,212,59,.18),
+        transparent 65%
+    );
+
+    pointer-events:none;
+}
+
+
+/* =========================================
+   PROFILE TOP
+========================================= */
+
+.profile-top{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    z-index:2;
+}
+
+
+/* Profile Logo */
+
+.profile-logo{
+
+    width:72px;
+    height:72px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    padding:3px;
+
+    background:
+    linear-gradient(
+        145deg,
+        #ffe45b,
+        #d98a18
+    );
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.45),
+    0 0 18px rgba(255,212,59,.20);
+}
+
+.profile-logo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    border-radius:50%;
+
+    background:#fff;
+}
+
+
+/* Profile Details */
+
+.mobile-number-row{
+    min-width:0;
+}
+
+.mobile-number-row h2{
+
+    font-size:19px;
+
+    font-weight:800;
+
+    color:#fff;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.profile-id{
+
+    margin-top:3px;
+
+    font-size:11px;
+
+    color:rgba(255,255,255,.65);
+}
+
+
+/* =========================================
+   VIP BOX
+========================================= */
+
+.vip-box{
+
+    margin-top:10px;
+
+    padding:10px 12px;
+
+    border-radius:14px;
+
+    background:
+    rgba(0,0,0,.22);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.05);
+}
+
+.vip-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    color:#ffe45b;
+}
+
+.vip-progress{
+
+    width:100%;
+
+    height:7px;
+
+    margin-top:7px;
+
+    overflow:hidden;
+
+    border-radius:20px;
+
+    background:
+    rgba(255,255,255,.12);
+}
+
+.vip-progress-fill{
+
+    width:0%;
+
+    height:100%;
+
+    border-radius:20px;
+
+    background:
+    linear-gradient(
+        90deg,
+        #ffe45b,
+        #ffb91c
+    );
+
+    box-shadow:
+    0 0 10px rgba(255,212,59,.45);
+
+    transition:
+    width .6s ease;
+}
+
+.vip-amount{
+
+    margin-top:5px;
+
+    font-size:10px;
+
+    color:rgba(255,255,255,.65);
+}
+
+
+/* =========================================
+   STATS
+========================================= */
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(3,1fr);
+
+    gap:8px;
+
+    margin-top:18px;
+}
+
+.stat-card{
+
+    padding:12px 6px;
+
+    text-align:center;
+
+    border-radius:15px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.09);
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.05);
+
+    transition:.25s ease;
+}
+
+.stat-card:hover{
+
+    transform:
+    translateY(-3px);
+
+    background:
+    rgba(255,255,255,.12);
+}
+
+.stat-value{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#ffe45b;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.stat-label{
+
+    display:block;
+
+    margin-top:3px;
+
+    font-size:9px;
+
+    color:rgba(255,255,255,.62);
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title{
+
+    margin:20px 4px 10px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    color:#ffe45b;
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+}
+
+
+/* =========================================
+   OPTIONS
+========================================= */
+
+.options-container{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:9px;
+}
+
+
+/* Option Button */
+
+.option-btn{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:58px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:10px 14px;
+
+    border-radius:16px;
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(103,48,80,.88),
+        rgba(53,23,47,.94)
+    );
+
+    color:#fff;
+
+    cursor:pointer;
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.06),
+    0 6px 15px rgba(0,0,0,.28);
+
+    transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    border-color .25s ease;
+}
+
+
+/* Hover */
+
+.option-btn:hover{
+
+    transform:
+    translateY(-3px);
+
+    border-color:
+    rgba(255,212,59,.35);
+
+    box-shadow:
+    0 10px 22px rgba(0,0,0,.42),
+    0 0 15px rgba(255,212,59,.08);
+}
+
+
+/* Left */
+
+.option-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+
+/* Icon */
+
+.option-icon{
+
+    width:38px;
+    height:38px;
+
+    display:grid;
+
+    place-items:center;
+
+    border-radius:12px;
+
+    background:
+    rgba(255,212,59,.12);
+
+    color:#ffe45b;
+
+    font-size:16px;
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.06);
+    
+}
+
+
+/* Text */
+
+.option-text{
+
+    font-size:13px;
+
+    font-weight:700;
+
+    color:#fff;
+    
+}
+
+
+/* Arrow */
+
+.option-arrow{
+
+    color:
+    rgba(255,255,255,.40);
+
+    font-size:12px;
+
+    transition:.25s ease;
+}
+
+.option-btn:hover .option-arrow{
+
+    color:#ffe45b;
+
+    transform:
+    translateX(3px);
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+.logout-btn{
+
+    margin-top:4px;
+
+    background:
+    linear-gradient(
+        145deg,
+        rgba(130,35,55,.85),
+        rgba(67,19,35,.95)
+    );
+}
+
+.logout-btn .option-icon{
+
+    color:#ff7272;
+
+    background:
+    rgba(255,70,70,.12);
+}
+
+.logout-btn .option-text{
+
+    color:#ff8585;
+}
+
+
+/* =========================================
+   LOADER
+========================================= */
+
+#loaderOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:99999;
+
+    background:
+    rgba(10,5,10,.78);
+
+    backdrop-filter:
+    blur(12px);
+}
+
+.loader-box{
+
+    width:90px;
+    height:90px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:22px;
+
+    background:
+    rgba(70,30,60,.88);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.55);
+}
+
+.loader-spinner{
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    border:4px solid
+    rgba(255,255,255,.12);
+
+    border-top-color:
+    #ffe45b;
+
+    animation:
+    spin 1s linear infinite;
+}
+
+@keyframes spin{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================
+   BOTTOM NAVIGATION
+   DASHBOARD STYLE
+========================================= */
+
+.final-bottom-nav{
+
+    position:fixed !important;
+
+    left:50% !important;
+
+    bottom:0 !important;
+
+    transform:
+    translateX(-50%) !important;
+
+    width:100% !important;
+
+    max-width:430px !important;
+
+    height:82px !important;
+
+    padding:8px 8px !important;
+
+    display:grid !important;
+
+    grid-template-columns:
+    repeat(5,1fr) !important;
+
+    align-items:center !important;
+
+    z-index:10000 !important;
+
+    background:
+    rgba(30,13,28,.96) !important;
+
+    backdrop-filter:
+    blur(18px) !important;
+
+    border-top:
+    1px solid rgba(223,91,149,.28) !important;
+
+    box-shadow:
+    0 -10px 30px rgba(0,0,0,.48) !important;
+
+    border-radius:
+    20px 20px 0 0 !important;
+}
+
+
+/* Nav Button */
+
+.final-bottom-nav .nav-btn{
+
+    position:relative;
+
+    height:66px !important;
+
+    padding:4px 0 !important;
+
+    border:0 !important;
+
+    background:transparent !important;
+
+    color:#c9b3c2 !important;
+
+    display:flex !important;
+
+    flex-direction:column !important;
+
+    align-items:center !important;
+
+    justify-content:center !important;
+
+    gap:4px !important;
+
+    font-size:10px !important;
+
+    font-weight:700 !important;
+
+    cursor:pointer !important;
+
+    transition:
+    transform .25s ease,
+    color .25s ease !important;
+}
+
+
+/* Hover lift */
+
+.final-bottom-nav .nav-btn:hover{
+
+    transform:
+    translateY(-5px) !important;
+
+    color:#ffd43b !important;
+}
+
+
+/* Nav Icon */
+
+.final-bottom-nav .nav-btn i{
+
+    width:38px !important;
+
+    height:36px !important;
+
+    border-radius:12px !important;
+
+    display:grid !important;
+
+    place-items:center !important;
+
+    font-size:17px !important;
+
+    background:#5a2949 !important;
+
+    color:#f5d9e7 !important;
+
+    box-shadow:
+    inset 0 1px rgba(255,255,255,.08),
+    0 5px 12px rgba(0,0,0,.35) !important;
+
+    transition:
+    transform .25s ease,
+    box-shadow .25s ease !important;
+}
+
+
+/* Icon hover */
+
+.final-bottom-nav .nav-btn:hover i{
+
+    transform:
+    translateY(-3px)
+    scale(1.08);
+
+    box-shadow:
+    0 10px 20px rgba(0,0,0,.5),
+    0 0 18px rgba(255,212,59,.18) !important;
+}
+
+
+/* Active */
+
+.final-bottom-nav .nav-btn.active-nav{
+
+    color:#ffd43b !important;
+}
+
+.final-bottom-nav .nav-btn.active-nav i{
+
+    background:#ffd43b !important;
+
+    color:#3a2000 !important;
+
+    box-shadow:
+    0 0 20px rgba(255,212,59,.48),
+    0 7px 15px rgba(0,0,0,.35) !important;
+}
+
+
+/* Game Center */
+
+.final-bottom-nav .game-nav i{
+
+    width:54px !important;
+
+    height:54px !important;
+
+    border-radius:18px !important;
+
+    margin-top:-22px !important;
+
+    background:
+    linear-gradient(
+        145deg,
+        #ffe45b,
+        #d38a1b
+    ) !important;
+
+    color:#3a2000 !important;
+
+    font-size:23px !important;
+
+    box-shadow:
+    inset 0 2px rgba(255,255,255,.55),
+    0 10px 20px rgba(0,0,0,.55),
+    0 0 25px rgba(255,208,45,.32) !important;
+}
+
+.final-bottom-nav .game-nav{
+
+    color:#ffd43b !important;
+}
+
+
+/* Game hover */
+
+.final-bottom-nav .game-nav:hover{
+
+    transform:
+    translateY(-8px) !important;
+}
+
+.final-bottom-nav .game-nav:hover i{
+
+    transform:
+    translateY(-4px)
+    scale(1.12)
+    rotate(-4deg) !important;
+}
+
+
+/* Mobile */
+
+@media(max-width:360px){
+
+    .final-bottom-nav
+    .nav-btn span{
+
+        font-size:9px;
+    }
+
+    .profile-card{
+
+        padding:
+        16px 12px;
+    }
+
+    .profile-logo{
+
+        width:62px;
+        height:62px;
+    }
+
+    .mobile-number-row h2{
+
+        font-size:16px;
+    }
+
+}
+#mobileEyeBtn {
+    border: none;
+    background: transparent;
+    color: #ffd43b;
+    cursor: pointer;
+    padding: 4px 6px;
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+#mobileEyeBtn:active {
+    transform: scale(0.9);
+}
+.profile-details h2{
+
+    display:inline-block;
+
+    padding:8px 24px;
+
+    border:2px solid #ffd43b;
+
+    border-radius:50px;
+
+    background:rgba(255,212,59,.08);
+    
+
+}
+.profile-details{
+    text-align:center;
+}
+.app-container{
+    width:100%;
+    max-width:430px;
+    height:100vh;
+    margin:auto;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    background:linear-gradient(180deg,#321326 0%,#1b0d19 55%,#120811 100%);
+}
+
+.my-page{
+    flex:1;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    padding:12px;
+}
+
+.profile-section{
+    flex-shrink:0;
+    margin-bottom: 10px;
+}
+
+.account-title{
+    flex-shrink:0;
+   
+    display:block;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    color:#ffe45b;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.settings-scroll{
+    flex:1;
+    overflow-y:auto;
+    padding:0 0 110px;
+}
+
+.settings-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+
+<body>
+
+
+<!-- =========================================
+     LOADER
+========================================= -->
+
+<div id="loaderOverlay">
+
+    <div class="loader-box">
+
+        <div class="loader-spinner"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================
+     MAIN
+========================================= -->
+<div class="app-container">
+
+<div class="my-page">
+
+
+<!-- =========================================
+     PROFILE
+========================================= -->
+<div class="profile-section">
+<div class="profile-card">
+
+    <div class="profile-top">
+
+        <div class="profile-logo">
+
+            <img
+                src="logo.png"
+                alt="User"
+                onerror="
+                this.src='https://ui-avatars.com/api/?name=User&background=5a2949&color=fff';
+                "
+            >
+
+        </div>
+
+
+        <div class="profile-details">
+
+            <h2>
+
+                My Profile
+
+            </h2>
+
+           <div class="mobile-number-row">
+             <div class="user-id">
+            ID :
+            
+
+    <span id="userMobile">Loading...</span>
+
+<button
+    type="button"
+    id="mobileEyeBtn"
+    onclick="toggleMobileNumber()"
+    aria-label="Show or hide mobile number"
+>
+    <i class="fas fa-eye"></i>
+</button>
+
+ </div>
+ </div>
+
+
+            <div class="vip-box">
+
+                <div class="vip-title">
+
+                    <span>
+                        ⭐ <span id="vipLevel">VIP 0</span>
+                    </span>
+
+            </div>
+
+
+                <div class="vip-progress">
+
+                    <div
+                        class="vip-progress-fill"
+                        id="vipProgress">
+                    </div>
+
+                </div>
+
+
+                <div class="vip-amount">
+
+                    <span id="currentRecharge">
+                        ₹0
+                    </span>
+
+                    /
+
+                    <span id="targetRecharge">
+                        ₹3000
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Stats -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <span
+                id="balance"
+                class="stat-value">
+                ₹0
+            </span>
+
+            <span class="stat-label">
+                Balance
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span
+                id="totalIncome"
+                class="stat-value">
+                ₹0
+            </span>
+
+            <span class="stat-label">
+                Total Income
+            </span>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span
+                id="totalRecharge"
+                class="stat-value">
+                ₹0
+            </span>
+
+            <span class="stat-label">
+                Recharge
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+
+<div class="settings-scroll">
+
+
+
+
+<div class="options-container">
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('device.html')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-mobile-alt"></i>
+
+        </div>
+
+        <span class="option-text">
+            Devices
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('personal-information.html')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-id-card"></i>
+
+        </div>
+
+        <span class="option-text">
+            Personal Information
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('income-detail.html')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-chart-line"></i>
+
+        </div>
+
+        <span class="option-text">
+            Income Details
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('records.html?type=withdraw')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-wallet"></i>
+
+        </div>
+
+        <span class="option-text">
+            Withdrawal Details
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('records.html?type=recharge')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-ranking-star"></i>
+
+        </div>
+
+        <span class="option-text">
+            Recharge Details
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn"
+    onclick="showLoader('about.html')">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-circle-info"></i>
+
+        </div>
+
+        <span class="option-text">
+            About Us
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-download"></i>
+
+        </div>
+
+        <span class="option-text">
+            Download
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+
+<button
+    class="option-btn logout-btn"
+    onclick="logout()">
+
+    <div class="option-left">
+
+        <div class="option-icon">
+
+            <i class="fas fa-right-from-bracket"></i>
+
+        </div>
+
+        <span class="option-text">
+            Log Out
+        </span>
+
+    </div>
+
+    <i class="fas fa-chevron-right option-arrow"></i>
+
+</button>
+
+
+</div>
+
+
+</div>
+</div>
+
+
+<!-- =========================================
+     BOTTOM NAV
+========================================= -->
+
+<div class="final-bottom-nav">
+
+
+<button
+    id="homeNav"
+    class="nav-btn"
+    onclick="goDashboard()">
+
+    <i class="fas fa-house"></i>
+
+    <span>
+        Plan
+    </span>
+
+</button>
+
+
+<button
+    id="shareNav"
+    class="nav-btn"
+    onclick="goShare()">
+
+    <i class="fas fa-arrows-rotate"></i>
+
+    <span>
+        Convert
+    </span>
+
+</button>
+
+
+<button id="gameNav" class="nav-btn game-nav" onclick="goCard()">
+    <i class="fas fa-credit-card"></i>
+    <span>Card</span>
+</button>
+
+
+<button
+    id="teamNav"
+    class="nav-btn"
+    onclick="goTeam()">
+
+    <i class="fas fa-users"></i>
+
+    <span>
+        Team
+    </span>
+
+</button>
+
+
+<button
+    id="myNav"
+    class="nav-btn active-nav"
+    onclick="goMy()">
+
+    <i class="fas fa-user"></i>
+
+    <span>
+        My
+    </span>
+
+</button>
+
+
+</div>
+
+
+<div class="h-20"></div>
+
+
+<!-- =========================================
+     EXISTING PROFILE JS
+========================================= -->
+
+<script>
+
+async function loadProfile() {
+
+    try {
+
+        const token =
+            localStorage.getItem("token");
+
+
+        const response = await fetch(
+
+            "https://mygame-backend.sohitking478.workers.dev/api/user/profile",
+
+            {
+
+                method:"GET",
+
+                headers:{
+                    Authorization:
+                    "Bearer " + token
+                }
+
+            }
+
+        );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.success) {
+
+
+            const user =
+                data.user;
+
+
+            const recharge =
+                user.totalRecharge || 0;
+
+
+            let vip = 0;
+
+            let target = 3000;
+
+
+            if (recharge >= 30000) {
+
+                vip = 6;
+
+                target = 30000;
+
+            }
+
+            else if (recharge >= 20000) {
+
+                vip = 5;
+
+                target = 30000;
+
+            }
+
+            else if (recharge >= 12000) {
+
+                vip = 4;
+
+                target = 20000;
+
+            }
+
+            else if (recharge >= 8000) {
+
+                vip = 3;
+
+                target = 12000;
+
+            }
+
+            else if (recharge >= 5000) {
+
+                vip = 2;
+
+                target = 8000;
+
+            }
+
+            else if (recharge >= 3000) {
+
+                vip = 1;
+
+                target = 5000;
+
+            }
+
+
+            document.getElementById(
+                "vipLevel"
+            ).innerText =
+                "VIP " + vip;
+
+
+            document.getElementById(
+                "currentRecharge"
+            ).innerText =
+                "₹" + recharge;
+
+
+            document.getElementById(
+                "targetRecharge"
+            ).innerText =
+                "₹" + target;
+
+
+            let percent =
+                (recharge / target) * 100;
+
+
+            if (percent > 100)
+
+                percent = 100;
+
+
+            document.getElementById(
+                "vipProgress"
+            ).style.width =
+                percent + "%";
+
+
+            setUserMobile(user.mobile);
+
+
+            document.getElementById(
+                "balance"
+            ).innerText =
+                "₹" +
+                user.balance.toFixed(2);
+
+
+            document.getElementById(
+                "totalIncome"
+            ).innerText =
+                "₹" +
+                user.totalIncome.toFixed(2);
+
+
+            document.getElementById(
+                "totalRecharge"
+            ).innerText =
+                "₹" +
+                (user.rechargeBalance || 0)
+                .toFixed(2);
+
+
+        }
+
+        else {
+
+            showPopup(
+                data.message
+            );
+
+        }
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+function logout() {
+
+    showConfirm("Are you sure you want to logout?", function () {
+
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("token");
+
+        showSuccess("Logout Successful");
+
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1500);
+
+    });
+
+}
+
+
+
+loadProfile();
+let originalMobileNumber = "";
+let mobileHidden = false;
+
+function setUserMobile(number){
+
+    originalMobileNumber = String(number || "");
+    mobileHidden = false;
+
+    document.getElementById("userMobile").innerText =
+        originalMobileNumber;
+
+    document.querySelector("#mobileEyeBtn i").className =
+        "fas fa-eye";
+}
+
+function toggleMobileNumber(){
+
+    if(!originalMobileNumber) return;
+
+    mobileHidden = !mobileHidden;
+
+    if(mobileHidden){
+
+        document.getElementById("userMobile").innerText =
+            originalMobileNumber.substring(0,3) +
+            "****" +
+            originalMobileNumber.substring(7);
+
+        document.querySelector("#mobileEyeBtn i").className =
+            "fas fa-eye-slash";
+
+    }else{
+
+        document.getElementById("userMobile").innerText =
+            originalMobileNumber;
+
+        document.querySelector("#mobileEyeBtn i").className =
+            "fas fa-eye";
+    }
+}
+</script>
+<div id="confirmPopup">
+
+    <div class="confirm-card">
+
+        <div id="confirmTitle" class="confirm-title">
+            Are you sure?
+        </div>
+
+        <div class="confirm-buttons">
+
+            <button
+                class="cancel-btn"
+                onclick="closeConfirm()">
+                Cancel
+            </button>
+
+            <button
+                class="confirm-btn"
+                onclick="confirmOk()">
+                Confirm
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/toast.js"></script>
+
+
+<script src="js/confirm.js"></script>
+</body>
+</html>
