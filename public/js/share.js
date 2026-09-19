@@ -2,40 +2,28 @@
 // BRITANNIYA Share Page
 // ==============================
 
-
 // ==============================
 // LOGIN TOKEN
 // ==============================
 
 (function () {
-
-    const token =
-        localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     if (
         !token ||
         token === "null" ||
         token === "undefined"
     ) {
-
-        window.location.href =
-            "login.html";
-
+        window.location.href = "login.html";
     }
-
 })();
-
-
-const token =
-    localStorage.getItem("token");
 
 
 // ==============================
 // API
 // ==============================
 
-const API =
-    "/api/referral/dashboard";
+const API = "/api/referral/dashboard";
 
 
 // ==============================
@@ -46,72 +34,66 @@ async function loadReferralDashboard() {
 
     try {
 
+        const token = localStorage.getItem("token");
+
         if (!token) {
+            window.location.href = "login.html";
             return;
         }
 
+        const controller = new AbortController();
 
-        const res =
-            await fetch(
-                API,
-                {
+        const timeout = setTimeout(() => {
+            controller.abort();
+        }, 15000);
 
-                    method: "GET",
+        const res = await fetch(API, {
+            method: "GET",
 
-                    headers: {
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            },
 
-                        Accept:
-                            "application/json",
+            cache: "no-store",
+            signal: controller.signal
+        });
 
-                        Authorization:
-                            "Bearer " + token
+        clearTimeout(timeout);
 
-                    },
+        const data = await res.json().catch(() => ({}));
 
-                    cache:
-                        "no-store"
+        console.log("Referral Dashboard:", data);
 
-                }
-            );
+        // ==============================
+        // AUTH ERROR
+        // ==============================
 
+        if (res.status === 401) {
 
-        const data =
-            await res
-                .json()
-                .catch(
-                    () => ({})
-                );
+            localStorage.removeItem("token");
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("isLogin");
 
-
-        console.log(
-            "Referral Dashboard:",
-            data
-        );
+            window.location.href = "login.html";
+            return;
+        }
 
 
         // ==============================
         // API ERROR
         // ==============================
 
-        if (
-            !res.ok ||
-            !data.success
-        ) {
+        if (!res.ok || !data.success) {
 
-            if (
-                typeof showPopup ===
-                "function"
-            ) {
-
-                showPopup(
+            if (typeof showError === "function") {
+                showError(
                     data.message ||
                     "Unable to load referral data"
                 );
-
             }
 
             return;
-
         }
 
 
@@ -120,15 +102,11 @@ async function loadReferralDashboard() {
         // ==============================
 
         const inviteCode =
-            document.getElementById(
-                "inviteCode"
-            );
+            document.getElementById("inviteCode");
 
         if (inviteCode) {
-
             inviteCode.value =
                 data.inviteCode || "";
-
         }
 
 
@@ -137,15 +115,11 @@ async function loadReferralDashboard() {
         // ==============================
 
         const referralLink =
-            document.getElementById(
-                "referralLink"
-            );
+            document.getElementById("referralLink");
 
         if (referralLink) {
-
             referralLink.value =
                 data.referralLink || "";
-
         }
 
 
@@ -154,9 +128,7 @@ async function loadReferralDashboard() {
         // ==============================
 
         const qrImage =
-            document.getElementById(
-                "qrImage"
-            );
+            document.getElementById("qrImage");
 
         if (
             qrImage &&
@@ -165,10 +137,7 @@ async function loadReferralDashboard() {
 
             qrImage.src =
                 "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=" +
-                encodeURIComponent(
-                    data.referralLink
-                );
-
+                encodeURIComponent(data.referralLink);
         }
 
 
@@ -177,9 +146,7 @@ async function loadReferralDashboard() {
         // ==============================
 
         const todayIncome =
-            document.getElementById(
-                "todayIncome"
-            );
+            document.getElementById("todayIncome");
 
         if (todayIncome) {
 
@@ -187,10 +154,7 @@ async function loadReferralDashboard() {
                 "₹" +
                 Number(
                     data.todayIncome || 0
-                ).toLocaleString(
-                    "en-IN"
-                );
-
+                ).toLocaleString("en-IN");
         }
 
 
@@ -199,9 +163,7 @@ async function loadReferralDashboard() {
         // ==============================
 
         const totalIncome =
-            document.getElementById(
-                "totalIncome"
-            );
+            document.getElementById("totalIncome");
 
         if (totalIncome) {
 
@@ -209,22 +171,35 @@ async function loadReferralDashboard() {
                 "₹" +
                 Number(
                     data.totalIncome || 0
-                ).toLocaleString(
-                    "en-IN"
-                );
-
+                ).toLocaleString("en-IN");
         }
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Referral Dashboard Error:",
             error
         );
 
-    }
+        if (
+            error.name === "AbortError"
+        ) {
 
+            if (typeof showError === "function") {
+                showError(
+                    "Referral server response timeout"
+                );
+            }
+
+        } else {
+
+            if (typeof showError === "function") {
+                showError(
+                    "Unable to load referral data"
+                );
+            }
+        }
+    }
 }
 
 
@@ -236,19 +211,11 @@ async function copyText(text, message) {
 
     if (!text) {
 
-        if (
-            typeof showPopup ===
-            "function"
-        ) {
-
-            showPopup(
-                "Nothing to copy"
-            );
-
+        if (typeof showWarning === "function") {
+            showWarning("Nothing to copy");
         }
 
         return false;
-
     }
 
 
@@ -263,34 +230,21 @@ async function copyText(text, message) {
             window.isSecureContext
         ) {
 
-            await navigator.clipboard.writeText(
-                text
-            );
+            await navigator.clipboard.writeText(text);
 
-
-            if (
-                typeof showSuccess ===
-                "function"
-            ) {
-
-                showSuccess(
-                    message
-                );
-
+            if (typeof showSuccess === "function") {
+                showSuccess(message);
             }
 
             return true;
-
         }
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.warn(
             "Clipboard API failed:",
             error
         );
-
     }
 
 
@@ -301,123 +255,55 @@ async function copyText(text, message) {
     try {
 
         const textarea =
-            document.createElement(
-                "textarea"
-            );
+            document.createElement("textarea");
 
-
-        textarea.value =
-            text;
-
+        textarea.value = text;
 
         textarea.setAttribute(
             "readonly",
             ""
         );
 
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        textarea.style.top = "0";
+        textarea.style.opacity = "0";
 
-        textarea.style.position =
-            "fixed";
-
-        textarea.style.left =
-            "-9999px";
-
-        textarea.style.top =
-            "0";
-
-        textarea.style.opacity =
-            "0";
-
-
-        document.body.appendChild(
-            textarea
-        );
-
+        document.body.appendChild(textarea);
 
         textarea.focus();
         textarea.select();
 
-
         const copied =
-            document.execCommand(
-                "copy"
-            );
-
+            document.execCommand("copy");
 
         textarea.remove();
 
-
         if (copied) {
 
-            if (
-                typeof showSuccess ===
-                "function"
-            ) {
-
-                showSuccess(
-                    message
-                );
-
+            if (typeof showSuccess === "function") {
+                showSuccess(message);
             }
 
             return true;
-
         }
 
-    }
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Fallback copy failed:",
             error
         );
-
     }
 
 
-    // ==============================
-    // FINAL FALLBACK
-    // ==============================
-
-    try {
-
-        const input =
-            document.getElementById(
-                "inviteCode"
-            );
-
-
-        if (input) {
-
-            input.focus();
-            input.select();
-
-        }
-
-    }
-    catch (error) {
-
-        console.error(
-            error
-        );
-
-    }
-
-
-    if (
-        typeof showPopup ===
-        "function"
-    ) {
-
-        showPopup(
+    if (typeof showError === "function") {
+        showError(
             "Copy failed. Please try again."
         );
-
     }
 
-
     return false;
-
 }
 
 
@@ -428,27 +314,19 @@ async function copyText(text, message) {
 async function copyInviteCode() {
 
     const input =
-        document.getElementById(
-            "inviteCode"
-        );
-
+        document.getElementById("inviteCode");
 
     if (!input) {
-
         return;
-
     }
-
 
     const value =
         input.value.trim();
-
 
     await copyText(
         value,
         "Invite Code Copied"
     );
-
 }
 
 
@@ -459,27 +337,19 @@ async function copyInviteCode() {
 async function copyReferralLink() {
 
     const input =
-        document.getElementById(
-            "referralLink"
-        );
-
+        document.getElementById("referralLink");
 
     if (!input) {
-
         return;
-
     }
-
 
     const value =
         input.value.trim();
-
 
     await copyText(
         value,
         "Referral Link Copied"
     );
-
 }
 
 
@@ -490,55 +360,38 @@ async function copyReferralLink() {
 function shareWhatsApp() {
 
     const input =
-        document.getElementById(
-            "referralLink"
-        );
-
+        document.getElementById("referralLink");
 
     if (!input) {
         return;
     }
 
-
     const link =
         input.value.trim();
 
-
     if (!link) {
 
-        if (
-            typeof showPopup ===
-            "function"
-        ) {
-
-            showPopup(
+        if (typeof showWarning === "function") {
+            showWarning(
                 "Referral link is not ready yet."
             );
-
         }
 
         return;
-
     }
-
 
     const text =
         "Join BRITANNIYA using my referral link\n\n" +
         link;
 
-
     const url =
         "https://wa.me/?text=" +
-        encodeURIComponent(
-            text
-        );
-
+        encodeURIComponent(text);
 
     window.open(
         url,
         "_blank"
     );
-
 }
 
 
@@ -549,54 +402,38 @@ function shareWhatsApp() {
 function shareTelegram() {
 
     const input =
-        document.getElementById(
-            "referralLink"
-        );
-
+        document.getElementById("referralLink");
 
     if (!input) {
         return;
     }
 
-
     const link =
         input.value.trim();
 
-
     if (!link) {
 
-        if (
-            typeof showPopup ===
-            "function"
-        ) {
-
-            showPopup(
+        if (typeof showWarning === "function") {
+            showWarning(
                 "Referral link is not ready yet."
             );
-
         }
 
         return;
-
     }
-
 
     const url =
         "https://t.me/share/url?url=" +
-        encodeURIComponent(
-            link
-        ) +
+        encodeURIComponent(link) +
         "&text=" +
         encodeURIComponent(
             "Join BRITANNIYA using my referral link"
         );
 
-
     window.open(
         url,
         "_blank"
     );
-
 }
 
 
@@ -607,35 +444,24 @@ function shareTelegram() {
 async function nativeShare() {
 
     const input =
-        document.getElementById(
-            "referralLink"
-        );
-
+        document.getElementById("referralLink");
 
     if (!input) {
         return;
     }
 
-
     const link =
         input.value.trim();
 
-
     if (!link) {
 
-        if (
-            typeof showPopup ===
-            "function"
-        ) {
-
-            showPopup(
+        if (typeof showWarning === "function") {
+            showWarning(
                 "Referral link is not ready yet."
             );
-
         }
 
         return;
-
     }
 
 
@@ -643,29 +469,22 @@ async function nativeShare() {
     // NATIVE SHARE AVAILABLE
     // ==============================
 
-    if (
-        navigator.share
-    ) {
+    if (navigator.share) {
 
         try {
 
             await navigator.share({
 
-                title:
-                    "BRITANNIYA",
+                title: "BRITANNIYA",
 
                 text:
                     "Join BRITANNIYA using my referral link",
 
-                url:
-                    link
-
+                url: link
             });
 
-        }
-        catch (error) {
+        } catch (error) {
 
-            // User cancelled share
             if (
                 error.name !==
                 "AbortError"
@@ -675,13 +494,10 @@ async function nativeShare() {
                     "Native share failed:",
                     error
                 );
-
             }
-
         }
 
         return;
-
     }
 
 
@@ -693,7 +509,6 @@ async function nativeShare() {
         link,
         "Referral Link Copied"
     );
-
 }
 
 
@@ -706,10 +521,6 @@ loadReferralDashboard();
 
 // ==============================
 // GLOBAL FUNCTIONS
-// ==============================
-//
-// HTML onclick="" ko functions mil sake
-// isliye explicitly window par expose kar rahe hain.
 // ==============================
 
 window.copyInviteCode =
