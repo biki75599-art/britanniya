@@ -1,8 +1,9 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "mygame-backend",
+  "name": "britanniya",
   "main": "./worker.mjs",
   "compatibility_date": "2026-09-20",
+
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
@@ -16,12 +17,14 @@
       "/income/pages/login/reset/"
     ]
   },
+
   "triggers": {
     "crons": [
       "* * * * *",
       "30 18 * * *"
     ]
   },
+
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
