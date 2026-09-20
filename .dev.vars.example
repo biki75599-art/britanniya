@@ -1,0 +1,15 @@
+# Copy this file to .dev.vars for local testing, and NEVER commit real secrets.
+MONGODB_URI=mongodb+srv://USERNAME:PASSWORD@CLUSTER.mongodb.net/DATABASE?retryWrites=true&w=majority
+JWT_SECRET=replace-with-a-long-random-secret
+PUBLIC_BASE_URL=https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev
+WATCHPAY_KEY=
+WATCHPAY_MCH_ID=
+WATCHPAY_NOTIFY_URL=https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/api/payment-gateway/webhook
+WATCHPAY_PAGE_URL=
+WATCHPAY_PAY_PATH=
+WATCHPAY_PAY_TYPE=
+WATCHPAY_RETURN_MSG=
+WATCHPAY_RETURN_URL=
+WATCHPAY_SIGN_TYPE=
+WATCHPAY_SUCCESS_RESULTS=
+WATCHPAY_GOODS_NAME=

@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRITANNIYA Dashboard</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/toast.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    <script src="js/navigation.js"></script>
+    
+    <link rel="stylesheet" href="css/confirm.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: #f0f0f0;
+            overflow-x: hidden;
+            padding-bottom: 88px;
+        }
+        .slider {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+        .slides {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform .5s ease;
+        }
+        .slides img {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .glass {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .section-hidden {
+            display: none;
+        }
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.6);
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.65);
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .uni-nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 0;
+            border-radius: 14px;
+            transition: 0.2s ease;
+        }
+        .buy-btn-sweep {
+            position: relative;
+            overflow: hidden;
+            animation: buttonSweep 4s infinite;
+        }
+        .buy-btn-sweep::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+            animation: sweepLeftButton 3.5s infinite;
+        }
+        @keyframes sweepLeftButton {
+            100% {
+                right: -100%;
+            }
+            50% {
+                right: 100%;
+            }
+            100% {
+                right: 100%;
+            }
+        }
+        @keyframes buttonSweep {
+            0%, 100% {
+                box-shadow: 0 4px 12px rgba(47,111,237,0.5);
+            }
+            50% {
+                box-shadow: 0 8px 28px rgba(47,111,237,0.8);
+            }
+        }
+        .income-tab {
+            position: relative;
+            overflow: hidden;
+            animation: dipFlash 1.8s infinite ease-in-out;
+        }
+        .income-tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 50%, transparent 100%);
+            transform: translateX(-120%);
+            animation: shineMove 2.2s infinite;
+            pointer-events: none;
+        }
+        @keyframes dipFlash {
+            0%, 100% {
+                transform: translateY(0);
+                box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+                opacity: 0.92;
+            }
+            50% {
+                transform: translateY(2px);
+                box-shadow: 0 10px 24px rgba(47,111,237,0.25);
+                opacity: 1;
+            }
+        }
+        @keyframes shineMove {
+            0% {
+                transform: translateX(-120%);
+            }
+            100% {
+                transform: translateX(120%);
+            }
+        }
+      @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      /* ========= PREMIUM BACKGROUND ========= */
+
+
+
+/* Floating Background */
+
+.bg-animation{
+
+position:fixed;
+
+inset:0;
+
+z-index:-1;
+
+overflow:hidden;
+
+pointer-events:none;
+
+}
+
+.bg-animation span{
+
+position:absolute;
+
+border-radius:50%;
+
+background:rgba(37,99,235,.08);
+
+animation:floatBall 15s linear infinite;
+
+}
+
+.bg-animation span:nth-child(1){
+
+width:220px;
+height:220px;
+
+left:-60px;
+top:80px;
+
+}
+
+.bg-animation span:nth-child(2){
+
+width:280px;
+height:280px;
+
+right:-80px;
+top:240px;
+
+}
+
+.bg-animation span:nth-child(3){
+
+width:180px;
+height:180px;
+
+left:45%;
+bottom:-60px;
+
+}
+
+@keyframes floatBall{
+
+0%{
+transform:translateY(0) rotate(0);
+}
+
+50%{
+transform:translateY(-40px) rotate(180deg);
+}
+
+100%{
+transform:translateY(0) rotate(360deg);
+}
+
+}
+/* ========= PREMIUM BACKGROUND ========= */
+
+.dashboard-body{
+    background:linear-gradient(135deg,#eef5ff,#ffffff,#edf5ff);
+    min-height:100vh;
+    font-family:'Poppins',sans-serif;
+    overflow-x:hidden;
+    position:relative;
+}
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:20px;
+    backdrop-filter:blur(8px);
+    overflow-y:auto;
+}.popup-card{
+    position:relative;
+     width:96%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    overflow-x:hidden;   /* Content zyada hua to scroll */
+    background:#ffffff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+    animation:popupShow .4s ease;
+}.popup-header{
+    background:linear-gradient(135deg,#2563eb,#4f8dfd);
+    color:#fff;
+    text-align:center;
+    padding:14px 18px;
+}
+
+.popup-header h2{
+    margin:0;
+    font-size:24px;
+}
+
+.popup-header p{
+    margin-top:5px;
+    font-size:13px;
+}.popup-body{
+   padding:12px 12px 25px;
+    gap:10px;
+}.popup-banner{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:15px;
+}.popup-info{
+    margin-top:15px;
+    background:#f8fbff;
+    padding:15px;
+    border-radius:15px;
+}.info-row{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0;
+    border-bottom:1px solid #e5e5e5;
+}.commission-box{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.commission-box div{
+    flex:1;
+    background:#2563eb;
+    color:#fff;
+    padding:8px;
+    border-radius:10px;
+    text-align:center;
+}
+.commission-box small{
+    font-size:11px;
+}
+
+.commission-box b{
+    font-size:15px;
+}
+.telegram-btn{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    width:100%;
+    height:48px;
+    background:#229ED9;
+    color:#fff;
+    border-radius:12px;
+    text-decoration:none;
+}.continue-btn{
+    width:100%;
+    margin-top:15px;
+    height:50px;
+    border:none;
+    border-radius:12px;
+    background:#2563eb;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+}@keyframes popupShow{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+/* VIP Badge */
+
+.vip-badge{
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+padding:6px 14px;
+
+border-radius:30px;
+
+background:linear-gradient(90deg,#FFD700,#FFA500);
+
+color:#3a1b00;
+
+font-size:12px;
+
+font-weight:700;
+
+z-index:20;
+
+animation:pulse 2s infinite;
+
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);}
+
+50%{transform:scale(1.08);}
+
+100%{transform:scale(1);}
+
+}
+
+/* Logo */
+
+.logo-circle{
+
+width:70px;
+
+height:70px;
+
+margin:auto;
+
+border-radius:50%;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:28px;
+
+background:rgba(255,255,255,.18);
+
+border:2px solid rgba(255,255,255,.35);
+
+backdrop-filter:blur(10px);
+
+margin-bottom:12px;
+
+animation:rotateGlow 8s linear infinite;
+
+}
+
+@keyframes rotateGlow{
+
+0%{
+
+transform:rotate(0deg);
+
+}
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/* Online */
+
+.live-status{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:6px;
+
+margin-top:10px;
+
+padding:5px 14px;
+
+border-radius:20px;
+
+background:rgba(255,255,255,.18);
+
+font-size:12px;
+
+}
+
+.live-status span{
+
+width:8px;
+
+height:8px;
+
+border-radius:50%;
+
+background:#00ff55;
+
+animation:blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+0%,100%{
+
+opacity:1;
+
+}
+
+50%{
+
+opacity:.3;
+
+}
+
+}
+/* ============================= */
+/* WHITE 3D GLOSSY BUTTON */
+/* ============================= */
+
+.premium-btn {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+
+    background: linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f8f8f8 45%,
+        #e7e7e7 100%
+    );
+
+    color: #181818;
+    font-size: 16px;
+    font-weight: 800;
+
+    box-shadow:
+        0 5px 0 #bdbdbd,
+        0 10px 18px rgba(0, 0, 0, 0.35),
+        inset 0 2px 2px rgba(255,255,255,0.9);
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+/* Hover */
+.premium-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 0 #bdbdbd,
+        0 14px 22px rgba(0, 0, 0, 0.4),
+        inset 0 2px 3px rgba(255,255,255,1);
+}
+
+/* Click / Press */
+.premium-btn:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 1px 0 #bdbdbd,
+        0 4px 10px rgba(0, 0, 0, 0.3),
+        inset 0 2px 4px rgba(0,0,0,0.12);
+}
+/* =========================================================
+   FINAL PREMIUM 3D HOVER - ALL BUTTONS & CARDS
+   ========================================================= */
+
+/* ---------- ALL PRODUCT CARDS ---------- */
+
+#longSection > div,
+#vipSection > div {
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+/* Card hover */
+#longSection > div:hover,
+#vipSection > div:hover {
+    transform: translateY(-7px) scale(1.015);
+    border-color: rgba(255, 212, 59, 0.55) !important;
+
+    box-shadow:
+        0 8px 0 rgba(70, 25, 55, 0.9),
+        0 18px 35px rgba(0, 0, 0, 0.65),
+        0 0 25px rgba(255, 212, 59, 0.12) !important;
+}
+
+
+/* ---------- PRODUCT IMAGE 3D ---------- */
+
+#longSection > div img,
+#vipSection > div img {
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease;
+}
+
+#longSection > div:hover img,
+#vipSection > div:hover img {
+    transform: scale(1.035);
+    filter: brightness(1.08) saturate(1.12);
+}
+
+
+/* ---------- PRICE / PROFIT MINI BOX ---------- */
+
+#longSection .bg-gray-100,
+#vipSection .bg-gray-100 {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+#longSection .bg-gray-100:hover,
+#vipSection .bg-gray-100:hover {
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(
+            145deg,
+            #713454,
+            #35172f
+        ) !important;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.1),
+        0 7px 15px rgba(0,0,0,.4) !important;
+}
+
+
+/* ---------- BUY NOW BUTTON ---------- */
+
+.buy-btn-sweep,
+.premium-btn,
+.continue-btn,
+.telegram-btn,
+#longBtn,
+#vipBtn,
+.uni-nav-btn {
+
+    position: relative;
+    overflow: hidden;
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+
+
+/* Button hover */
+
+.buy-btn-sweep:hover,
+.premium-btn:hover,
+.continue-btn:hover,
+.telegram-btn:hover,
+#longBtn:hover,
+#vipBtn:hover,
+.uni-nav-btn:hover {
+
+    transform:
+        translateY(-4px)
+        scale(1.025);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 7px 0 rgba(0,0,0,.28),
+        0 15px 25px rgba(0,0,0,.45),
+        0 0 20px rgba(255,212,59,.15) !important;
+}
+
+
+/* Button press */
+
+.buy-btn-sweep:active,
+.premium-btn:active,
+.continue-btn:active,
+.telegram-btn:active,
+#longBtn:active,
+#vipBtn:active,
+.uni-nav-btn:active {
+
+    transform:
+        translateY(3px)
+        scale(.98);
+
+    box-shadow:
+        0 2px 0 rgba(0,0,0,.3),
+        0 5px 10px rgba(0,0,0,.35) !important;
+}
+
+
+/* ---------- WHITE PRE-SALE BUTTON ---------- */
+
+.premium-btn {
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f8f8f8 45%,
+            #dedede 100%
+        ) !important;
+
+    color: #24151f !important;
+
+    border: 1px solid rgba(255,255,255,.8) !important;
+
+    box-shadow:
+        0 5px 0 #aaa,
+        0 10px 20px rgba(0,0,0,.42),
+        inset 0 2px 3px rgba(255,255,255,.95) !important;
+
+    font-weight: 800;
+}
+
+
+/* ---------- BUY NOW GOLD BUTTON ---------- */
+
+.buy-btn-sweep {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45b,
+            #d78b19
+        ) !important;
+
+    color: #351900 !important;
+
+    border: 1px solid rgba(255,225,100,.55) !important;
+
+    box-shadow:
+        0 5px 0 #8d5312,
+        0 12px 22px rgba(0,0,0,.45),
+        inset 0 2px 3px rgba(255,255,255,.45) !important;
+}
+
+
+/* ---------- TOP 4 QUICK BUTTONS ---------- */
+
+.uni-nav-btn {
+
+    background:
+        linear-gradient(
+            145deg,
+            #673050,
+            #35172f
+        ) !important;
+
+    color: #ffe7f3 !important;
+
+    border:
+        1px solid rgba(255,255,255,.08) !important;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.08),
+        0 7px 15px rgba(0,0,0,.4) !important;
+}
+
+.uni-nav-btn i {
+
+    transition:
+        transform .25s ease,
+        color .25s ease;
+}
+
+.uni-nav-btn:hover i {
+
+    transform:
+        translateY(-2px)
+        scale(1.12)
+        rotate(-5deg);
+
+    color: #ffd43b;
+}
+
+
+/* ---------- LONG / VIP TABS ---------- */
+
+#longBtn,
+#vipBtn {
+
+    background:
+        linear-gradient(
+            145deg,
+            #673050,
+            #35172f
+        ) !important;
+
+    color: #ffe8f3 !important;
+
+    border:
+        1px solid rgba(255,255,255,.08) !important;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.08),
+        0 8px 16px rgba(0,0,0,.4) !important;
+}
+
+
+/* Active tab */
+
+#longBtn.active,
+#vipBtn.active {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45b,
+            #d58a1c
+        ) !important;
+
+    color: #351900 !important;
+
+    box-shadow:
+        0 6px 0 #8e5715,
+        0 12px 22px rgba(0,0,0,.5) !important;
+}
+
+
+/* ---------- BOTTOM NAV HOVER ---------- */
+
+.final-bottom-nav .nav-btn {
+
+    transition:
+        transform .25s ease,
+        color .25s ease;
+}
+
+.final-bottom-nav .nav-btn:hover {
+
+    transform:
+        translateY(-5px) !important;
+
+    color: #ffd43b !important;
+}
+
+.final-bottom-nav .nav-btn:hover i {
+
+    transform:
+        translateY(-3px)
+        scale(1.08);
+
+    box-shadow:
+        0 10px 20px rgba(0,0,0,.5),
+        0 0 18px rgba(255,212,59,.18) !important;
+}
+
+.final-bottom-nav .nav-btn i {
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        filter .25s ease;
+}
+
+
+/* ---------- GAME BUTTON ---------- */
+
+.final-bottom-nav .game-nav:hover {
+
+    transform:
+        translateY(-8px) !important;
+}
+
+.final-bottom-nav .game-nav:hover i {
+
+    transform:
+        translateY(-4px)
+        scale(1.12)
+        rotate(-4deg) !important;
+
+    filter: brightness(1.12);
+
+    box-shadow:
+        0 14px 25px rgba(0,0,0,.6),
+        0 0 30px rgba(255,212,59,.45) !important;
+}
+
+
+/* ---------- GLOSS SHINE EFFECT ---------- */
+
+.buy-btn-sweep::after,
+.premium-btn::after,
+.continue-btn::after,
+#longBtn::after,
+#vipBtn::after,
+.uni-nav-btn::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: -120%;
+
+    width: 70%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.45),
+            transparent
+        );
+
+    transform: skewX(-20deg);
+
+    transition: left .6s ease;
+
+    pointer-events: none;
+}
+
+.buy-btn-sweep:hover::after,
+.premium-btn:hover::after,
+.continue-btn:hover::after,
+#longBtn:hover::after,
+#vipBtn:hover::after,
+.uni-nav-btn:hover::after {
+
+    left: 130%;
+}
+
+
+/* ---------- MOBILE TOUCH ---------- */
+
+@media (max-width: 600px) {
+
+    #longSection > div:hover,
+    #vipSection > div:hover {
+
+        transform:
+            translateY(-4px)
+            scale(1.01);
+    }
+
+    .buy-btn-sweep,
+    .premium-btn,
+    .uni-nav-btn,
+    #longBtn,
+    #vipBtn {
+
+        min-height: 46px;
+    }
+
+}
+/* =========================================
+   LONG-TERM / VIP SELECT BUTTON
+   HOVER + ACTIVE 3D EFFECT
+   ========================================= */
+
+.income-tab {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.10) !important;
+
+    background: linear-gradient(
+        145deg,
+        #673050,
+        #35172f
+    ) !important;
+
+    color: #ffffff !important;
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.10),
+        0 6px 14px rgba(0,0,0,.35);
+
+    transition:
+        all .25s ease !important;
+
+    cursor: pointer;
+}
+
+/* Mouse Hover */
+.income-tab:hover {
+    background: linear-gradient(
+        145deg,
+        #d83d79,
+        #7c1f4f
+    ) !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-3px) scale(1.02);
+
+    border-color: #ffd43b !important;
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,.45),
+        0 0 18px rgba(255,212,59,.30),
+        inset 0 1px 0 rgba(255,255,255,.25);
+}
+
+/* Selected / Active Tab */
+/* Selected / Active Button */
+.income-tab.active-income {
+    background: linear-gradient(
+        145deg,
+        #ffe45b 0%,
+        #ffc928 50%,
+        #d98a18 100%
+    ) !important;
+
+    color: #351900 !important;
+
+    border: 1px solid #ffe98a !important;
+
+    box-shadow:
+        0 5px 0 #9b5f12,
+        0 10px 18px rgba(0, 0, 0, 0.45),
+        0 0 20px rgba(255, 212, 59, 0.45),
+        inset 0 2px 3px rgba(255,255,255,.65) !important;
+
+    transform: translateY(-2px);
+}
+
+/* Click Press */
+.income-tab:active {
+    transform: translateY(2px) scale(.98);
+
+    box-shadow:
+        0 2px 0 #8c5415,
+        0 5px 10px rgba(0,0,0,.35);
+}
+
+/* Shine Effect */
+.income-tab::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 80%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.25),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    transition: left .6s ease;
+    pointer-events: none;
+}
+
+.income-tab:hover::before {
+    left: 130%;
+}
+/* =========================================================
+   PREMIUM BRITANNIYA POPUP - FINAL OVERRIDE
+   ========================================================= */
+
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(5, 3, 8, 0.82);
+    backdrop-filter: blur(10px);
+}
+
+/* Popup Main Card */
+.popup-card {
+    width: min(92vw, 390px);
+    max-height: 90vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background:
+        linear-gradient(
+            180deg,
+            #4a173b 0%,
+            #32132b 45%,
+            #1d0b1a 100%
+        ) !important;
+
+    border: 1px solid rgba(255, 212, 59, 0.45) !important;
+    border-radius: 22px !important;
+
+    box-shadow:
+        0 0 0 2px rgba(255,255,255,.04),
+        0 20px 60px rgba(0,0,0,.75),
+        0 0 30px rgba(255,212,59,.12) !important;
+
+    animation: premiumPopupShow .35s ease;
+}
+
+/* Header */
+.popup-header {
+    position: relative;
+    padding: 18px 15px 20px !important;
+
+    background:
+       rgba(49,20,43,.98) !important;
+
+    color: #fff !important;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+
+/* Header Title */
+.popup-header h2 {
+    margin: 8px 0 4px !important;
+    color: #ffffff !important;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    text-shadow: 0 2px 5px rgba(0,0,0,.25);
+}
+
+/* Header Subtitle */
+.popup-header p {
+    margin: 0 !important;
+    color: rgba(255,255,255,.95) !important;
+    font-size: 12px !important;
+    font-weight: 600;
+}
+
+/* Online Status */
+.popup-header .live-status {
+    margin-top: 10px !important;
+    background: rgba(255,255,255,.18) !important;
+    color: #fff !important;
+    border: 1px solid rgba(255,255,255,.15);
+}
+
+/* VIP Badge */
+.popup-card .vip-badge {
+    top: 14px !important;
+    right: 12px !important;
+
+    padding: 7px 13px !important;
+    border-radius: 20px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45b,
+            #ffae18
+        ) !important;
+
+    color: #3a2000 !important;
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,.3),
+        0 0 15px rgba(255,212,59,.35) !important;
+}
+
+/* Popup Body */
+.popup-body {
+    padding: 14px !important;
+    background: transparent !important;
+}
+
+/* Image */
+.popup-banner {
+    display: block;
+    width: 100% !important;
+    height: 110px !important;
+    object-fit: cover !important;
+    border-radius: 14px !important;
+    margin-bottom: 12px;
+}
+
+/* Info Box */
+.popup-info {
+    margin-top: 10px !important;
+    padding: 13px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(91,38,73,.95),
+            rgba(49,20,43,.98)
+        ) !important;
+
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 14px !important;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.06),
+        0 8px 18px rgba(0,0,0,.25) !important;
+}
+
+/* Info Rows */
+.info-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+
+    padding: 9px 0 !important;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.12) !important;
+
+    color: #ffffff !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+/* Remove border last row */
+.info-row:last-child {
+    border-bottom: none !important;
+}
+
+/* All Text in Info */
+.popup-info,
+.popup-info span,
+.popup-info p,
+.popup-info b,
+.popup-info strong {
+    color: #ffffff !important;
+}
+
+/* Money Highlight */
+.popup-info .amount,
+.popup-info b {
+    color: #ffe04b !important;
+    font-weight: 900 !important;
+}
+
+/* Commission Boxes */
+.commission-box {
+    display: flex !important;
+    gap: 8px !important;
+    margin-top: 10px !important;
+}
+
+.commission-box div {
+    flex: 1 !important;
+
+    padding: 9px 5px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2870f5,
+            #1f5ddd
+        ) !important;
+
+    color: #ffffff !important;
+
+    border-radius: 10px !important;
+    border: 1px solid rgba(255,255,255,.12);
+
+    box-shadow:
+        0 5px 10px rgba(0,0,0,.25) !important;
+
+    text-align: center;
+}
+
+.commission-box div * {
+    color: #ffffff !important;
+}
+
+.commission-box b {
+    color: #ffffff !important;
+    font-size: 14px !important;
+}
+
+/* Telegram Button */
+.telegram-btn {
+    width: 100% !important;
+    height: 44px !important;
+    margin-top: 10px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #2bb4e8,
+            #159bd3
+        ) !important;
+
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+
+    border-radius: 11px !important;
+    text-decoration: none !important;
+
+    box-shadow:
+        0 6px 12px rgba(0,0,0,.3) !important;
+
+    transition: .2s ease;
+}
+
+.telegram-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+/* Continue Button */
+.continue-btn {
+    width: 100% !important;
+    height: 46px !important;
+    margin-top: 10px !important;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffe45b,
+            #e9a51c
+        ) !important;
+
+    color: #321900 !important;
+
+    border: 1px solid #ffed91 !important;
+    border-radius: 11px !important;
+
+    font-size: 15px !important;
+    font-weight: 900 !important;
+
+    box-shadow:
+        0 5px 0 #9a5c12,
+        0 10px 18px rgba(0,0,0,.4),
+        inset 0 2px 3px rgba(255,255,255,.65) !important;
+
+    cursor: pointer;
+    transition: .18s ease;
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+.continue-btn:active {
+    transform: translateY(3px);
+    box-shadow:
+        0 2px 0 #9a5c12,
+        0 5px 10px rgba(0,0,0,.3) !important;
+}
+
+/* Popup Animation */
+@keyframes premiumPopupShow {
+    from {
+        opacity: 0;
+        transform: scale(.88) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 380px) {
+
+    .popup-card {
+        width: 94vw !important;
+        border-radius: 19px !important;
+    }
+
+    .popup-header {
+        padding: 14px 12px 16px !important;
+    }
+
+    .popup-header h2 {
+        font-size: 21px !important;
+    }
+
+    .popup-body {
+        padding: 10px !important;
+    }
+
+    .popup-banner {
+        height: 85px !important;
+    }
+
+    .popup-info {
+        padding: 10px !important;
+    }
+
+    .info-row {
+        font-size: 12px !important;
+        padding: 7px 0 !important;
+    }
+
+    .commission-box div {
+        padding: 8px 3px !important;
+    }
+
+    .telegram-btn {
+        height: 40px !important;
+        font-size: 13px !important;
+    }
+
+    .continue-btn {
+        height: 42px !important;
+        font-size: 14px !important;
+    }
+}
+.income-tab.active {
+    background: linear-gradient(145deg, #ffe45b, #e9a51c) !important;
+    color: #321900 !important;
+}
+
+.income-tab {
+    border-radius: 8px !important;
+}
+</style>
+
+<style id="final-3d-mobile-dashboard">
+/* =========================================================
+   FINAL 3D MOBILE DASHBOARD THEME
+   Visual-only override: existing API/JS functionality preserved
+   ========================================================= */
+html,body{background:#160b17!important}
+body{padding-bottom:104px!important;color:#fff!important}
+.dashboard-body,.app-container{
+  background:
+    radial-gradient(circle at 50% -10%,rgba(157,54,105,.55),transparent 34%),
+    linear-gradient(180deg,#321326 0%,#1b0d19 52%,#120811 100%)!important;
+  min-height:100vh;
+}
+.app-container{max-width:430px;margin:0 auto;overflow:hidden;position:relative}
+.bg-animation span{background:rgba(255,91,164,.08)!important;filter:blur(2px)}
+/* Main glass surfaces */
+.app-container .bg-white.rounded-2xl.shadow,
+.app-container .bg-white.rounded-2xl.shadow-lg,
+.app-container .bg-white.rounded-2xl.shadow-xl,
+.app-container .bg-white.rounded-2xl.shadow-2xl{
+  background:linear-gradient(145deg,rgba(84,31,63,.96),rgba(34,15,30,.98))!important;
+  color:#fff!important;
+  border:1px solid rgba(230,104,161,.22)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.08),0 16px 30px rgba(0,0,0,.48)!important;
+  backdrop-filter:blur(16px);
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+  position:relative;
+  overflow:hidden;
+}
+.app-container .bg-white.rounded-2xl.shadow:hover,
+.app-container .bg-white.rounded-2xl.shadow-lg:hover,
+.app-container .bg-white.rounded-2xl.shadow-xl:hover{
+  transform:translateY(-5px) scale(1.01);
+  border-color:rgba(255,205,59,.42)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.1),0 22px 42px rgba(0,0,0,.6),0 0 22px rgba(222,70,140,.14)!important;
+}
+.app-container .bg-gray-100.rounded-xl,
+.app-container .bg-gray-100.rounded-lg,
+.app-container .bg-slate-100.rounded-xl{
+  background:linear-gradient(145deg,#673050,#32162c)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:inset 0 1px rgba(255,255,255,.06),0 6px 14px rgba(0,0,0,.25);
+}
+.app-container h1,.app-container h2,.app-container h3,
+.app-container p,.app-container span,.app-container label{color:inherit}
+.app-container .text-blue-500,.app-container .text-blue-600,
+.app-container .text-blue-700{color:#ffd43b!important}
+.app-container .bg-blue-500,.app-container .bg-blue-600{
+  background:linear-gradient(145deg,#ffd94a,#bd721b)!important;
+  color:#351900!important;
+  box-shadow:0 8px 18px rgba(255,193,37,.22)!important;
+}
+.app-container button{
+  transition:transform .2s ease,filter .2s ease,box-shadow .2s ease;
+}
+.app-container button:hover{transform:translateY(-2px);filter:brightness(1.05)}
+/* Product card image */
+.app-container img{border-radius:16px}
+/* VIP / premium badge */
+.vip-badge{
+  background:linear-gradient(145deg,#ffe46b,#ff9f19)!important;
+  color:#3a1b00!important;
+  box-shadow:0 7px 18px rgba(255,186,31,.35);
+}
+/* Loader remains readable */
+#loaderOverlay{background:rgba(16,7,15,.82)!important;backdrop-filter:blur(7px)}
+#loaderOverlay>div{border-color:#5a2949!important;border-top-color:#ffd43b!important}
+/* Bottom navigation */
+.final-bottom-nav{
+  position:fixed!important;left:50%!important;bottom:0!important;
+  transform:translateX(-50%)!important;width:100%!important;max-width:430px!important;
+  height:82px!important;padding:8px 8px!important;
+  display:grid!important;grid-template-columns:repeat(5,1fr)!important;
+  align-items:center!important;z-index:10000!important;
+  background:rgba(30,13,28,.96)!important;
+  backdrop-filter:blur(18px)!important;
+  border-top:1px solid rgba(223,91,149,.28)!important;
+  box-shadow:0 -10px 30px rgba(0,0,0,.48)!important;
+  border-radius:20px 20px 0 0!important;
+}
+.final-bottom-nav .nav-btn{
+  height:66px!important;padding:4px 0!important;border:0!important;background:transparent!important;
+  color:#c9b3c2!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;gap:4px!important;
+  font-size:10px!important;font-weight:700!important;cursor:pointer!important;
+}
+.final-bottom-nav .nav-btn i{
+  width:38px!important;height:36px!important;border-radius:12px!important;
+  display:grid!important;place-items:center!important;font-size:17px!important;
+  background:#5a2949!important;color:#f5d9e7!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.08),0 5px 12px rgba(0,0,0,.35)!important;
+}
+.final-bottom-nav .nav-btn.active-nav,
+.final-bottom-nav .nav-btn:hover{color:#ffd43b!important}
+.final-bottom-nav .nav-btn.active-nav i{
+  background:#ffd43b!important;color:#3a2000!important;
+  box-shadow:0 0 20px rgba(255,212,59,.48),0 7px 15px rgba(0,0,0,.35)!important;
+}
+.final-bottom-nav .game-nav i{
+  width:54px!important;height:54px!important;border-radius:18px!important;
+  margin-top:-22px!important;background:linear-gradient(145deg,#ffe45b,#d38a1b)!important;
+  color:#3a2000!important;font-size:23px!important;
+  box-shadow:inset 0 2px rgba(255,255,255,.55),0 10px 20px rgba(0,0,0,.55),0 0 25px rgba(255,208,45,.32)!important;
+}
+.final-bottom-nav .game-nav{color:#ffd43b!important}
+@media(max-width:360px){
+  .final-bottom-nav .nav-btn span{font-size:9px}
+}
+/* ===== INCOME TAB LOADING FIX ===== */
+
+.grid.grid-cols-2.gap-3.mb-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+    min-height: 58px !important;
+}
+
+.income-tab {
+    width: 100% !important;
+    min-height: 58px !important;
+    height: 58px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    box-sizing: border-box !important;
+    margin: 0 !important;
+
+    /* Loading ke time layout shift prevent */
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease !important;
+}
+
+/* Loading state me bhi same size */
+body.loading .income-tab,
+.loading .income-tab {
+    width: 100% !important;
+    min-height: 58px !important;
+    height: 58px !important;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .grid.grid-cols-2.gap-3.mb-4 {
+        gap: 10px !important;
+        min-height: 54px !important;
+    }
+
+    .income-tab {
+        min-height: 54px !important;
+        height: 54px !important;
+    }
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+<body>
+    
+
+<div class="dashboard-header">
+
+    
+   
+<div class="app-container">
+    <div class="bg-animation">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+    <div id="loaderOverlay" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(255,255,255,0.8); align-items:center; justify-content:center;">
+    <div style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #2f6fed; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+</div>
+
+    <div id="soldOutOverlay" class="confirm-overlay">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-5">
+            <p class="text-center text-slate-800 font-semibold text-lg">Product Sold Out</p>
+            <p class="text-center text-slate-600 text-sm mt-2">This product is currently unavailable</p>
+            <div class="flex gap-3 mt-5">
+                <button onclick="closeSoldOut()" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl transition-all">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="confirmOverlay" class="confirm-overlay">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-5">
+            <p class="text-center text-slate-800 font-semibold text-lg">Are you sure you want to purchase this product?</p>
+            <div class="flex gap-3 mt-5">
+                <button onclick="closeConfirm()" class="flex-1 bg-gray-200 text-slate-800 font-semibold py-3 rounded-xl">
+    Cancel
+</button>
+               <button id="confirmBtn" onclick="confirmPurchase()" class="flex-1 bg-blue-500 text-white font-semibold py-3 rounded-xl">
+    Confirm
+</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dashboardPopup" class="popup-overlay">
+
+    <div class="popup-card">
+        <div class="vip-badge">
+    <i class="fas fa-crown"></i>
+    VIP
+</div>
+
+        <!-- Yaha particles add karo -->
+        <div class="popup-particles">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+       <div class="popup-header">
+
+    <div class="logo-circle">
+        <i class="fas fa-gem"></i>
+    </div>
+
+    <h2>BRITANNIYA</h2>
+
+    <p>Smart Investment Platform</p>
+
+    <div class="live-status">
+        <span></span>
+        Online
+    </div>
+
+</div>
+
+        <div class="popup-body">
+<div class="popup-info">
+
+                <h3>BRITANNIYA Long-Term App</h3>
+
+                <div class="info-row">
+                    <span>Minimum Recharge</span>
+                    <strong>₹520</strong>
+                </div>
+
+                <div class="info-row">
+                    <span>Minimum Withdrawal</span>
+                    <strong>₹200</strong>
+                </div>
+
+                <div class="commission-box">
+
+                    <div>
+                        <small>LV1</small>
+                        <b>25%</b>
+                    </div>
+
+                    <div>
+                        <small>LV2</small>
+                        <b>3%</b>
+                    </div>
+
+                    <div>
+                        <small>LV3</small>
+                        <b>2%</b>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <a href="#" class="telegram-btn">
+                <i class="fab fa-telegram-plane"></i>
+                Join Telegram Channel
+            </a>
+
+            <button
+                onclick="closePopup()"
+                class="continue-btn">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+</div>
+    <div class="max-w-xl mx-auto px-4">
+       
+           
+            
+            <div class="slider bg-blue-400">
+                <div class="slides" id="slides">
+                    <img src="https://britannia-international.com/wp-content/uploads/2024/01/Asset-1@2x.png" alt="Slider 1">
+                    <img src="https://britannia-international.com/wp-content/uploads/2024/03/digestive.png" alt="Slider 2">
+                 
+                </div>
+            </div>
+
+           <!-- dashboard.html में इस हिस्से को अपडेट करें -->
+<div class="grid grid-cols-4 gap-2 mb-4">
+   <!-- बटन अपडेट -->
+<button class="uni-nav-btn bg-blue-500 text-white"
+onclick="goCard('card.html?tab=recharge')">
+    <i class="fas fa-bolt text-lg"></i>
+    <span class="text-[11px] mt-1">Recharge</span>
+</button>
+    
+      <button class="uni-nav-btn bg-blue-500 text-white"
+onclick="goCard('card.html?tab=withdraw')">
+    <i class="fas fa-money-bill text-lg"></i>
+    <span class="text-[11px] mt-1">Withdraw</span>
+</button>
+    
+    <!-- अन्य बटन वैसे ही रहने दें -->
+    <button class="uni-nav-btn bg-blue-500 text-white">
+        <i class="fas fa-phone-flip text-lg"></i>
+        <span class="text-[11px] mt-1">Online</span>
+    </button>
+    <button class="uni-nav-btn bg-blue-500 text-white">
+        <i class="fab fa-telegram text-lg"></i>
+        <span class="text-[11px] mt-1">Channel</span>
+    </button>
+</div>
+
+           <div class="grid grid-cols-2 gap-3 mb-4">
+
+    <button
+        id="longBtn"
+        onclick="showLong()"
+        class="income-tab">
+        Long-term income
+    </button>
+
+    <button
+        id="vipBtn"
+        onclick="showVip()"
+        class="income-tab">
+        VIP income
+    </button>
+
+</div>
+            <div id="longSection" style="display:none;">
+                <div class="bg-white rounded-2xl shadow p-3 mb-5">
+                    <h3 class="text-center font-bold text-blue-500 text-lg mb-3">Long-term income A</h3>
+                     <img src="https://britannia-international.com/wp-content/uploads/2024/03/Artboard-9.png" class="w-full h-48 object-cover rounded-lg mb-3" alt="Product A">
+                    <div class="grid grid-cols-2 gap-2 text-center text-black">
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹520</h2><p class="text-xs text-black">Price</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹130</h2><p class="text-xs text-black">Daily profit</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">180</h2><p class="text-xs text-black">Days</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹23400</h2><p class="text-xs text-black">Total profit</p></div>
+                    </div>
+                   <button
+    class="buy-btn-sweep w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all shadow"
+id="buyBtnA"
+onclick="openConfirm('Product A')">
+Buy Now
+</button>
+                </div>
+                 <div class="bg-white rounded-2xl shadow-lg p-4 mb-5">
+                    <h3 class="text-center font-bold text-blue-500 text-lg mb-3">Long-term income B</h3>
+                     <img src="https://britannia-international.com/wp-content/uploads/2024/03/5050-1.png" class="w-full h-48 object-cover rounded-lg mb-3" alt="Product B">
+                    <div class="grid grid-cols-2 gap-2 text-center text-black">
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹1,200</h2><p class="text-xs text-black">Price</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹310</h2><p class="text-xs text-black">Daily profit</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">180</h2><p class="text-xs text-black">Days</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹55,800</h2><p class="text-xs text-black">Total profit</p></div>
+                    </div>
+                   <button
+    class="buy-btn-sweep w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all shadow"
+id="buyBtnB"
+onclick="openConfirm('Product B')">
+Buy Now
+</button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-4 mb-5">
+                    <h3 class="text-center font-bold text-blue-500 text-lg mb-3">Long-term income C</h3>
+                     <img src="https://britannia-international.com/wp-content/uploads/2024/03/Artboard-4-2.png" class="w-full h-48 object-cover rounded-lg mb-3" alt="Product C">
+                    <div class="grid grid-cols-2 gap-2 text-center text-black">
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹3,500</h2><p class="text-xs text-black">Price</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹920</h2><p class="text-xs text-black">Daily profit</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">180</h2><p class="text-xs text-black">Days</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹1,65,600</h2><p class="text-xs text-black">Total profit</p></div>
+                    </div>
+                    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-4 mb-5">
+                    <h3 class="text-center font-bold text-blue-500 text-lg mb-3">Long-term income D</h3>
+                    <img src="https://britannia-international.com/wp-content/uploads/2024/03/nicetime.png" class="w-full h-48 object-cover rounded-lg mb-3" alt="Product D">
+                    <div class="grid grid-cols-2 gap-2 text-center text-black">
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹7,000</h2><p class="text-xs text-black">Price</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹1,890</h2><p class="text-xs text-black">Daily profit</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">180</h2><p class="text-xs text-black">Days</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹3,40,200</h2><p class="text-xs text-black">Total profit</p></div>
+                    </div>
+                   <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-4 mb-5">
+                    <h3 class="text-center font-bold text-blue-500 text-lg mb-3">Long-term income E</h3>
+                     <img src="https://britannia-international.com/wp-content/uploads/2024/03/Artboard-2-1.png" class="w-full h-48 object-cover rounded-lg mb-3" alt="Product E">
+                    <div class="grid grid-cols-2 gap-2 text-center text-black">
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹15,000</h2><p class="text-xs text-black">Price</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹4,200</h2><p class="text-xs text-black">Daily profit</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">180</h2><p class="text-xs text-black">Days</p></div>
+                        <div class="bg-gray-100 rounded-xl p-3"><h2 class="text-blue-500 text-lg font-bold">₹7,56,000</h2><p class="text-xs text-black">Total profit</p></div>
+                    </div>
+                    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+                </div>
+            </div>
+
+           <div id="vipSection" style="display:none;">
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-1</h3>
+    <img src="https://britannia-international.com/wp-content/uploads/2024/03/jim-jam.png" class="w-full h-48 object-cover rounded-lg mb-3">
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹1000</h2>
+            <p class="text-black text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹1000</h2>
+            <p class="text-black text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">10</h2>
+            <p class="text-black text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹10000</h2>
+            <p class="text-black text-sm">Total profit</p>
+        </div>
+    </div>
+    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-2</h3>
+    <img src="https://britannia-international.com/wp-content/uploads/2024/03/jim-jam.png" class="w-full h-48 object-cover rounded-lg mb-3">
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹3000</h2>
+            <p class="text-black-500 text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹6000</h2>
+            <p class="text-black-500 text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">10</h2>
+            <p class="text-black-500 text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹60000</h2>
+            <p class="text-black-500 text-sm">Total profit</p>
+        </div>
+    </div>
+   <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-3</h3>
+    <img src="https://britannia-international.com/wp-content/uploads/2024/03/jim-jam.png" class="w-full h-48 object-cover rounded-lg mb-3">
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹10000</h2>
+            <p class="text-black text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹30000</h2>
+            <p class="text-black text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">5</h2>
+            <p class="text-black text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹150000</h2>
+            <p class="text-black text-sm">Total profit</p>
+        </div>
+    </div>
+    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-4</h3>
+    <img src="https://britannia-international.com/wp-content/uploads/2024/03/jim-jam.png" class="w-full h-48 object-cover rounded-lg mb-3">
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹20000</h2>
+            <p class="text-black text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹80000</h2>
+            <p class="text-black text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">5</h2>
+            <p class="text-black text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹400000</h2>
+            <p class="text-black text-sm">Total profit</p>
+        </div>
+    </div>
+    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-black text-2xl font-bold mb-2">VIP-5</h3>
+    <img src="https://britannia-international.com/wp-content/uploads/2024/03/jim-jam.png" class="w-full h-48 object-cover rounded-lg mb-3">
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹50000</h2>
+            <p class="text-black text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹250000</h2>
+            <p class="text-black text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">5</h2>
+            <p class="text-black text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹1250000</h2>
+            <p class="text-black text-sm">Total profit</p>
+        </div>
+    </div>
+    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+<div class="bg-white rounded-2xl shadow p-3 mb-5">
+    <h3 class="text-center text-blue-500 text-2xl font-bold mb-2">VIP-6</h3>
+   <img src="images/king.png" class="w-full h-48 object-cover rounded-lg mb-3">
+ 
+    <div class="grid grid-cols-2 gap-2 text-center text-black">
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹100000</h2>
+            <p class="text-black text-sm">Price</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹600000</h2>
+            <p class="text-black text-sm">Daily profit</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">5</h2>
+            <p class="text-black text-sm">Day</p>
+        </div>
+        <div class="bg-gray-100 rounded-xl p-3">
+            <h2 class="text-blue-500 text-lg font-bold">₹3000000</h2>
+            <p class="text-black text-sm">Total profit</p>
+        </div>
+    </div>
+    <button class="premium-btn" onclick="presalePlan()">
+    Presale
+</button>
+</div>
+
+</div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+
+   <!-- Final 3D Mobile Bottom Navigation -->
+<div class="final-bottom-nav">
+
+    <button id="homeNav" class="nav-btn" onclick="goDashboard()">
+        <i class="fas fa-house"></i>
+        <span>Plan</span>
+    </button>
+
+    <button id="shareNav" class="nav-btn" onclick="goShare()">
+        <i class="fas fa-arrows-rotate"></i>
+        <span>Convert</span>
+    </button>
+
+  <button id="gameNav" class="nav-btn game-nav" onclick="goCard()">
+    <i class="fas fa-credit-card"></i>
+    <span>card</span>
+</button>
+
+    <button id="teamNav" class="nav-btn" onclick="goTeam()">
+        <i class="fas fa-users"></i>
+        <span>Team</span>
+    </button>
+
+    <button id="myNav" class="nav-btn" onclick="goMy()">
+        <i class="fas fa-user"></i>
+        <span>My</span>
+    </button>
+
+</div>
+
+<div class="h-20"></div>
+</div>
+
+    <script>
+   
+        
+        const homeSection = document.getElementById("homeSection");
+        const longSection = document.getElementById("longSection");
+        const vipSection = document.getElementById("vipSection");
+        const homeNav = document.getElementById("homeNav");
+        const shareNav = document.getElementById("shareNav");
+        const teamNav = document.getElementById("teamNav");
+        const myNav = document.getElementById("myNav");
+        const longBtn = document.getElementById("longBtn");
+        const vipBtn = document.getElementById("vipBtn");
+        const confirmOverlay = document.getElementById("confirmOverlay");
+        const dashboardPopup = document.getElementById("dashboardPopup");
+        const soldOutOverlay = document.getElementById("soldOutOverlay");
+        let pendingProduct = "";
+
+       
+       let popupClosed = false;
+
+function openPopup() {
+    if (popupClosed) return;
+    dashboardPopup.style.display = "flex";
+}
+
+function closePopup() {
+    popupClosed = true;
+    dashboardPopup.style.display = "none";
+}
+
+       
+function showLong() {
+    longSection.style.display = "block";
+    vipSection.style.display = "none";
+
+    // Sirf active color change hoga
+    longBtn.classList.add("active");
+    vipBtn.classList.remove("active");
+}
+
+function showVip() {
+    longSection.style.display = "none";
+    vipSection.style.display = "block";
+
+    // Sirf active color change hoga
+    vipBtn.classList.add("active");
+    longBtn.classList.remove("active");
+}
+showLong();
+        
+
+        let currentSlide = 0;
+const slides = document.getElementById("slides");
+
+// First image ka clone last me add karo
+slides.appendChild(slides.children[0].cloneNode(true));
+
+const totalSlides = slides.children.length;
+
+function nextSlide() {
+    currentSlide++;
+
+    slides.style.transition = "transform .5s ease";
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    if (currentSlide === totalSlides - 1) {
+        setTimeout(() => {
+            // Clone par bhi 3 second rukega
+            slides.style.transition = "none";
+            currentSlide = 0;
+            slides.style.transform = "translateX(0)";
+        }, 3000);
+    }
+}
+
+setInterval(nextSlide, 3500);
+
+   
+function openConfirm(product) {
+
+
+    
+
+    pendingProduct = product;
+
+   
+
+    confirmOverlay.style.display = "flex";
+}
+function closeConfirm() {
+    confirmOverlay.style.display = "none";
+}
+
+
+async function confirmPurchase() {
+   
+
+
+  
+
+    closeConfirm();
+
+    let productId = "";
+if (pendingProduct === "Product A") {
+    productId = "6a5ef55ed93aeb26a333c7be";
+}
+
+if (pendingProduct === "Product B") {
+    productId = "6a5ef57dd93aeb26a333c7c0";
+}
+    if (!productId) {
+        showError("Product Not Found");
+        return;
+    }
+
+    await buyProduct(productId);
+
+}
+async function checkPurchaseLimit() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        console.error("Token not found.");
+        return;
+    }
+
+    try {
+
+        const res = await fetch(
+            "/api/product/device",
+            {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }
+        );
+
+        const data = await res.json();
+
+        if (!res.ok || !data.success) {
+            console.error(
+                data.message || "Failed to load purchase limit."
+            );
+            return;
+        }
+
+        const devices = Array.isArray(data.devices)
+            ? data.devices
+            : [];
+
+        // Product A count
+        const countA = devices.filter(item => {
+
+            const id =
+                item.product?._id ??
+                item.product;
+
+            return String(id) ===
+                "6a5ef55ed93aeb26a333c7be";
+
+        }).reduce((total, item) => {
+
+            return total + (Number(item.quantity) || 1);
+
+        }, 0);
+
+
+        // Product B count
+        const countB = devices.filter(item => {
+
+            const id =
+                item.product?._id ??
+                item.product;
+
+            return String(id) ===
+                "6a5ef57dd93aeb26a333c7c0";
+
+        }).reduce((total, item) => {
+
+            return total + (Number(item.quantity) || 1);
+
+        }, 0);
+
+
+        const countAElement =
+            document.getElementById("countA");
+
+        const countBElement =
+            document.getElementById("countB");
+
+
+        if (countAElement) {
+            countAElement.innerText =
+                `${countA}/5`;
+        }
+
+        if (countBElement) {
+            countBElement.innerText =
+                `${countB}/5`;
+        }
+
+
+        // Product A
+        if (countA >= 5) {
+
+            const btnA =
+                document.getElementById("buyBtnA");
+
+            if (btnA) {
+
+                btnA.disabled = true;
+                btnA.innerHTML = "Sold Out";
+                btnA.style.opacity = ".6";
+                btnA.style.cursor = "not-allowed";
+
+            }
+
+        }
+
+
+        // Product B
+        if (countB >= 5) {
+
+            const btnB =
+                document.getElementById("buyBtnB");
+
+            if (btnB) {
+
+                btnB.disabled = true;
+                btnB.innerHTML = "Sold Out";
+                btnB.style.opacity = ".6";
+                btnB.style.cursor = "not-allowed";
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "CHECK PURCHASE LIMIT ERROR:",
+            error
+        );
+
+    }
+
+}
+
+checkPurchaseLimit();
+
+        window.addEventListener("load", function () {
+
+    document.getElementById("loaderOverlay").style.display = "flex";
+
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+    let delay = 1200;
+
+    if (connection) {
+        switch (connection.effectiveType) {
+            case "slow-2g":
+                delay = 4500;
+                break;
+            case "2g":
+                delay = 3500;
+                break;
+            case "3g":
+                delay = 2200;
+                break;
+            default:
+                delay = 1000;
+        }
+    }
+
+    setTimeout(function () {
+
+        document.getElementById("loaderOverlay").style.display = "none";
+
+        //showHome();
+        openPopup();
+
+    }, delay);
+
+});
+        function redirectTo(page, tab) {
+    document.getElementById('loaderOverlay').style.display = 'flex'; // लोडिंग दिखाएं
+    setTimeout(() => {
+        window.location.href = page + '?tab=' + tab; // 1.5 सेकंड बाद रीडायरेक्ट करें
+    }, 1500);
+}
+
+    // User Balance Load
+const balance = parseFloat(localStorage.getItem("userBalance") || 0);
+
+// Jitni bhi balance wali jagah hain unhe update karo
+document.querySelectorAll(".shared-balance").forEach(el => {
+    el.innerText = "₹" + balance.toFixed(2);
+});
+window.addEventListener("DOMContentLoaded", function () {
+
+    // Dashboard open hote hi Home nav active
+    localStorage.setItem("activeNav", "home");
+
+    updateActiveNav();
+
+    const balance = parseFloat(localStorage.getItem("userBalance") || 0);
+
+    document.querySelectorAll(".shared-balance").forEach(el => {
+        el.innerText = "₹" + balance.toFixed(2);
+    });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get("tab");
+
+    if (tab === "withdraw") {
+        const withdrawTab = document.querySelector('.tab_item[onclick*="withdraw"]');
+        if (withdrawTab) {
+            setTab("withdraw", withdrawTab);
+        }
+    }
+
+});
+
+
+    
+
+function showLoader(url) {
+    document.getElementById("loaderOverlay").style.display = "flex";
+
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+    let delay = 1200;
+
+    if (connection) {
+        switch (connection.effectiveType) {
+            case "slow-2g":
+                delay = 4500;
+                break;
+            case "2g":
+                delay = 3500;
+                break;
+            case "3g":
+                delay = 2200;
+                break;
+            default:
+                delay = 1000;
+        }
+    }
+
+    setTimeout(function () {
+        window.location.href = url;
+    }, delay);
+}
+function openPage(page) {
+    document.getElementById("loaderOverlay").style.display = "flex";
+
+    setTimeout(() => {
+        window.location.href = page;
+    }, 500);
+}
+async function buyProduct(productId) {
+
+    const token = localStorage.getItem("token");
+
+    try {
+
+        const countRes = await fetch(
+            "/api/product/device",
+            {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }
+        );
+
+        const countData = await countRes.json();
+
+        const current = countData.devices?.find(
+            d => String(d.product) === String(productId)
+        );
+
+        if (current && current.quantity >= 5) {
+            showError("Maximum purchase limit reached (5/5)");
+            return;
+        }
+
+        const res = await fetch(
+            "/api/product/buy",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + token
+                },
+                body: JSON.stringify({
+                    productId: productId
+                })
+            }
+        );
+
+        const data = await res.json();
+
+       if (!data.success) {
+
+    showError(data.message);
+
+    // Insufficient Recharge Balance hone par card.html par bhejo
+    if (
+        data.message &&
+        data.message.toLowerCase().includes("insufficient recharge balance")
+    ) {
+        setTimeout(() => {
+            window.location.href = "card.html";
+        }, 1800);
+    }
+
+    return;
+}
+
+       showSuccess(data.message);
+
+setTimeout(() => {
+    window.location.href = "dashboard.html";
+}, 1800);
+
+closeConfirm();
+
+checkPurchaseLimit();
+
+    } catch (err) {
+
+        console.error(err);
+
+        showError("Server Error");
+
+    }
+
+}
+const card = document.querySelector(".popup-card");
+
+card.addEventListener("mousemove",e=>{
+
+const rect = card.getBoundingClientRect();
+
+const x = e.clientX - rect.left;
+const y = e.clientY - rect.top;
+
+const rotateY = ((x / rect.width)-0.5)*16;
+const rotateX = ((y / rect.height)-0.5)*-16;
+
+card.style.transform =
+`perspective(900px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+scale(1.03)`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="";
+
+});
+
+document.querySelectorAll('.income-tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+
+        // Sabhi tabs se active class remove
+        document.querySelectorAll('.income-tab').forEach(item => {
+            item.classList.remove('active-income');
+        });
+
+        // Jis par click hua usko active karo
+        this.classList.add('active-income');
+    });
+});
+
+document.querySelectorAll('#longBtn, #vipBtn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('#longBtn, #vipBtn')
+            .forEach(item => item.classList.remove('active'));
+
+        this.classList.add('active');
+    });
+});
+</script>
+<script src="js/toast.js"></script>
+</body>
+</html>

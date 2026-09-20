@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recharge Page</title>
+    <link rel="stylesheet" href="css/toast.css">
+    <script src="js/authGuard.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+        }
+
+        body {
+            background: radial-gradient(circle at top,#3a1748 0%,#1b0b22 45%,#120914 100%) !important;
+            color: #f5d77a;
+            width: 100%;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        uni-page, uni-page-head, uni-page-wrapper, uni-page-body, uni-view, uni-text, uni-input {
+            display: block;
+        }
+
+        /* Fixed Header - always visible on top */
+         .uni-page-head {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+           background: rgba(30,13,28,.96);
+            color: #f5d77a;
+            font-weight: 600;
+            max-width: 430px;
+            width: 100%;
+            border-radius: 0 0 24px 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(47, 111, 237, 0.15);
+        }
+
+        .head-inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 14px;
+        }
+
+        .back-btn {
+            font-size: 22px;
+            cursor: pointer;
+            color: #f5d77a;
+            text-decoration: none;
+        }
+
+        #pageTitle {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .uni-placeholder {
+            display: none !important;
+        }
+
+        /* Main container */
+        .max-w-xl {
+            width: 100% !important;
+            max-width: 430px !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+        }
+
+        /* Content body */
+        .uni-page-body {
+            width: 100%;
+            max-width: 430px;
+            margin: 0 auto;
+            padding: 80px 10px 90px 10px; /* 60px ki jagah 80px */
+        }
+
+        .content, .cz, .bank-details-card {
+            background: rgba(20,8,18,.98) !important;
+            color: #f5d77a !important;
+            border: 1px solid rgba(223,91,149,.2) !important;
+            box-shadow: 0 10px 30px rgba(0,0,0,.45) !important;
+        }
+
+        .content {
+            border-radius: 24px;
+            padding: 14px;
+            margin-bottom: 12px;
+             margin-top: 42px;
+        }
+
+        .cz {
+            border-radius: 16px;
+            padding: 14px;
+            margin-bottom: 12px;
+        }
+
+        .bank-details-card {
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 12px;
+            display: none;
+            flex-direction: column;
+        }
+
+        .tab_r {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .tab_item {
+            flex: 1;
+            border-radius: 12px;
+            padding: 13px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            background: rgba(50,25,45,.7) !important;
+            color: #f5d77a !important;
+            border: 2px solid rgba(223,91,149,.2) !important;
+        }
+
+        .tab_item.select {
+            background: linear-gradient(135deg,#b88919,#f5d77a) !important;
+            color: #111 !important;
+            border-color: transparent !important;
+        }
+
+        .itemlist {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .item_mian .item {
+            display: block;
+            width: 100%;
+        }
+
+        .item {
+            border-radius: 30px;
+            padding: 12px 35px;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            font-size: 14px;
+            display: inline-block;
+            transition: all 0.3s ease;
+            background: rgba(50,25,45,.7) !important;
+            color: #f5d77a !important;
+            border: 2px solid rgba(223,91,149,.2) !important;
+        }
+
+        .item.av {
+            background: linear-gradient(135deg,#b88919,#f5d77a) !important;
+            color: #111 !important;
+            border-color: transparent !important;
+        }
+
+        .title {
+            color: #f5d77a;
+            font-size: 15px;
+            margin-bottom: 14px;
+            opacity: 0.9;
+        }
+
+        .je, .withdraw-input-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+            background: rgba(30,13,28,.5) !important;
+            border: 2px solid rgba(223,91,149,.2) !important;
+        }
+
+        .je1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #f5d77a;
+        }
+
+        .je2 {
+            flex: 1;
+        }
+
+        .login_input_t input, .withdraw-input-box input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            background: transparent;
+            color: #fff !important;
+        }
+
+        .login_input_t input::placeholder,
+        .withdraw-input-box input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .itemlist1 {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            padding: 16px 18px;
+            border-radius: 14px;
+            background: rgba(40, 18, 35, 0.6);
+            border: 2px solid rgba(223, 91, 149, 0.2);
+            color: #c9b3c2;
+            transition: all 0.3s ease;
+        }
+
+        .radio-item.active {
+            background: linear-gradient(135deg, rgba(184, 137, 25, 0.3), rgba(245, 215, 122, 0.2)) !important;
+            border: 2px solid #f5d77a !important;
+            color: #f5d77a !important;
+            box-shadow: 0 0 25px rgba(245, 215, 122, 0.3), inset 0 0 20px rgba(245, 215, 122, 0.08) !important;
+        }
+
+        .radio-box {
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid rgba(223, 91, 149, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: transparent;
+            background: rgba(30, 13, 28, 0.6);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .radio-item.active .radio-box {
+            background: linear-gradient(135deg, #b88919, #f5d77a);
+            border-color: #f5d77a;
+            color: #111;
+            box-shadow: 0 0 12px rgba(245, 215, 122, 0.5);
+        }
+
+        .my_btn, .withdraw-btn {
+            background: linear-gradient(135deg,#b88919,#f5d77a) !important;
+            color: #111 !important;
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 14px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            box-shadow: 0 6px 20px rgba(184, 137, 25, 0.3) !important;
+        }
+
+        .my_btn:hover, .withdraw-btn:hover {
+            box-shadow: 0 8px 28px rgba(184, 137, 25, 0.45) !important;
+            transform: translateY(-2px);
+        }
+
+        .my_btn:active, .withdraw-btn:active {
+            transform: translateY(0);
+        }
+
+        .withdraw-section {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .withdraw-title {
+            font-size: 16px;
+            color: #f5d77a;
+            font-weight: 500;
+        }
+
+        .withdraw-balance-label {
+            font-size: 14px;
+            color: #f5d77a;
+            opacity: 0.8;
+            margin-top: -6px;
+        }
+
+        .withdraw-input-box i {
+            color: #f5d77a;
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .bank-field {
+            padding: 14px 12px;
+            font-size: 15px;
+            color: #f5d77a;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .bank-field:not(:last-child) {
+            border-bottom: 1px solid rgba(223,91,149,.2);
+        }
+
+        .bank-field .value {
+            font-weight: 600;
+            color: #f5d77a;
+            margin-left: 14px;
+            white-space: nowrap;
+            padding: 4px 8px;
+            background: rgba(184,137,25,0.2);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .bind-center-btn {
+            margin-top: 14px;
+            text-align: center;
+            color: #f5d77a;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 10px;
+            background: rgba(184,137,25,0.15);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .bind-center-btn:hover {
+            background: rgba(184,137,25,0.25);
+        }
+
+        .bind-form-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 16px;
+        }
+
+        .bind-form {
+            width: 100%;
+            max-width: 400px;
+            background: rgba(20,8,18,.98) !important;
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(223,91,149,.2) !important;
+        }
+
+        .bind-form-header {
+            background: linear-gradient(135deg, #b88919, #f5d77a);
+            color: #111;
+            padding: 18px 16px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .bind-form-body {
+            padding: 16px;
+        }
+
+        .bind-card {
+            background: rgba(30,13,28,.5);
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(223,91,149,.2);
+        }
+
+        .bind-card label {
+            display: block;
+            font-size: 13px;
+            color: #f5d77a;
+            margin-bottom: 6px;
+        }
+
+        .bind-card input {
+            width: 100%;
+            border: 1px solid rgba(223,91,149,.3);
+            border-radius: 10px;
+            padding: 12px 14px;
+            outline: none;
+            font-size: 15px;
+            background: rgba(20,8,18,.8);
+            color: #fff;
+        }
+
+        .bind-card input:focus {
+            border-color: #f5d77a;
+            box-shadow: 0 0 0 3px rgba(245,215,122,0.2);
+        }
+
+        .bind-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .bind-back-btn {
+            flex: 1;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            color: #f5d77a;
+            transition: all 0.3s ease;
+        }
+
+        .bind-confirm-btn {
+            flex: 1;
+            border: none;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg,#b88919,#f5d77a) !important;
+            color: #111 !important;
+            transition: all 0.3s ease;
+        }
+
+        #loaderOverlay {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid #f5d77a;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Fixed Bottom Nav */
+       .final-bottom-nav{
+position:fixed!important;
+left:50%!important;
+bottom:0!important;
+transform:translateX(-50%)!important;
+width:100%!important;
+max-width:430px!important;
+height:82px!important;
+padding:8px!important;
+display:grid!important;
+grid-template-columns:repeat(5,1fr)!important;
+align-items:center!important;
+background:rgba(30,13,28,.96)!important;
+backdrop-filter:blur(18px)!important;
+border-top:1px solid rgba(223,91,149,.28)!important;
+border-radius:20px 20px 0 0!important;
+box-shadow:0 -10px 30px rgba(0,0,0,.48)!important;
+z-index:9999!important;
+}
+
+.final-bottom-nav .nav-btn{
+height:66px;
+background:transparent;
+border:none;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:4px;
+color:#c9b3c2;
+font-size:10px;
+font-weight:700;
+transition:.25s;
+cursor:pointer;
+}
+
+.final-bottom-nav .nav-btn:hover{
+transform:translateY(-5px);
+color:#ffd43b;
+}
+
+.final-bottom-nav .nav-btn i{
+width:38px;
+height:36px;
+display:grid;
+place-items:center;
+border-radius:12px;
+background:#5a2949;
+color:#f5d9e7;
+font-size:17px;
+transition:.25s;
+}
+
+.final-bottom-nav .nav-btn:hover i{
+transform:translateY(-3px) scale(1.08);
+box-shadow:0 10px 20px rgba(0,0,0,.5),0 0 18px rgba(255,212,59,.18);
+}
+
+.final-bottom-nav .active-nav{
+color:#ffd43b;
+}
+
+.final-bottom-nav .active-nav i{
+background:#ffd43b;
+color:#3a2000;
+box-shadow:0 0 20px rgba(255,212,59,.48);
+}
+
+.final-bottom-nav .game-nav i{
+width:54px;
+height:54px;
+margin-top:-22px;
+border-radius:18px;
+background:linear-gradient(145deg,#ffe45b,#d38a1b);
+color:#3a2000;
+font-size:23px;
+}
+
+.final-bottom-nav .game-nav:hover{
+transform:translateY(-8px);
+}
+
+.final-bottom-nav .game-nav:hover i{
+transform:translateY(-4px) scale(1.12) rotate(-4deg);
+}
+        .back-btn{
+
+width:42px;
+height:42px;
+
+border:none;
+
+border-radius:14px;
+
+background:#5a2949;
+
+color:#ffd43b;
+
+font-size:18px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.back-btn:hover{
+
+transform:translateY(-3px);
+
+}
+.my_btn,
+.withdraw-btn,
+.tab_item,
+.item,
+.radio-item {
+    user-select: none;
+    -webkit-user-select: none;
+}
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+.withdraw-btn{
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+    </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+<body>
+    <div class="max-w-xl">
+
+<div id="loaderOverlay">
+    <div class="loader-spinner"></div>
+</div>
+
+<uni-page data-page="pages/my/recharge">
+    <uni-page-head uni-page-head-type="default">
+        <div class="uni-page-head">
+            <div class="head-inner">
+                <button class="back-btn" onclick="goBackMy()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+                <div id="pageTitle">Recharge</div>
+                <div style="width:24px;"></div>
+            </div>
+        </div>
+    </uni-page-head>
+
+    <uni-page-wrapper>
+        <uni-page-body>
+            <uni-view class="content">
+                <uni-view class="tab_r">
+                    <uni-view class="tab_item select" onclick="setTab('recharge', this)">Recharge</uni-view>
+                    <uni-view class="tab_item" onclick="setTab('withdraw', this)">Withdraw</uni-view>
+                </uni-view>
+
+                <div id="rechargeContainer">
+                    <uni-view class="itemlist">
+                        <uni-view class="item_mian">
+                            <uni-view class="item av" onclick="setAmount(520, this)">₹520</uni-view>
+                        </uni-view>
+                        <uni-view class="item_mian">
+                            <uni-view class="item" onclick="setAmount(2200, this)">₹2200</uni-view>
+                        </uni-view>
+                    </uni-view>
+
+                    <uni-view class="cz">
+                        <uni-view class="title">Balance： ₹<span class="shared-balance">0.00</span></uni-view>
+
+                        <uni-view class="je">
+                            <uni-view class="je1">₹</uni-view>
+                            <uni-view class="je2">
+                                <input id="amountInput" type="number" placeholder="Enter amount" style="background:transparent;border:none;outline:none;width:100%;font-size:16px;color:#fff;">
+                            </uni-view>
+                        </uni-view>
+
+                        <uni-view class="itemlist1">
+                            <uni-view class="radio-item active" onclick="selectPay(this)">
+                                <uni-view class="radio-box">✓</uni-view>
+                                <uni-text>Pay-T</uni-text>
+                            </uni-view>
+                            <uni-view class="radio-item" onclick="selectPay(this)">
+                                <uni-view class="radio-box">✓</uni-view>
+                                <uni-text>Pay-L</uni-text>
+                            </uni-view>
+                            <uni-view class="radio-item" onclick="selectPay(this)">
+                                <uni-view class="radio-box">✓</uni-view>
+                                <uni-text>Pay-M</uni-text>
+                            </uni-view>
+                        </uni-view>
+
+                        <uni-view class="my_btn" onclick="payNow()">Pay ₹<span id="payAmount">520</span></uni-view>
+                    </uni-view>
+                </div>
+
+                <div id="withdrawContainer" class="withdraw-section" style="display:none;">
+                    <div class="withdraw-title">Withdraw Amount</div>
+                    <div class="withdraw-input-box">
+                        <span>₹</span>
+                        <input id="withdrawAmountInput" type="number" placeholder="Enter amount">
+                    </div>
+                    <div class="withdraw-balance-label">Available Balance: ₹<span class="shared-balance">0.00</span></div>
+                    <div class="withdraw-input-box">
+                        <i class="fas fa-lock"></i>
+                        <input id="withdrawPassword" type="password" maxlength="6" minlength="6" inputmode="numeric" placeholder="Enter 6-digit PIN">
+                    </div>
+                    <button
+    type="button"
+    class="withdraw-btn"
+    onclick="withdrawNow()">
+
+    Withdraw ₹<span id="withdrawBtnAmount">0</span>
+
+</button>
+                </div>
+            </uni-view>
+
+            <div id="bankDetailsCard" class="bank-details-card">
+                <div class="bank-field">Real Name <span class="value" id="displayRealName">Not Set</span></div>
+                <div class="bank-field">IFSC Code <span class="value" id="displayIfscCode">Not Set</span></div>
+                <div class="bank-field">Account Number <span class="value" id="displayAccountNumber">Not Set</span></div>
+                <div class="bind-center-btn" onclick="openBindForm()">+ Bind Bank Card</div>
+            </div>
+        </uni-page-body>
+    </uni-page-wrapper>
+</uni-page>
+
+<div class="bind-form-overlay" id="bindFormOverlay">
+    <div class="bind-form">
+        <div class="bind-form-header">Add Bank Card</div>
+        <div class="bind-form-body">
+            <div class="bind-card">
+                <label>Account Number</label>
+                <input id="bindAccountInput" type="text" placeholder="Enter bank account number">
+            </div>
+            <div class="bind-card">
+                <label>IFSC Code</label>
+                <input id="bindIfscInput" type="text" placeholder="Enter IFSC code">
+            </div>
+            <div class="bind-card">
+                <label>Account Holder Name</label>
+                <input id="bindNameInput" type="text" placeholder="Enter full name">
+            </div>
+            <div class="bind-actions">
+                <button class="bind-back-btn" onclick="closeBindForm()">Cancel</button>
+                <button class="bind-confirm-btn" onclick="confirmBind()">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="final-bottom-nav">
+   <button id="homeNav" class="nav-btn" onclick="goDashboard()"><i class="fas fa-house"></i><span>Plan</span></button>
+    <button id="shareNav" class="nav-btn" onclick="goShare()"><i class="fas fa-arrows-rotate"></i><span>Convert</span></button>
+    <button class="nav-btn game-nav" onclick="goCard()"><i class="fas fa-credit-card"></i><span>Card</span></button>
+    <button id="teamNav" class="nav-btn" onclick="goTeam()"><i class="fas fa-users"></i><span>Team</span></button>
+    <button id="myNav" class="nav-btn" onclick="goMy()"><i class="fas fa-user"></i><span>My</span></button>
+</div>
+
+</div>
+
+<script>
+    const amountInput = document.getElementById("amountInput");
+    const payAmount = document.getElementById("payAmount");
+    const withdrawAmountInput = document.getElementById("withdrawAmountInput");
+    const withdrawBtnAmount = document.getElementById("withdrawBtnAmount");
+    const rechargeContainer = document.getElementById("rechargeContainer");
+    const withdrawContainer = document.getElementById("withdrawContainer");
+    const bankDetailsCard = document.getElementById("bankDetailsCard");
+    const pageTitle = document.getElementById("pageTitle");
+    const bindFormOverlay = document.getElementById("bindFormOverlay");
+    const bindAccountInput = document.getElementById("bindAccountInput");
+    const bindIfscInput = document.getElementById("bindIfscInput");
+    const bindNameInput = document.getElementById("bindNameInput");
+    const displayRealName = document.getElementById("displayRealName");
+    const displayIfscCode = document.getElementById("displayIfscCode");
+    const displayAccountNumber = document.getElementById("displayAccountNumber");
+    
+    const items = document.querySelectorAll(".item");
+    const tabs = document.querySelectorAll(".tab_item");
+    const payItems = document.querySelectorAll(".radio-item");
+
+    amountInput.value = 520;
+
+    function openBindForm() { bindFormOverlay.style.display = "flex"; }
+    function closeBindForm() { bindFormOverlay.style.display = "none"; }
+
+    function setTab(mode, el) {
+        tabs.forEach(t => { t.classList.remove("select"); t.setAttribute("aria-pressed", "false"); });
+        el.classList.add("select");
+        el.setAttribute("aria-pressed", "true");
+        if (mode === "recharge") {
+            pageTitle.innerText = "Recharge";
+            rechargeContainer.style.display = "block";
+            withdrawContainer.style.display = "none";
+            bankDetailsCard.style.display = "none";
+        } else {
+            pageTitle.innerText = "Withdraw";
+            rechargeContainer.style.display = "none";
+            withdrawContainer.style.display = "flex";
+            bankDetailsCard.style.display = "flex";
+        }
+    }
+
+    function setAmount(val, el) {
+        amountInput.value = val;
+        payAmount.innerText = val;
+        items.forEach(i => i.classList.remove("av"));
+        el.classList.add("av");
+    }
+
+    function selectPay(el) {
+        payItems.forEach(i => i.classList.remove("active"));
+        el.classList.add("active");
+    }
+
+    amountInput.addEventListener("input", function () { payAmount.innerText = this.value || "0"; });
+    withdrawAmountInput.addEventListener("input", function () { withdrawBtnAmount.innerText = this.value || "0"; });
+
+    async function payNow() {
+        const amount = Number(payAmount.textContent || 0);
+        if (!amount || amount < 520) { showError("Minimum recharge amount is ₹520"); return; }
+        try {
+            const token = localStorage.getItem("token");
+            if (!token) { showPopup("Please login first"); return; }
+            const res = await fetch("/api/payment-gateway/create", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({ amount })
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.message || "Payment failed");
+            const payUrl = data?.data?.payUrl || data?.data?.payInfo || data?.data?.payment_url || data?.data?.url || data?.payUrl || data?.payInfo;
+            if (payUrl && /^https?:\/\//i.test(String(payUrl))) { window.location.href = String(payUrl); return; }
+            if (data?.data?.paymentHtml) {
+                document.open();
+                document.write(data.data.paymentHtml);
+                document.close();
+                return;
+            }
+            throw new Error("WatchPay payment page was not received");
+        } catch (err) {
+            showError(err.message || "Payment failed");
+        }
+    }
+
+   async function withdrawNow() {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        showError("Please Login First");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const amount = withdrawAmountInput.value.trim();
+    const pin = document.getElementById("withdrawPassword").value.trim();
+       if (amount === "" &&
+        pin === ""  
+       ) {
+        showError("Please Enter Required feilds");
+        return;
+    } 
+
+    if (amount === "") {
+        showError("Please Enter Withdraw Amount");
+        return;
+    }
+
+    if (pin === "") {
+        showError("Please Enter Withdraw PIN");
+        return;
+    }
+
+    if (Number(amount) < 200) {
+        showError("Minimum withdrawal amount is ₹200");
+        return;
+    }
+
+    try {
+
+        const res = await fetch(
+            "/api/withdraw/create",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({
+                    amount: Number(amount),
+                    withdrawPin: pin
+                })
+            }
+        );
+
+        const data = await res.json();
+
+       if (!data.success) {
+    showError(data.message);
+    return;
+}
+
+showSuccess(data.message);
+
+setTimeout(() => {
+    window.location.href = "dashboard.html";
+}, 1600);
+
+return;
+
+    } catch (err) {
+        showError("Server Error");
+    }
+
+}
+    async function confirmBind() {
+
+    const token = localStorage.getItem("token");
+
+    const accountNumber = bindAccountInput.value.trim();
+    const ifsc = bindIfscInput.value.trim();
+    const holderName = bindNameInput.value.trim();
+      if (
+    holderName === "" &&
+    accountNumber === "" &&
+    ifsc === ""
+) {
+    showError("Please Fill All Bank Details");
+    return;
+}
+
+
+    if (holderName === "") {
+        showError("Please Enter Account Holder Name");
+        return;
+    }
+
+    if (accountNumber === "") {
+        showError("Please Enter Account Number");
+        return;
+    }
+
+    if (ifsc === "") {
+        showError("Please Enter IFSC Code");
+        return;
+    }
+
+    try {
+
+        const res = await fetch(
+            "/api/user/bank",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                body: JSON.stringify({
+                    bankName: "SBI",
+                    accountNumber,
+                    ifsc,
+                    holderName
+                })
+            }
+        );
+
+        const data = await res.json();
+
+        if (data.success) {
+
+            showSuccess(data.message);
+
+            displayRealName.innerText = holderName;
+            displayIfscCode.innerText = ifsc;
+            displayAccountNumber.innerText = accountNumber;
+
+            closeBindForm();
+
+        } else {
+
+            showError(data.message);
+
+        }
+
+    } catch (err) {
+
+        showError("Server Error");
+
+    }
+
+}
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get("tab");
+    if (tab === "withdraw") {
+        setTab("withdraw", document.querySelector('.tab_item[onclick*="withdraw"]'));
+    } else {
+        setTab("recharge", document.querySelector('.tab_item[onclick*="recharge"]'));
+    }
+    if (urlParams.get("bind") === "true") {
+        setTab("withdraw", document.querySelector('.tab_item[onclick*="withdraw"]'));
+        setTimeout(openBindForm, 300);
+    }
+
+    window.addEventListener("load", function () {
+        document.getElementById("loaderOverlay").style.display = "none";
+    });
+
+    async function loadProfile() {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+            const res = await fetch("/api/user/profile", {
+                headers: { Authorization: "Bearer " + token }
+            });
+            const data = await res.json();
+            if (data.success) {
+               document.querySelectorAll(".shared-balance").forEach(e => {
+    e.innerText = Number(data.user.balance).toFixed(2);
+});
+            }
+        } catch (err) {}
+    }
+    loadProfile();
+
+    async function loadBankDetails() {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+            const res = await fetch("/api/user/bank", {
+                headers: { Authorization: "Bearer " + token }
+            });
+            const data = await res.json();
+            if (data.success) {
+                displayRealName.innerText = data.bank.holderName || "Not Set";
+                displayIfscCode.innerText = data.bank.ifsc || "Not Set";
+                displayAccountNumber.innerText = data.bank.accountNumber || "Not Set";
+            }
+        } catch (err) {}
+    }
+    loadBankDetails();
+    function goBackMy(){
+    window.location.href = "dashboard.html";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const withdrawBtn = document.querySelector(".withdraw-btn");
+    if (withdrawBtn) {
+        withdrawBtn.addEventListener("click", withdrawNow);
+    }
+
+    const confirmBtn = document.querySelector(".confirm-btn");
+    if (confirmBtn) {
+        confirmBtn.addEventListener("click", confirmBind);
+    }
+
+});
+</script>
+
+<script src="js/navigation.js"></script>
+<script src="js/toast.js"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<script src="js/confirm.js"></script></body>
+</html>

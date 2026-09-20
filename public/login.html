@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>B-Portal Login</title>
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="css/toast.css">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+
+        /* ==============================
+           RESET
+        ============================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        /* ==============================
+           BODY
+        ============================== */
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background-color: #20242d;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.58),
+                    rgba(0, 0, 0, 0.68)
+                ),
+                url("https://nextwhatbusiness.com/wp-content/uploads/2023/07/britanniabiscuits-1-jpg.webp");
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            color: white;
+
+            overflow-x: hidden;
+        }
+
+        /* ==============================
+           LOGIN CARD
+        ============================== */
+
+        .login-card {
+
+            width: 100%;
+            max-width: 430px;
+
+            padding: 32px;
+
+            border-radius: 26px;
+
+            background:
+                rgba(255, 255, 255, 0.13);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+
+            backdrop-filter:
+                blur(20px);
+
+            -webkit-backdrop-filter:
+                blur(20px);
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.50);
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+        /* ==============================
+           LOGO
+        ============================== */
+
+        .logo {
+
+            width: 92px;
+            height: 92px;
+
+            margin: 0 auto;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #d71920;
+
+            font-size: 42px;
+            font-weight: 900;
+
+            box-shadow:
+                0 8px 30px
+                rgba(0, 0, 0, 0.35);
+
+            user-select: none;
+        }
+
+        /* ==============================
+           TITLE
+        ============================== */
+
+        .title {
+
+            margin-top: 20px;
+
+            text-align: center;
+
+            color: white;
+
+            font-size: 32px;
+
+            font-weight: 900;
+
+            letter-spacing: 0.3px;
+        }
+
+        .subtitle {
+
+            margin-top: 7px;
+
+            text-align: center;
+
+            color:
+                rgba(255, 255, 255, 0.82);
+
+            font-size: 15px;
+        }
+
+        /* ==============================
+           FORM
+        ============================== */
+
+        .form-group {
+
+            margin-top: 24px;
+        }
+
+        .form-group.password-group {
+
+            margin-top: 20px;
+        }
+
+        .form-label {
+
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+
+            position: relative;
+
+            width: 100%;
+        }
+
+        .input-icon {
+
+            position: absolute;
+
+            left: 17px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color:
+                rgba(255, 255, 255, 0.90);
+
+            font-size: 17px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+        .input {
+
+            width: 100%;
+
+            height: 54px;
+
+            padding:
+                0 50px 0 50px;
+
+            border-radius: 15px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.25);
+
+            outline: none;
+
+            background:
+                rgba(255, 255, 255, 0.14);
+
+            color: white;
+
+            font-size: 15px;
+
+            transition:
+                0.25s ease;
+
+        }
+
+        .input::placeholder {
+
+            color:
+                rgba(255, 255, 255, 0.70);
+        }
+
+        .input:focus {
+
+            border-color:
+                rgba(255, 255, 255, 0.70);
+
+            background:
+                rgba(255, 255, 255, 0.19);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 255, 255, 0.08);
+        }
+
+        /* ==============================
+           PASSWORD EYE
+        ============================== */
+
+        .password-toggle {
+
+            position: absolute;
+
+            right: 15px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            width: 34px;
+            height: 34px;
+
+            border: none;
+
+            background: transparent;
+
+            color: white;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 17px;
+
+            padding: 0;
+        }
+
+        .password-toggle:hover {
+
+            color: #ffd54f;
+        }
+
+        /* ==============================
+           REMEMBER
+        ============================== */
+
+        .remember-row {
+
+            margin-top: 17px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+        .remember-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            cursor: pointer;
+        }
+
+        .remember-label input {
+
+            width: 16px;
+            height: 16px;
+
+            cursor: pointer;
+        }
+
+        /* ==============================
+           LOGIN BUTTON
+        ============================== */
+
+        .login-button {
+
+            width: 100%;
+
+            height: 54px;
+
+            margin-top: 24px;
+
+            border: none;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2f6fed,
+                    #1e56c7
+                );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 8px 20px
+                rgba(20, 75, 180, 0.35);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                filter 0.2s ease;
+        }
+
+        .login-button:hover {
+
+            transform:
+                translateY(-1px);
+
+            filter:
+                brightness(1.08);
+
+            box-shadow:
+                0 12px 25px
+                rgba(20, 75, 180, 0.45);
+        }
+
+        .login-button:active {
+
+            transform:
+                translateY(0);
+        }
+
+        /* ==============================
+           REGISTER LINK
+        ============================== */
+
+        .register-text {
+
+            margin-top: 22px;
+
+            text-align: center;
+
+            color:
+                rgba(255, 255, 255, 0.90);
+
+            font-size: 14px;
+        }
+
+        .register-link {
+
+            color: #ffd54f;
+
+            font-weight: 800;
+
+            text-decoration: none;
+
+            margin-left: 4px;
+        }
+
+        .register-link:hover {
+
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media (max-width: 520px) {
+
+            body {
+
+                padding: 15px;
+
+                background-attachment:
+                    scroll;
+            }
+
+            .login-card {
+
+                padding: 25px 20px;
+
+                border-radius: 22px;
+            }
+
+            .logo {
+
+                width: 82px;
+                height: 82px;
+
+                font-size: 36px;
+            }
+
+            .title {
+
+                font-size: 27px;
+            }
+
+            .subtitle {
+
+                font-size: 14px;
+            }
+
+            .input {
+
+                height: 52px;
+            }
+
+            .login-button {
+
+                height: 52px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- ==============================
+         LOGIN CARD
+    ============================== -->
+
+    <div class="login-card">
+
+        <!-- LOGO -->
+
+        <div class="logo">
+            B
+        </div>
+
+
+        <!-- TITLE -->
+
+        <div class="title">
+            B-Portal
+        </div>
+
+        <div class="subtitle">
+            Welcome Back
+        </div>
+
+
+        <!-- MOBILE -->
+
+        <div class="form-group">
+
+            <label
+                class="form-label"
+                for="mobile"
+            >
+                Mobile Number
+            </label>
+
+            <div class="input-wrapper">
+
+                <i
+                    class="fa fa-phone input-icon"
+                ></i>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    class="input"
+                    placeholder="Enter Mobile Number"
+                    maxlength="10"
+                    pattern="[6-9][0-9]{9}"
+                    inputmode="numeric"
+                    autocomplete="tel"
+                    title="Please enter a valid 10 digit mobile number"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- PASSWORD -->
+
+        <div class="form-group password-group">
+
+            <label
+                class="form-label"
+                for="password"
+            >
+                Password
+            </label>
+
+            <div class="input-wrapper">
+
+                <i
+                    class="fa fa-lock input-icon"
+                ></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    class="input"
+                    placeholder="Enter Password"
+                    minlength="6"
+                    autocomplete="current-password"
+                >
+
+                <button
+                    type="button"
+                    id="passwordToggle"
+                    class="password-toggle"
+                    onclick="togglePassword()"
+                    aria-label="Show password"
+                >
+
+                    <i
+                        id="eye"
+                        class="fa fa-eye"
+                    ></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- REMEMBER ME -->
+
+        <div class="remember-row">
+
+            <label
+                class="remember-label"
+            >
+
+                <input
+                    type="checkbox"
+                    id="rememberMe"
+                >
+
+                <span>
+                    Remember Me
+                </span>
+
+            </label>
+
+        </div>
+
+
+        <!-- LOGIN BUTTON -->
+
+        <button
+            type="button"
+            class="login-button"
+            onclick="validateLogin()"
+        >
+            Login
+        </button>
+
+
+        <!-- REGISTER -->
+
+        <div class="register-text">
+
+            Don't have an account?
+
+            <a
+                href="register.html"
+                class="register-link"
+            >
+                Register
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==============================
+         LOGIN VALIDATION
+    ============================== -->
+
+    <script>
+
+        function validateLogin() {
+
+            const mobileInput =
+                document.getElementById(
+                    "mobile"
+                );
+
+            const passwordInput =
+                document.getElementById(
+                    "password"
+                );
+
+            const mobile =
+                mobileInput.value.trim();
+
+            const password =
+                passwordInput.value;
+
+
+            /* MOBILE REQUIRED */
+
+            if (mobile === "") {
+
+                showError(
+                    "Please Enter Mobile Number"
+                );
+
+                mobileInput.focus();
+
+                return;
+            }
+
+
+            /* MOBILE FORMAT */
+
+            if (
+                !/^[6-9]\d{9}$/.test(
+                    mobile
+                )
+            ) {
+
+                showError(
+                    "Please enter a valid 10 digit mobile number."
+                );
+
+                mobileInput.focus();
+
+                return;
+            }
+
+
+            /* PASSWORD REQUIRED */
+
+            if (password === "") {
+
+                showError(
+                    "Please Enter Password"
+                );
+
+                passwordInput.focus();
+
+                return;
+            }
+
+
+            /* PASSWORD LENGTH */
+
+            if (
+                password.length < 6
+            ) {
+
+                showError(
+                    "Password must be at least 6 characters"
+                );
+
+                passwordInput.focus();
+
+                return;
+            }
+
+
+            /* LOGIN API */
+
+            login();
+
+        }
+
+
+        /* ==============================
+           PASSWORD SHOW / HIDE
+        ============================== */
+
+        function togglePassword() {
+
+            const password =
+                document.getElementById(
+                    "password"
+                );
+
+            const eye =
+                document.getElementById(
+                    "eye"
+                );
+
+            const toggle =
+                document.getElementById(
+                    "passwordToggle"
+                );
+
+
+            if (
+                password.type ===
+                "password"
+            ) {
+
+                password.type =
+                    "text";
+
+                eye.className =
+                    "fa fa-eye-slash";
+
+                toggle.setAttribute(
+                    "aria-label",
+                    "Hide password"
+                );
+
+            } else {
+
+                password.type =
+                    "password";
+
+                eye.className =
+                    "fa fa-eye";
+
+                toggle.setAttribute(
+                    "aria-label",
+                    "Show password"
+                );
+
+            }
+
+        }
+
+    </script>
+
+
+    <!-- AUTH -->
+
+    <script src="js/auth.js?v=20260919"></script>
+
+    <!-- TOAST -->
+
+    <script src="js/toast.js"></script>
+
+    <!-- CONFIRM -->
+
+    <link
+        rel="stylesheet"
+        href="css/confirm.css"
+    >
+
+    <script src="js/confirm.js"></script>
+
+</body>
+
+</html>

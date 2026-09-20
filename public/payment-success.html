@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Status</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin:0; min-height:100vh; display:flex; justify-content:center; align-items:center; font-family:Arial,sans-serif; background:#f4f7fb; }
+    .payment-box { width:90%; max-width:420px; background:white; padding:35px 25px; border-radius:15px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,.1); }
+    .icon { font-size:60px; margin-bottom:15px; }
+    h1 { margin:10px 0; color:#222; }
+    p { color:#666; font-size:16px; }
+    .success { color:#16a34a; }
+    .pending { color:#d97706; }
+    .failed { color:#dc2626; }
+    .btn { display:inline-block; margin-top:20px; padding:12px 25px; background:#2563eb; color:white; text-decoration:none; border-radius:8px; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+    <div class="icon" id="icon">⏳</div>
+    <h1 id="title" class="pending">Checking payment...</h1>
+    <p id="message">Please wait while we confirm your payment.</p>
+    <a href="/" class="btn">Go to Home</a>
+  </div>
+<script>
+(async function () {
+  const params = new URLSearchParams(window.location.search);
+  const orderId = params.get("orderId");
+  const title = document.getElementById("title");
+  const message = document.getElementById("message");
+  const icon = document.getElementById("icon");
+
+  if (!orderId) {
+    icon.textContent = "❌";
+    title.textContent = "Payment order not found";
+    title.className = "failed";
+    message.textContent = "No order ID was provided.";
+    return;
+  }
+
+  // This page is informational only. Wallet credit is performed by the server
+  // after WatchPay's verified webhook is verified.
+  try {
+    const token = localStorage.getItem("token");
+    const response = await fetch("/api/payment-gateway/status/" + encodeURIComponent(orderId), {
+      headers: token ? { Authorization: "Bearer " + token } : {}
+    });
+    const data = await response.json();
+    const status = data?.data?.status;
+
+    if (response.ok && status === "SUCCESS") {
+      icon.textContent = "✅";
+      title.textContent = "Payment Completed";
+      title.className = "success";
+      message.textContent = "Your payment has been verified and your account has been updated.";
+    } else if (status === "FAILED") {
+      icon.textContent = "❌";
+      title.textContent = "Payment Failed";
+      title.className = "failed";
+      message.textContent = "The payment could not be completed.";
+    } else {
+      icon.textContent = "⏳";
+      title.textContent = "Payment Pending";
+      title.className = "pending";
+      message.textContent = "Payment received or still being confirmed. Please refresh after a moment.";
+    }
+  } catch (e) {
+    icon.textContent = "⏳";
+    title.textContent = "Payment Pending";
+    title.className = "pending";
+    message.textContent = "We are still waiting for payment confirmation.";
+  }
+})();
+</script>
+</body>
+</html>

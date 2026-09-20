@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Leaderboard</title>
+
+    <link
+        rel="stylesheet"
+        href="css/leaderboard.css"
+    >
+</head>
+
+<body>
+
+<main class="leaderboard-page">
+
+    <!-- HEADER -->
+    <header class="leaderboard-header">
+
+        <div class="header-left">
+
+            <button
+                type="button"
+                class="back-btn"
+                onclick="history.back()"
+            >
+                ←
+            </button>
+
+            <div>
+                <h1>🏆 Leaderboard</h1>
+                <p>Top players by approved recharge</p>
+            </div>
+
+        </div>
+
+        <button
+            type="button"
+            id="refreshBtn"
+            class="refresh-btn"
+        >
+            ↻
+        </button>
+
+    </header>
+
+
+    <!-- PERIOD BUTTONS -->
+    <section class="period-section">
+
+        <div class="period-buttons">
+
+            <button
+                type="button"
+                class="filter-btn active"
+                data-period="today"
+            >
+                Today
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-period="yesterday"
+            >
+                Yesterday
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-period="thisweek"
+            >
+                This Week
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-period="lastweek"
+            >
+                Last Week
+            </button>
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-period="month"
+            >
+                Month
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOP 3 -->
+    <section class="podium-section">
+
+        <!-- #2 -->
+        <div class="podium-card second">
+
+            <div class="podium-medal">🥈</div>
+
+            <div class="podium-rank">
+                #2
+            </div>
+
+            <div
+                class="podium-mobile"
+                id="secondMobile"
+            >
+                —
+            </div>
+
+            <div
+                class="podium-recharge"
+                id="secondRecharge"
+            >
+                ₹0
+            </div>
+
+            <div
+                class="podium-reward"
+                id="secondReward"
+            >
+                Reward ₹0
+            </div>
+
+        </div>
+
+
+        <!-- #1 -->
+        <div class="podium-card first">
+
+            <div class="podium-medal">🥇</div>
+
+            <div class="podium-rank">
+                #1
+            </div>
+
+            <div
+                class="podium-mobile"
+                id="firstMobile"
+            >
+                —
+            </div>
+
+            <div
+                class="podium-recharge"
+                id="firstRecharge"
+            >
+                ₹0
+            </div>
+
+            <div
+                class="podium-reward"
+                id="firstReward"
+            >
+                Reward ₹0
+            </div>
+
+        </div>
+
+
+        <!-- #3 -->
+        <div class="podium-card third">
+
+            <div class="podium-medal">🥉</div>
+
+            <div class="podium-rank">
+                #3
+            </div>
+
+            <div
+                class="podium-mobile"
+                id="thirdMobile"
+            >
+                —
+            </div>
+
+            <div
+                class="podium-recharge"
+                id="thirdRecharge"
+            >
+                ₹0
+            </div>
+
+            <div
+                class="podium-reward"
+                id="thirdReward"
+            >
+                Reward ₹0
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MY RANK -->
+    <section class="my-rank-card">
+
+        <div class="my-rank-title">
+            👤 Your Rank
+        </div>
+
+        <div class="my-rank-content">
+
+            <div class="my-rank-item">
+                <span>Rank</span>
+                <strong id="myRank">#-</strong>
+            </div>
+
+            <div class="my-rank-item">
+                <span>Mobile</span>
+                <strong id="myMobile">Not Ranked</strong>
+            </div>
+
+            <div class="my-rank-item">
+                <span>Recharge</span>
+                <strong id="myRecharge">₹0</strong>
+            </div>
+
+            <div class="my-rank-item">
+                <span>Reward</span>
+                <strong id="myReward">₹0</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOTAL PLAYERS -->
+    <div class="players-info">
+
+        <span>
+            👥 Total Players
+        </span>
+
+        <strong id="totalPlayers">
+            0
+        </strong>
+
+    </div>
+
+
+    <!-- LEADERBOARD -->
+    <section class="leaderboard-card">
+
+        <div class="leaderboard-title">
+
+            <strong>
+                🏆 Top Players
+            </strong>
+
+            <span
+                id="currentPeriod"
+                class="current-period"
+            >
+                Today
+            </span>
+
+        </div>
+
+
+        <!-- HEADER -->
+        <div class="leader-head">
+
+            <div class="rank-col">
+                Rank
+            </div>
+
+            <div class="id-col">
+                Player
+            </div>
+
+            <div class="recharge-col">
+                Recharge
+            </div>
+
+            <div class="reward-col">
+                Reward
+            </div>
+
+        </div>
+
+
+        <!-- DATA -->
+        <div
+            id="leaderList"
+            class="leader-list"
+        >
+
+            <div class="leaderboard-loading">
+                Loading leaderboard...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="leaderboard-note">
+
+        ℹ️ Ranking is calculated from approved
+        recharge transactions.
+
+    </div>
+
+</main>
+
+
+<script src="js/leaderboard.js"></script>
+
+</body>
+
+</html>

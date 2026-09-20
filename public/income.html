@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Income Record</title>
+<script src="js/toast.js"></script>
+<script src="js/authGuard.js"></script>
+<script src="js/navigation.js"></script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+padding-bottom:90px;
+}
+
+.header{
+
+background:#2563eb;
+
+color:#fff;
+
+padding:18px;
+
+border-radius:0 0 25px 25px;
+
+box-shadow:0 4px 12px rgba(0,0,0,.15);
+
+}
+
+.card{
+
+background:#fff;
+
+border-radius:16px;
+
+padding:16px;
+
+margin-top:16px;
+
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+
+}
+
+.grid2{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:12px;
+
+}
+
+.box{
+
+background:#f8f8f8;
+
+padding:15px;
+
+border-radius:12px;
+
+text-align:center;
+
+}
+
+.box h2{
+
+color:#2563eb;
+
+font-size:22px;
+
+font-weight:bold;
+
+margin-bottom:5px;
+
+}
+
+.record{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:14px;
+
+border-bottom:1px solid #eee;
+
+}
+
+.record:last-child{
+
+border:none;
+
+}
+
+.bottomNav{
+
+position:fixed;
+
+bottom:0;
+
+left:0;
+
+right:0;
+
+background:#fff;
+
+height:70px;
+
+display:grid;
+
+grid-template-columns:repeat(4,1fr);
+
+box-shadow:0 -2px 10px rgba(0,0,0,.15);
+
+}
+
+.bottomNav button{
+
+border:none;
+
+background:none;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:13px;
+
+}
+
+.active{
+
+color:#2563eb;
+
+font-weight:bold;
+
+}
+
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+<body>
+
+<div class="header">
+
+<div class="flex justify-between items-center">
+
+<button onclick="goDashboard()">
+
+<i class="fas fa-arrow-left"></i>
+
+</button>
+
+<h2 class="text-xl font-bold">
+
+Income Record
+
+</h2>
+
+<div style="width:25px"></div>
+
+</div>
+
+</div>
+
+<div class="max-w-xl mx-auto p-4">
+
+<div class="card">
+
+<h2 class="text-center font-bold text-lg mb-4">
+
+Income Summary
+
+</h2>
+
+<div class="grid2">
+
+<div class="box">
+
+<h2 id="totalIncome">₹0</h2>
+
+<p>Total Income</p>
+
+</div>
+
+<div class="box">
+
+<h2 id="todayIncome">₹0</h2>
+
+<p>Today's Income</p>
+
+</div>
+
+<div class="box">
+
+<h2 id="vipIncome">₹0</h2>
+
+<p>VIP Income</p>
+
+</div>
+
+<div class="box">
+
+<h2 id="inviteIncome">₹0</h2>
+
+<p>Invite Income</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2 class="text-center font-bold mb-3">
+
+Income History
+
+</h2>
+
+<div id="incomeList">
+
+<div class="record">
+
+<div>
+
+<b>No Record</b>
+
+<br>
+
+<small>Waiting...</small>
+
+</div>
+
+<div>
+
+₹0
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 left-0 right-0 z-50 flex justify-center">
+    <div class="w-full max-w-xl bg-white border-t shadow-2xl rounded-t-2xl shadow-[0_-10px_40px_rgba(0,0,0,0.12)]">
+        <div class="grid grid-cols-4 h-16">
+            <button id="homeNav" class="nav-btn flex flex-col items-center justify-center gap-0.5 text-gray-500 transition-all duration-300 hover:translate-y-[-3px]" onclick="goDashboard()">
+                <i class="fas fa-house text-xl"></i>
+                <span class="text-[10px] font-medium">Home</span>
+            </button>
+            <button id="shareNav" class="nav-btn flex flex-col items-center justify-center gap-0.5 text-gray-500 transition-all duration-300 hover:translate-y-[-3px]" onclick="goShare()">
+                <i class="fas fa-share-alt text-xl"></i>
+                <span class="text-[10px] font-medium">Share</span>
+            </button>
+            <button id="teamNav" class="nav-btn flex flex-col items-center justify-center gap-0.5 text-gray-500 transition-all duration-300 hover:translate-y-[-3px]" onclick="goTeam()">
+                <i class="fas fa-users text-xl"></i>
+                <span class="text-[10px] font-medium">Team</span>
+            </button>
+            <button id="myNav" class="nav-btn flex flex-col items-center justify-center gap-0.5 text-gray-500 transition-all duration-300 hover:translate-y-[-3px]" onclick="goMy()">
+                <i class="fas fa-user text-xl"></i>
+                <span class="text-[10px] font-medium">My</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="h-20"></div>
+
+<script>
+  
+
+//===========================
+// Loader
+//===========================
+
+
+//===========================
+// Spinner
+//===========================
+
+
+
+//===========================
+// Income Data
+//===========================
+
+let incomeData=JSON.parse(localStorage.getItem("incomeHistory")||"[]");
+
+
+// Demo Record
+if(incomeData.length==0){
+
+incomeData=[
+
+{
+title:"VIP Daily Income",
+amount:80,
+date:"Today"
+},
+
+{
+title:"Referral Bonus",
+amount:120,
+date:"Today"
+},
+
+{
+title:"Level 1 Commission",
+amount:65,
+date:"Yesterday"
+},
+
+{
+title:"VIP Reward",
+amount:100,
+date:"Yesterday"
+}
+
+];
+
+localStorage.setItem(
+"incomeHistory",
+JSON.stringify(incomeData)
+);
+
+}
+
+
+//===========================
+// Calculate
+//===========================
+
+let total=0;
+
+let vip=0;
+
+let invite=0;
+
+incomeData.forEach(item=>{
+
+total+=item.amount;
+
+if(item.title.includes("VIP")){
+
+vip+=item.amount;
+
+}else{
+
+invite+=item.amount;
+
+}
+
+});
+
+
+//===========================
+// Fill Cards
+//===========================
+
+document.getElementById("totalIncome").innerText="₹"+total;
+
+document.getElementById("todayIncome").innerText="₹"+(vip+invite);
+
+document.getElementById("vipIncome").innerText="₹"+vip;
+
+document.getElementById("inviteIncome").innerText="₹"+invite;
+
+
+//===========================
+// History
+//===========================
+
+let html="";
+
+incomeData.forEach(item=>{
+
+html+=`
+
+<div class="record">
+
+<div>
+
+<b>${item.title}</b>
+
+<br>
+
+<small style="color:#888">
+
+${item.date}
+
+</small>
+
+</div>
+
+<div style="color:#16a34a;font-weight:bold;">
+
++₹${item.amount}
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("incomeList").innerHTML=html;
+localStorage.setItem("activeNav", "my");
+updateActiveNav();
+
+</script>
+<script src="js/toast.js"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<script src="js/confirm.js"></script></body>
+</html>

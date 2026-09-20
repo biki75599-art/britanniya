@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+
+<body class="bg-gray-100">
+
+<div class="max-w-7xl mx-auto p-6">
+
+    <h1 class="text-3xl font-bold text-center mb-8">
+        Admin Dashboard
+    </h1>
+
+    <!-- Dashboard Cards -->
+    <div id="dashboardCards"
+         class="grid md:grid-cols-5 gap-4 mb-8">
+    </div>
+    
+
+    <!-- Pending Recharge -->
+    <div class="bg-white rounded-xl shadow p-5 mb-8">
+
+        <h2 class="text-xl font-bold mb-4">
+            Pending Recharge
+        </h2>
+
+        <div id="pendingRecharge"></div>
+
+    </div>
+
+    <!-- Pending Withdraw -->
+
+    <div class="bg-white rounded-xl shadow p-5">
+
+        <h2 class="text-xl font-bold mb-4">
+            Pending Withdraw
+        </h2>
+
+        <div id="pendingWithdraw"></div>
+
+    </div>
+
+</div>
+<div class="bg-white rounded-xl shadow p-6 mt-8">
+
+    <h2 class="text-2xl font-bold mb-5">
+        Reports
+    </h2>
+
+    <div class="grid grid-cols-2 gap-4">
+
+        <button
+            onclick="location.href='recharge-report.html'"
+            class="bg-green-600 text-white rounded-lg p-4">
+
+            Recharge Report
+
+        </button>
+
+        <button
+            onclick="location.href='withdraw-report.html'"
+            class="bg-red-600 text-white rounded-lg p-4">
+
+            Withdraw Report
+
+        </button>
+
+    </div>
+
+</div>
+<div class="bg-white rounded-xl shadow p-6 mt-8">
+
+    <h2 class="text-2xl font-bold mb-5">
+        All Users
+    </h2>
+    <div class="mb-5">
+
+    <input
+        type="text"
+        id="searchUser"
+        placeholder="Search Name or Mobile..."
+        class="w-full border rounded-lg p-3 outline-none"
+        onkeyup="searchUsers()">
+
+</div>
+
+    <div id="usersList">
+
+        Loading...
+
+    </div>
+
+</div>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

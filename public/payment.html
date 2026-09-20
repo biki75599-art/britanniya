@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BRITANNIYA Payment</title>
+<link rel="stylesheet" href="css/toast.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="js/navigation.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/*==========================
+RESET
+==========================*/
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#eef2ff;
+display:flex;
+justify-content:center;
+padding:25px;
+min-height:100vh;
+}
+
+/*==========================
+PAGE
+==========================*/
+
+.payment-page{
+    width:100%;
+    max-width:400px;   /* pehle 460px tha */
+    margin:auto;
+}
+
+/*==========================
+HEADER
+==========================*/
+
+.header{
+
+background:linear-gradient(135deg,#5f40ff,#7659ff);
+
+border-radius:22px 22px 0 0;
+
+padding:25px 18px;
+
+color:#fff;
+
+text-align:center;
+
+box-shadow:0 10px 30px rgba(93,64,255,.35);
+
+}
+
+.header h3{
+
+font-size:18px;
+
+font-weight:500;
+
+opacity:.95;
+
+}
+
+.header h1{
+
+font-size:36px;
+
+margin-top:15px;
+
+font-weight:bold;
+
+}
+
+.timer-box{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:8px;
+
+margin-top:20px;
+
+padding:10px 22px;
+
+background:#fff;
+
+color:#5f40ff;
+
+border-radius:100px;
+
+font-size:20px;
+
+font-weight:bold;
+
+box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+}
+
+/*==========================
+MAIN
+==========================*/
+
+.container{
+
+background:#fff;
+
+border-radius:0 0 22px 22px;
+
+padding:16px;
+
+box-shadow:0 12px 35px rgba(0,0,0,.08);
+
+}
+
+/*==========================
+TAB
+==========================*/
+
+.tabs{
+
+display:flex;
+
+background:#f3f3f3;
+
+border-radius:15px;
+
+overflow:hidden;
+
+margin-bottom:22px;
+
+}
+
+.tab{
+
+flex:1;
+
+padding:18px;
+
+text-align:center;
+
+cursor:pointer;
+
+font-weight:700;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:8px;
+
+transition:.3s;
+
+font-size:15px;
+
+}
+
+.tab.active{
+
+background:#5f40ff;
+
+color:#fff;
+
+}
+
+/*==========================
+CARD
+==========================*/
+
+.card{
+
+background:#fff;
+
+border-radius:18px;
+
+padding:16px;
+
+margin-bottom:16px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+/*==========================
+TITLE
+==========================*/
+
+.title{
+
+font-size:18px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}
+
+/*==========================
+PAYMENT METHOD
+==========================*/
+
+.gateway{
+
+display:flex;
+
+gap:16px;
+
+}
+
+.gateway-item{
+
+flex:1;
+
+border:2px solid #ddd;
+
+border-radius:18px;
+
+padding:18px;
+
+cursor:pointer;
+
+transition:.25s;
+
+text-align:center;
+
+}
+
+.gateway-item.active{
+
+border-color:#5f40ff;
+
+background:#f4f1ff;
+
+}
+
+.gateway-item img{
+
+width:55px;
+
+height:55px;
+
+object-fit:contain;
+
+display:block;
+
+margin:auto;
+
+margin-bottom:12px;
+
+}
+
+.gateway-item p{
+
+font-size:16px;
+
+font-weight:bold;
+
+}
+
+/*==========================
+WARNING
+==========================*/
+
+.warning{
+
+background:#fff6d9;
+
+padding:15px;
+
+border-radius:12px;
+
+color:#8c6b00;
+
+font-size:14px;
+
+line-height:24px;
+
+margin-bottom:22px;
+
+}
+
+/*==========================
+INFO
+==========================*/
+
+.info{
+
+margin-bottom:22px;
+
+}
+
+.info label{
+
+display:block;
+
+font-weight:bold;
+
+margin-bottom:10px;
+
+color:#444;
+
+}
+
+.value{
+
+background:#fafafa;
+
+border:1px solid #ddd;
+
+padding:15px;
+
+border-radius:12px;
+
+font-size:18px;
+
+font-weight:bold;
+
+word-break:break-all;
+
+}
+
+/*==========================
+INPUT
+==========================*/
+
+input{
+
+width:100%;
+
+padding:15px;
+
+border-radius:12px;
+
+border:1px solid #ddd;
+
+font-size:16px;
+
+outline:none;
+
+transition:.25s;
+
+}
+
+input:focus{
+
+border-color:#5f40ff;
+
+}
+
+/*==========================
+ERROR
+==========================*/
+
+.error{
+
+display:none;
+
+margin-top:8px;
+
+color:#ff2e2e;
+
+font-size:13px;
+
+}
+
+/*==========================
+BUTTON
+==========================*/
+
+.copyBtn{
+
+width:100%;
+
+margin-top:12px;
+
+padding:14px;
+
+border:none;
+
+background:#ece8ff;
+
+color:#5f40ff;
+
+font-weight:bold;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.copyBtn:hover{
+
+background:#ddd4ff;
+
+}
+
+.submitBtn{
+
+width:100%;
+
+margin-top:20px;
+
+padding:16px;
+
+border:none;
+
+border-radius:14px;
+
+background:#19b86b;
+
+color:#fff;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.submitBtn:hover{
+
+background:#13a15d;
+
+}
+
+/*==========================
+QR
+==========================*/
+
+.qrWrapper{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+min-height:270px;
+
+}
+
+#qrImage{
+
+width:240px;
+
+height:240px;
+
+object-fit:contain;
+
+border:1px solid #ddd;
+
+border-radius:15px;
+
+padding:10px;
+
+background:#fff;
+
+display:none;
+
+}
+
+/*==========================
+LOADER
+==========================*/
+
+.loader{
+
+width:55px;
+
+height:55px;
+
+border:6px solid #ddd;
+
+border-top:6px solid #5f40ff;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+/*==========================
+MOBILE
+==========================*/
+
+@media(max-width:500px){
+
+body{
+
+padding:0;
+
+background:#fff;
+
+}
+
+.payment-page{
+
+max-width:100%;
+
+}
+
+.header{
+
+border-radius:0;
+
+}
+
+.container{
+
+border-radius:0;
+
+}
+
+.gateway{
+
+flex-direction:column;
+
+}
+
+.header h1{
+
+font-size:38px;
+
+}
+
+#qrImage{
+
+width:210px;
+
+height:210px;
+
+}
+
+}
+.value-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.value{
+    flex:1;
+    padding:14px 16px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#fafafa;
+    font-size:16px;
+    font-weight:600;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+}
+
+.copyBtn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:12px;
+    background:#5f40ff;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition:.3s;
+    flex-shrink:0;
+}
+
+.copyBtn:hover{
+    background:#4b2ee8;
+    transform:scale(1.05);
+}
+/* ============================= */
+/* ONLINE PAYMENT CARD */
+/* ============================= */
+
+.online-payment-box {
+    margin-top: 16px;
+    padding: 18px;
+    background: linear-gradient(135deg, #ffffff, #f8f7ff);
+    border-radius: 16px;
+    border: 1px solid #e8e4ff;
+    box-shadow: 0 8px 24px rgba(76, 50, 200, 0.10);
+}
+
+.online-payment-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.online-payment-title h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #222;
+}
+
+.online-payment-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: #16a34a;
+    background: #dcfce7;
+    padding: 5px 9px;
+    border-radius: 20px;
+}
+
+.online-payment-amount {
+    background: #f1efff;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 14px;
+}
+
+.online-payment-amount span {
+    display: block;
+    font-size: 11px;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.online-payment-amount strong {
+    font-size: 22px;
+    color: #5b3df5;
+}
+
+.online-pay-btn {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #5b3df5, #713cff);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(91, 61, 245, 0.25);
+    transition: 0.2s;
+}
+
+.online-pay-btn:hover {
+    transform: translateY(-1px);
+}
+
+.online-pay-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+#onlinePaymentStatus {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+}
+</style>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-borderless/borderless.min.css">
+</head>
+
+<body>
+
+<div class="payment-page">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <div class="header-content">
+
+            <h3>Recharge Amount</h3>
+
+            <h1>
+                ₹ <span id="paymentAmount">0</span>
+            </h1>
+
+            <div class="timer-box">
+                <i class="fa-regular fa-clock"></i>
+                <span id="countdown">10:00</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MAIN CARD -->
+
+    <div class="container">
+
+        <!-- TABS -->
+
+        <div class="tabs">
+
+            <div id="tabTransfer" class="tab active">
+
+                <i class="fa-solid fa-building-columns"></i>
+
+                <span>Direct Transfer</span>
+
+            </div>
+
+            <div id="tabQR" class="tab">
+
+                <i class="fa-solid fa-qrcode"></i>
+
+                <span>Scan QR</span>
+
+            </div>
+
+        </div>
+
+        <!-- PAYMENT METHOD -->
+
+        <div class="card">
+
+            <h2 class="title">
+
+                Select Payment Method
+
+            </h2>
+
+            <div class="gateway">
+
+                <div id="paytmCard" class="gateway-item active">
+
+                    <img src="https://fast.to-wallet.com/assets/paytm-iAXkRI72.png">
+
+                    <p>Paytm</p>
+
+                </div>
+
+                <div id="phonepeCard" class="gateway-item">
+
+                    <img src="https://fast.to-wallet.com/assets/qr_phonepe-DfcDrNXK.png">
+
+                    <p>PhonePe</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ========================= -->
+        <!-- DIRECT TRANSFER -->
+        <!-- ========================= -->
+
+        <div id="transferPanel" class="card">
+
+            <div class="warning">
+
+                ⚠ Payment can only be made once.<br>
+
+                Please do not pay multiple times.
+
+            </div>
+
+            <!-- UPI -->
+
+         <div class="info">
+
+    <label>UPI ID</label>
+
+    <div class="value-row">
+
+        <div class="value" id="upiId">
+            Loading...
+        </div>
+
+        <button class="copyBtn" onclick="copyUPI()">
+            <i class="fa-regular fa-copy"></i>
+        </button>
+
+    </div>
+
+</div>
+            <!-- Amount -->
+<div class="info">
+
+    <label>Amount</label>
+
+    <div class="value-row">
+
+        <div class="value" id="copyAmount">
+            ₹0
+        </div>
+
+        <button class="copyBtn" onclick="copyAmount()">
+            <i class="fa-regular fa-copy"></i>
+        </button>
+
+    </div>
+
+</div>
+
+            <!-- UTR -->
+
+            <div class="info">
+
+                <label>
+
+                    Enter UTR Number
+
+                </label>
+
+                <input
+
+                    id="utrInput"
+
+                    type="text"
+
+                    maxlength="12"
+
+                    placeholder="Enter 12 Digit UTR Number">
+
+                <div id="utrError" class="error">
+
+                    UTR Number must be exactly 12 digits.
+
+                </div>
+
+                <button type="button" id="submitBtn" class="submitBtn" onclick="submitUTR()">
+                    Submit Recharge
+                </button>
+
+<div class="online-payment-box">
+  <div class="online-payment-header">
+    <span>Online Payment</span>
+    <span class="secure-badge">Secure</span>
+  </div>
+
+  <div class="payable-amount-box">
+    <small>Payable Amount</small>
+    <strong id="onlinePaymentAmount">₹0</strong>
+  </div>
+
+  <button
+    type="button"
+    id="onlinePayBtn"
+    onclick="startOnlinePayment()"
+  >
+    Pay Now
+  </button>
+
+  <div id="onlinePaymentStatus"></div>
+</div>
+        <!-- ========================= -->
+        <!-- QR PANEL -->
+        <!-- ========================= -->
+
+        <div id="qrPanel" class="card" style="display:none;">
+
+            <h2 class="title">
+
+                Scan QR Code
+
+            </h2>
+
+            <div class="qrWrapper">
+
+                <div id="loader" class="loader">
+
+                </div>
+
+                <img
+
+                    id="qrImage"
+
+                    src=""
+
+                    alt="QR Code"
+
+                    style="display:none;">
+
+            </div>
+
+            <div class="info">
+
+                <label>UPI ID</label>
+
+                <div id="qrUpi" class="value">
+
+                    Loading...
+
+                </div>
+
+                <button class="copyBtn" onclick="copyUPI()">
+
+                    Copy UPI
+
+                </button>
+
+            </div>
+
+            <div class="info">
+
+                <label>Amount</label>
+
+                <div id="qrAmount" class="value">
+
+                    ₹0
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+//============================
+// LOGIN CHECK
+//============================
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+    location.href = "login.html";
+}
+
+//============================
+// URL AMOUNT
+//============================
+
+const params = new URLSearchParams(window.location.search);
+const amount = Number(params.get("amount")) || 0;
+document.getElementById("onlinePaymentAmount").innerText =
+    "₹" + amount;
+
+//============================
+// ELEMENTS
+//============================
+
+const paymentAmount = document.getElementById("paymentAmount");
+const copyAmountBox = document.getElementById("copyAmount");
+const qrAmount = document.getElementById("qrAmount");
+
+const upiId = document.getElementById("upiId");
+const qrUpi = document.getElementById("qrUpi");
+
+const qrImage = document.getElementById("qrImage");
+const loader = document.getElementById("loader");
+
+const transferPanel = document.getElementById("transferPanel");
+const qrPanel = document.getElementById("qrPanel");
+
+const tabTransfer = document.getElementById("tabTransfer");
+const tabQR = document.getElementById("tabQR");
+
+const paytmCard = document.getElementById("paytmCard");
+const phonepeCard = document.getElementById("phonepeCard");
+
+const utrInput = document.getElementById("utrInput");
+const utrError = document.getElementById("utrError");
+const submitBtn = document.getElementById("submitBtn");
+
+const countdown = document.getElementById("countdown");
+
+//============================
+// SHOW AMOUNT
+//============================
+
+paymentAmount.innerText = amount;
+copyAmountBox.innerText = "₹" + amount;
+qrAmount.innerText = "₹" + amount;
+
+//============================
+// PAYMENT DATA
+//============================
+
+let currentUPI = "";
+let currentQR = "";
+
+//============================
+// LOAD PAYMENT
+//============================
+
+async function loadPayment() {
+
+    try {
+
+        const res = await fetch(
+            "/api/payment?amount=" + amount
+        );
+
+        const data = await res.json();
+
+        if (!data.success) {
+            showPopup(data.message || "Payment Details Not Found");
+            return;
+        }
+
+        currentUPI = data.payment.upiId;
+        currentQR = data.payment.qrImage;
+
+        upiId.innerText = currentUPI;
+        qrUpi.innerText = currentUPI;
+
+        loader.style.display = "block";
+        qrImage.style.display = "none";
+
+        qrImage.onload = () => {
+            loader.style.display = "none";
+            qrImage.style.display = "block";
+        };
+
+        qrImage.onerror = () => {
+            loader.style.display = "none";
+            showPopup("QR Image Load Failed");
+        };
+
+        qrImage.src =
+            currentQR.startsWith("data:") || currentQR.startsWith("http")
+                ? currentQR
+                : currentQR;
+
+    } catch (err) {
+
+        console.log(err);
+        showPopup("Server Error");
+
+    }
+
+}
+
+loadPayment();
+
+//============================
+// COPY
+//============================
+
+async function copyUPI() {
+
+    await navigator.clipboard.writeText(currentUPI);
+
+    showPopup("UPI Copied");
+
+}
+
+async function copyAmount() {
+
+    await navigator.clipboard.writeText(amount.toString());
+
+    showPopup("Amount Copied");
+
+}
+
+//============================
+// TAB
+//============================
+
+tabTransfer.onclick = () => {
+
+    transferPanel.style.display = "block";
+    qrPanel.style.display = "none";
+
+    tabTransfer.classList.add("active");
+    tabQR.classList.remove("active");
+
+};
+
+tabQR.onclick = () => {
+
+    transferPanel.style.display = "none";
+    qrPanel.style.display = "block";
+
+    tabQR.classList.add("active");
+    tabTransfer.classList.remove("active");
+
+};
+
+//============================
+// PAYMENT METHOD
+//============================
+
+paytmCard.onclick = () => {
+
+    paytmCard.classList.add("active");
+    phonepeCard.classList.remove("active");
+
+};
+
+phonepeCard.onclick = () => {
+
+    phonepeCard.classList.add("active");
+    paytmCard.classList.remove("active");
+
+};
+
+//============================
+// UTR VALIDATION
+//============================
+
+utrInput.addEventListener("input", function () {
+
+    this.value = this.value.replace(/\D/g, "");
+
+    if (this.value.length === 0) {
+
+        utrError.style.display = "none";
+        return;
+
+    }
+
+    utrError.style.display =
+        this.value.length === 12 ? "none" : "block";
+
+});
+
+//============================
+// SUBMIT
+//============================
+
+let submitting = false;
+
+async function submitUTR() {
+
+    if (submitting) return;
+
+    const utr = utrInput.value.trim();
+
+    if (amount < 520) {
+        showPopup("Minimum recharge amount is ₹520");
+        return;
+    }
+
+    if (utr.length !== 12) {
+
+        utrError.style.display = "block";
+        return;
+
+    }
+
+    submitting = true;
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Submitting...";
+
+    try {
+
+        const res = await fetch(
+            "/api/recharge/create",
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json",
+
+                    Authorization: "Bearer " + token
+
+                },
+
+                body: JSON.stringify({
+
+                    amount,
+                    utr,
+
+                    paymentMethod:
+                        paytmCard.classList.contains("active")
+                            ? "Paytm"
+                            : "PhonePe"
+
+                })
+
+            }
+        );
+
+        const data = await res.json();
+
+        showPopup(data.message);
+
+        if (data.success) {
+
+            location.href =
+                "records.html?type=recharge";
+
+        }
+
+    } catch (err) {
+
+        console.log(err);
+
+        showPopup("Server Error");
+
+    }
+
+    submitting = false;
+
+    submitBtn.disabled = false;
+
+    submitBtn.innerText = "Submit Recharge";
+
+}
+
+//============================
+// TIMER
+//============================
+
+let seconds = 600;
+
+const timer = setInterval(() => {
+
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+
+    countdown.innerText =
+        String(m).padStart(2, "0") +
+        ":" +
+        String(s).padStart(2, "0");
+
+    if (seconds <= 0) {
+
+        clearInterval(timer);
+
+        showPopup("Payment Session Expired");
+
+        location.reload();
+
+    }
+
+    seconds--;
+
+}, 1000);
+
+async function startOnlinePayment() {
+  const params = new URLSearchParams(window.location.search);
+  const amount = Number(params.get("amount"));
+
+  if (!amount || amount <= 0) {
+    showPopup("Invalid recharge amount");
+    return;
+  }
+
+  const button = document.getElementById("onlinePayBtn");
+  const status = document.getElementById("onlinePaymentStatus");
+
+  button.disabled = true;
+  button.innerText = "Creating Payment...";
+  status.innerText = "";
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch("/api/payment-gateway/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          amount: amount,
+        }),
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(
+        data.message || "Payment creation failed"
+      );
+    }
+
+    const payUrl = data.data?.payUrl || data.data?.payInfo || data.data?.payment_url || data.data?.url;
+    if (payUrl && /^https?:\/\//i.test(String(payUrl))) {
+      window.location.href = String(payUrl);
+      return;
+    }
+
+    if (data.data?.paymentHtml) {
+      document.open();
+      document.write(data.data.paymentHtml);
+      document.close();
+      return;
+    }
+
+    throw new Error("WatchPay payment page was not received");
+
+  } catch (error) {
+    console.error("Payment Error:", error);
+
+    status.innerText =
+      error.message || "Payment creation failed";
+
+    button.disabled = false;
+    button.innerText = "Pay Now";
+  }
+}
+</script>
+<script src="js/toast.js"></script>
+<link rel="stylesheet" href="css/confirm.css">
+
+<script src="js/confirm.js"></script></body>
+
+</html>
