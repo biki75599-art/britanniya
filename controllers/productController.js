@@ -5,6 +5,71 @@ const Income = require("../models/Income");
 
 console.log("===== PRODUCT CONTROLLER LOADED =====");
 
+// Daily income shown on product posters.
+// Purchase income uses the same values.
+const POSTER_DAILY_INCOME_BY_PRICE = {
+    520: 130,
+    1200: 310,
+    3500: 920,
+    7000: 1890,
+    15000: 4200
+};
+
+// ======================================
+// INDIA TIME HELPERS
+// ======================================
+
+const IST_TIMEZONE = "Asia/Kolkata";
+
+function getISTDateParts(date = new Date()) {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone: IST_TIMEZONE,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).formatToParts(date);
+
+    const values = {};
+
+    for (const part of parts) {
+        if (part.type !== "literal") {
+            values[part.type] = part.value;
+        }
+    }
+
+    return {
+        year: Number(values.year),
+        month: Number(values.month),
+        day: Number(values.day)
+    };
+}
+
+// Returns the NEXT midnight in India time.
+// Example:
+// 2026-09-20 10:00 IST -> 2026-09-21 00:00 IST
+function getNextMidnightIST(date = new Date()) {
+    const { year, month, day } = getISTDateParts(date);
+
+    // Next calendar day at 00:00 UTC first.
+    const nextDayUtc =
+        Date.UTC(
+            year,
+            month - 1,
+            day + 1,
+            0,
+            0,
+            0,
+            0
+        );
+
+    // IST = UTC + 5:30.
+    // Convert India midnight to the actual UTC instant.
+    return new Date(
+        nextDayUtc - (5.5 * 60 * 60 * 1000)
+    );
+}
+
+
 // ======================================
 // BUY PRODUCT
 // ======================================
@@ -45,23 +110,46 @@ exports.buyProduct = async (req, res) => {
         }
 
         // Maximum 5 purchases of same product
-        const purchasedCount = await UserProduct.countDocuments({
-            user: user._id,
-            product: product._id
-        });
+        const purchasedCount =
+            await UserProduct.countDocuments({
+                user: user._id,
+                product: product._id
+            });
 
         if (purchasedCount >= 5) {
             return res.status(400).json({
                 success: false,
-                message: `${product.name} purchase limit reached (5/5)`
+                message:
+                    `${product.name} purchase limit reached (5/5)`
             });
         }
 
         // Check recharge balance
-        if ((user.rechargeBalance || 0) < product.price) {
+        if (
+            (user.rechargeBalance || 0) <
+            product.price
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "Insufficient Recharge Balance"
+            });
+        }
+
+        // Daily income must match poster income.
+        const dailyIncome =
+            POSTER_DAILY_INCOME_BY_PRICE[
+                Number(product.price)
+            ] ??
+            Number(product.dailyIncome || 0);
+
+        if (
+            !Number.isFinite(dailyIncome) ||
+            dailyIncome < 0
+        ) {
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Invalid Product Daily Income"
             });
         }
 
@@ -72,92 +160,113 @@ exports.buyProduct = async (req, res) => {
         user.activeProduct = product.name;
         user.productStatus = "Active";
         user.productPrice = product.price;
-        user.productDailyIncome = product.dailyIncome;
+        user.productDailyIncome = dailyIncome;
         user.productPurchaseDate = new Date();
 
-        if ((user.vipLevel || 0) < product.vipLevel) {
+        if (
+            (user.vipLevel || 0) <
+            product.vipLevel
+        ) {
             user.vipLevel = product.vipLevel;
         }
 
         await user.save();
 
+
         // ======================================
-        // NEXT INCOME = NEXT DAY 12:00 PM
+        // NEXT INCOME = NEXT 12:00 AM IST
         // ======================================
 
         const purchaseDate = new Date();
 
-        const nextIncome = new Date(purchaseDate);
+        // First income will be available at the
+        // next midnight in India.
+        const nextIncome =
+            getNextMidnightIST(
+                purchaseDate
+            );
 
-        nextIncome.setHours(0, 0, 0, 0);
-
-        // If current time is already 12 PM or later,
-        // income will be available tomorrow at 12 PM
-        if (nextIncome <= purchaseDate) {
-            nextIncome.setDate(nextIncome.getDate() + 1);
-        }
 
         // ======================================
         // CREATE USER PRODUCT
         // ======================================
 
-        const savedProduct = await UserProduct.create({
+        const savedProduct =
+            await UserProduct.create({
 
-            user: user._id,
+                user: user._id,
 
-            product: product._id,
+                product: product._id,
 
-            productName: product.name,
+                productName:
+                    product.name,
 
-            amount: product.price,
+                amount:
+                    product.price,
 
-            dailyIncome: product.dailyIncome,
+                dailyIncome:
+                    dailyIncome,
 
-            totalDays: product.totalDays,
+                totalDays:
+                    product.totalDays,
 
-            earnedDays: 0,
+                earnedDays: 0,
 
-            purchaseDate: purchaseDate,
+                purchaseDate:
+                    purchaseDate,
 
-            lastIncomeAt: null,
+                lastIncomeAt: null,
 
-            nextIncomeAt: nextIncome,
+                nextIncomeAt:
+                    nextIncome,
 
-            totalEarned: 0,
+                totalEarned: 0,
 
-            status: "Running"
+                status: "Running"
 
-        });
+            });
+
 
         console.log(
             "Product Purchased:",
             savedProduct._id.toString()
         );
 
+        console.log(
+            "First Product Income At:",
+            nextIncome.toISOString()
+        );
+
+
         return res.status(201).json({
 
             success: true,
 
-            message: "Product Purchased Successfully",
+            message:
+                "Product Purchased Successfully",
 
-            product: savedProduct
+            product:
+                savedProduct
 
         });
 
     } catch (err) {
 
-        console.error("BUY PRODUCT ERROR:", err);
+        console.error(
+            "BUY PRODUCT ERROR:",
+            err
+        );
 
         return res.status(500).json({
 
             success: false,
 
-            message: err.message
+            message:
+                err.message
 
         });
 
     }
-
 };
 
 
@@ -169,12 +278,18 @@ exports.getMyDevices = async (req, res) => {
 
     try {
 
-        const devices = await UserProduct.find({
-            user: req.user.id
-        })
-        .populate("product", "name price dailyIncome totalDays vipLevel")
-        .sort({ createdAt: -1 })
-        .lean();
+        const devices =
+            await UserProduct.find({
+                user: req.user.id
+            })
+            .populate(
+                "product",
+                "name price dailyIncome totalDays vipLevel"
+            )
+            .sort({
+                createdAt: -1
+            })
+            .lean();
 
         return res.json({
 
@@ -186,18 +301,21 @@ exports.getMyDevices = async (req, res) => {
 
     } catch (err) {
 
-        console.error("GET DEVICES ERROR:", err);
+        console.error(
+            "GET DEVICES ERROR:",
+            err
+        );
 
         return res.status(500).json({
 
             success: false,
 
-            message: err.message
+            message:
+                err.message
 
         });
 
     }
-
 };
 
 
@@ -209,14 +327,21 @@ exports.getIncomeHistory = async (req, res) => {
 
     try {
 
-        const history = await Income.find({
-            user: req.user.id,
-            type: "Product Income"
-        })
-        .populate("product", "name")
-        .sort({
-            createdAt: -1
-        });
+        const history =
+            await Income.find({
+
+                user: req.user.id,
+
+                type: "Product Income"
+
+            })
+            .populate(
+                "product",
+                "name"
+            )
+            .sort({
+                createdAt: -1
+            });
 
         return res.json({
 
@@ -228,19 +353,24 @@ exports.getIncomeHistory = async (req, res) => {
 
     } catch (err) {
 
-        console.error("INCOME HISTORY ERROR:", err);
+        console.error(
+            "INCOME HISTORY ERROR:",
+            err
+        );
 
         return res.status(500).json({
 
             success: false,
 
-            message: err.message
+            message:
+                err.message
 
         });
 
     }
-
 };
+
+
 // ======================================
 // CLAIM DAILY INCOME
 // ======================================
@@ -249,7 +379,10 @@ exports.claimDailyIncome = async (req, res) => {
 
     try {
 
-        const user = await User.findById(req.user.id);
+        const user =
+            await User.findById(
+                req.user.id
+            );
 
         if (!user) {
             return res.status(404).json({
@@ -258,10 +391,11 @@ exports.claimDailyIncome = async (req, res) => {
             });
         }
 
-        const products = await UserProduct.find({
-            user: user._id,
-            status: "Running"
-        });
+        const products =
+            await UserProduct.find({
+                user: user._id,
+                status: "Running"
+            });
 
         if (products.length === 0) {
             return res.status(400).json({
@@ -276,116 +410,190 @@ exports.claimDailyIncome = async (req, res) => {
 
         for (const item of products) {
 
-            if (item.earnedDays >= item.totalDays) {
+            // Product already completed
+            if (
+                Number(item.earnedDays || 0) >=
+                Number(item.totalDays || 0)
+            ) {
 
                 item.status = "Completed";
+                item.nextIncomeAt = null;
 
                 await item.save();
 
                 continue;
             }
 
-            // Check if income is available
+
+            // Old product without nextIncomeAt
+            if (!item.nextIncomeAt) {
+
+                item.nextIncomeAt =
+                    getNextMidnightIST(
+                        item.purchaseDate || now
+                    );
+
+                await item.save();
+
+                continue;
+            }
+
+
+            // Income not available yet
             if (
-                item.nextIncomeAt &&
-                now < item.nextIncomeAt
+                now <
+                item.nextIncomeAt
             ) {
                 continue;
             }
+
 
             const incomeAmount =
-                Number(item.dailyIncome || 0);
+                Number(
+                    item.dailyIncome || 0
+                );
 
-            if (incomeAmount <= 0) {
+            if (
+                !Number.isFinite(
+                    incomeAmount
+                ) ||
+                incomeAmount <= 0
+            ) {
                 continue;
             }
 
-            // Add income
-            totalIncome += incomeAmount;
 
-            item.earnedDays =
-                Number(item.earnedDays || 0) + 1;
+            const earnedDays =
+                Number(
+                    item.earnedDays || 0
+                );
 
-            item.totalEarned =
-                Number(item.totalEarned || 0)
-                + incomeAmount;
-
-            item.lastIncomeAt = now;
-
-            // Next income tomorrow 12 PM
-            const nextIncome = new Date(now);
-
-            nextIncome.setDate(
-                nextIncome.getDate() + 1
-            );
-
-           nextIncome.setHours(
-    0,
-    0,
-    0,
-    0
-);
-
-            item.nextIncomeAt = nextIncome;
+            const totalDays =
+                Number(
+                    item.totalDays || 0
+                );
 
             if (
-                item.earnedDays >=
-                item.totalDays
+                totalDays <= 0 ||
+                earnedDays >= totalDays
             ) {
-                item.status = "Completed";
-                item.nextIncomeAt = null;
+
+                item.status =
+                    "Completed";
+
+                item.nextIncomeAt =
+                    null;
+
+                await item.save();
+
+                continue;
+            }
+
+
+            // Add today's income
+            totalIncome += incomeAmount;
+
+            const newEarnedDays =
+                earnedDays + 1;
+
+            item.earnedDays =
+                newEarnedDays;
+
+            item.totalEarned =
+                Number(
+                    item.totalEarned || 0
+                ) + incomeAmount;
+
+            item.lastIncomeAt =
+                now;
+
+
+            // Schedule next midnight IST
+            if (
+                newEarnedDays >=
+                totalDays
+            ) {
+
+                item.status =
+                    "Completed";
+
+                item.nextIncomeAt =
+                    null;
+
+            } else {
+
+                item.nextIncomeAt =
+                    getNextMidnightIST(
+                        now
+                    );
             }
 
             await item.save();
 
+
             // Income history
             await Income.create({
 
-                user: user._id,
+                user:
+                    user._id,
 
-                product: item.product,
+                product:
+                    item.product,
 
-                amount: incomeAmount,
+                amount:
+                    incomeAmount,
 
-                type: "Product Income",
+                type:
+                    "Product Income",
 
-                remark: "Daily Product Income"
+                remark:
+                    `Daily Product Income - Day ${newEarnedDays}`
 
             });
-
         }
+
 
         if (totalIncome <= 0) {
 
             return res.status(400).json({
-                success: false,
-                message: "Today's income is not available yet."
-            });
 
+                success: false,
+
+                message:
+                    "Today's income is not available yet."
+
+            });
         }
+
 
         // Update user balance
         user.balance =
-            Number(user.balance || 0)
-            + totalIncome;
+            Number(
+                user.balance || 0
+            ) + totalIncome;
 
         user.totalIncome =
-            Number(user.totalIncome || 0)
-            + totalIncome;
+            Number(
+                user.totalIncome || 0
+            ) + totalIncome;
 
         user.productIncome =
-            Number(user.productIncome || 0)
-            + totalIncome;
+            Number(
+                user.productIncome || 0
+            ) + totalIncome;
 
         await user.save();
+
 
         return res.json({
 
             success: true,
 
-            amount: totalIncome,
+            amount:
+                totalIncome,
 
-            message: "Daily Income Credited Successfully"
+            message:
+                "Daily Income Credited Successfully"
 
         });
 
@@ -400,12 +608,12 @@ exports.claimDailyIncome = async (req, res) => {
 
             success: false,
 
-            message: err.message
+            message:
+                err.message
 
         });
 
     }
-
 };
 
 
@@ -417,27 +625,29 @@ exports.getPurchaseCount = async (req, res) => {
 
     try {
 
-        const counts = await UserProduct.aggregate([
+        const counts =
+            await UserProduct.aggregate([
 
-            {
-                $match: {
-                    user: req.user.id
-                }
-            },
-
-            {
-                $group: {
-
-                    _id: "$product",
-
-                    quantity: {
-                        $sum: 1
+                {
+                    $match: {
+                        user: req.user.id
                     }
+                },
 
+                {
+                    $group: {
+
+                        _id:
+                            "$product",
+
+                        quantity: {
+                            $sum: 1
+                        }
+
+                    }
                 }
-            }
 
-        ]);
+            ]);
 
         return res.json({
 
@@ -449,16 +659,19 @@ exports.getPurchaseCount = async (req, res) => {
 
     } catch (err) {
 
-        console.error("PURCHASE COUNT ERROR:", err);
+        console.error(
+            "PURCHASE COUNT ERROR:",
+            err
+        );
 
         return res.status(500).json({
 
             success: false,
 
-            message: err.message
+            message:
+                err.message
 
         });
 
     }
-
 };
